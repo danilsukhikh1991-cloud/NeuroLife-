@@ -8,7 +8,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* ======= СБРОС И ПЕРЕМЕННЫЕ ======= */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
         body {
@@ -52,7 +51,6 @@
         }
         .btn-outline:hover { background: var(--accent); color: #080d17; }
 
-        /* ======= HEADER ======= */
         header {
             position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
             background: rgba(8,13,23,0.92); backdrop-filter: blur(12px);
@@ -77,7 +75,6 @@
         .burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
         .burger span { width: 25px; height: 2px; background: #fff; transition: 0.3s; }
 
-        /* ======= HERO ======= */
         #hero {
             min-height: 100vh; display: flex; align-items: center;
             background: radial-gradient(ellipse at 50% 0%, #13203a 0%, #080d17 70%);
@@ -101,7 +98,6 @@
         .pulse { animation: pulse 2.5s infinite; }
         @keyframes pulse { 0%,100% { box-shadow: 0 0 0 0 var(--accent-glow); } 50% { box-shadow: 0 0 0 15px transparent; } }
 
-        /* ======= О ЦЕНТРЕ ======= */
         #about .cards { display: grid; gap: 25px; grid-template-columns: repeat(3, 1fr); }
         .card {
             background: var(--bg-card); border: 1px solid var(--border);
@@ -113,34 +109,59 @@
         .card h3 { font-size: 1.2rem; margin-bottom: 10px; }
         .card p { font-size: 0.9rem; color: var(--text-dim); }
 
-        /* ======= УСЛУГИ ======= */
-        #services .services-grid { display: grid; gap: 20px; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
+        #services .services-grid { display: grid; gap: 20px; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
         .service-card {
             background: var(--bg-card); border: 1px solid var(--border);
             border-radius: var(--radius); padding: 24px; text-align: center;
             transition: 0.3s; cursor: pointer;
+            position: relative;
         }
         .service-card:hover { border-color: var(--accent); transform: translateY(-4px); }
         .service-card .icon { font-size: 2rem; margin-bottom: 10px; }
         .service-card h3 { font-size: 1.1rem; margin-bottom: 6px; }
         .service-card p { font-size: 0.85rem; color: var(--text-dim); }
 
-        /* ======= ВРАЧИ ======= */
-        #specialists .spec-grid { display: grid; gap: 25px; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+        #specialists .spec-grid { display: grid; gap: 25px; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
         .spec-card {
             background: var(--bg-card); border: 1px solid var(--border);
             border-radius: var(--radius); padding: 24px; text-align: center;
+            transition: 0.3s;
         }
+        .spec-card:hover { border-color: var(--accent); transform: translateY(-5px); }
         .spec-card .avatar {
-            width: 100px; height: 100px; border-radius: 50%;
-            background: var(--accent); margin: 0 auto 16px;
+            width: 120px; height: 120px; border-radius: 50%;
+            background: var(--bg-card); margin: 0 auto 16px;
+            border: 2px solid var(--border);
+            overflow: hidden;
             display: flex; align-items: center; justify-content: center;
-            font-size: 2.5rem; color: #080d17; font-weight: 800;
+        }
+        .spec-card .avatar img {
+            width: 100%; height: 100%; object-fit: cover;
+        }
+        .spec-card .avatar-placeholder {
+            width: 100%; height: 100%;
+            background: var(--accent); color: #080d17;
+            font-size: 2.5rem; font-weight: 800;
+            display: flex; align-items: center; justify-content: center;
         }
         .spec-card h3 { font-size: 1.1rem; }
-        .spec-card p { color: var(--text-dim); font-size: 0.9rem; }
+        .spec-card .role { color: var(--accent); font-size: 0.9rem; margin: 6px 0; }
+        .spec-card .desc { font-size: 0.85rem; color: var(--text-dim); margin-top: 8px; }
 
-        /* ======= ОТЗЫВЫ ======= */
+        #diagnostics {
+            background: linear-gradient(180deg, #0f172a 0%, #080d17 100%);
+        }
+        .diagnostics-grid { display: grid; gap: 20px; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
+        .diagnostic-card {
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: var(--radius); padding: 24px;
+            transition: 0.3s; text-align: center;
+        }
+        .diagnostic-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+        .diagnostic-card .icon { font-size: 2.2rem; margin-bottom: 10px; }
+        .diagnostic-card h3 { font-size: 1.1rem; }
+        .diagnostic-card p { font-size: 0.85rem; color: var(--text-dim); }
+
         #reviews {
             background: linear-gradient(180deg, #0f172a 0%, #080d17 100%);
         }
@@ -155,7 +176,6 @@
         .review-card .author { font-weight: 600; color: #fff; margin-top: 12px; }
         .review-card .stars { color: var(--accent); letter-spacing: 2px; }
 
-        /* ======= КОНТАКТЫ ======= */
         #contacts .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
         .form-group { margin-bottom: 15px; }
         .form-group input, .form-group select, .form-group textarea {
@@ -173,26 +193,30 @@
         .social-links a { color: var(--accent); text-decoration: none; transition: opacity 0.3s; }
         .social-links a:hover { opacity: 0.7; }
 
-        /* ======= ЮРИДИЧЕСКИЕ ПОМЕТКИ ======= */
         .legal-note {
             font-size: 0.8rem; color: var(--text-dim);
             margin-top: 30px; text-align: center;
             border-top: 1px solid var(--border); padding-top: 20px;
         }
         .legal-note a { color: var(--accent); text-decoration: none; }
+        .legal-note .small { font-size: 0.7rem; }
 
-        /* ======= MODAL ======= */
         .modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-                background: rgba(0,0,0,0.8); z-index: 2000; justify-content: center; align-items: center; }
+                background: rgba(0,0,0,0.85); z-index: 2000; justify-content: center; align-items: center; }
         .modal.active { display: flex; }
         .modal-content {
             background: var(--bg-card); border: 1px solid var(--accent);
-            border-radius: 20px; padding: 40px; max-width: 500px; width: 90%;
-            position: relative;
+            border-radius: 20px; padding: 40px; max-width: 600px; width: 90%;
+            position: relative; max-height: 90vh; overflow-y: auto;
         }
         .modal-close { position: absolute; top: 10px; right: 20px; font-size: 2rem; cursor: pointer; color: #fff; }
+        .modal-content h3 { margin-bottom: 15px; }
+        .modal-content .indications, .modal-content .contraindications {
+            margin: 10px 0; padding: 10px; border-radius: 8px;
+        }
+        .modal-content .indications { background: rgba(91,140,90,0.1); border-left: 3px solid var(--green); }
+        .modal-content .contraindications { background: rgba(255,70,70,0.1); border-left: 3px solid #ff4646; }
 
-        /* ======= МОБИЛЬНАЯ АДАПТАЦИЯ ======= */
         @media (max-width: 768px) {
             h2 { font-size: 1.8rem; }
             .hero-grid { grid-template-columns: 1fr; text-align: center; }
@@ -200,7 +224,7 @@
             .hero-img { order: -1; }
             .hero-img img { max-width: 200px; }
             #about .cards, .reviews-grid, .contact-grid { grid-template-columns: 1fr; }
-            #services .services-grid { grid-template-columns: 1fr 1fr; }
+            #services .services-grid, .diagnostics-grid, .spec-grid { grid-template-columns: 1fr 1fr; }
             nav { display: none; position: absolute; top: 60px; left: 0; right: 0;
                   background: var(--bg-deep); flex-direction: column; padding: 20px;
                   border-bottom: 1px solid var(--border); }
@@ -208,14 +232,13 @@
             .burger { display: flex; }
         }
         @media (max-width: 480px) {
-            #services .services-grid { grid-template-columns: 1fr; }
+            #services .services-grid, .diagnostics-grid, .spec-grid { grid-template-columns: 1fr; }
             .hero-cta { flex-direction: column; align-items: center; }
         }
     </style>
 </head>
 <body>
 
-<!-- ======= HEADER ======= -->
 <header>
     <div class="header-inner">
         <div class="logo">Нейро<span>лайф</span></div>
@@ -223,7 +246,8 @@
             <a href="#hero">Главная</a>
             <a href="#about">О центре</a>
             <a href="#services">Услуги</a>
-            <a href="#specialists">Врачи</a>
+            <a href="#specialists">Специалисты</a>
+            <a href="#diagnostics">Диагностика</a>
             <a href="#reviews">Отзывы</a>
             <a href="#contacts">Контакты</a>
             <a href="#contacts" class="btn">Записаться</a>
@@ -234,7 +258,6 @@
     </div>
 </header>
 
-<!-- ======= HERO ======= -->
 <section id="hero">
     <div class="container hero-grid">
         <div class="hero-text">
@@ -249,15 +272,17 @@
                 <i class="fas fa-check-circle" style="color: var(--green);"></i> Без учёта <span style="margin:0 10px">|</span>
                 <i class="fas fa-check-circle" style="color: var(--green);"></i> Опыт 11+ лет
             </p>
+            <p style="margin-top: 10px; font-size: 0.8rem; color: var(--text-dim);">
+                <i class="fas fa-comment" style="color: var(--accent);"></i> Нажмите «Пройти диагностику» → напишите сообщение в группу ВКонтакте, чтобы пройти тесты и получить заключение.
+            </p>
         </div>
         <div class="hero-img">
-            <!-- ЗАГЛУШКА: замените src на путь к вашему реальному фото -->
-            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'%3E%3Crect width='400' height='400' fill='%23111827'/%3E%3Ccircle cx='200' cy='200' r='100' fill='none' stroke='%23c9a96e' stroke-width='2'/%3E%3Ccircle cx='200' cy='200' r='60' fill='none' stroke='%235b8c5a' stroke-width='1.5' stroke-dasharray='10,5'/%3E%3Ctext x='200' y='210' text-anchor='middle' fill='%23c9a96e' font-size='24' font-family='sans-serif'%3EДаниил Сухих%3C/text%3E%3Ctext x='200' y='235' text-anchor='middle' fill='%239ca3af' font-size='14' font-family='sans-serif'%3EГлавный врач%3C/text%3E%3C/svg%3E" alt="Даниил Сухих — главный врач центра Нейролайф">
+            <!-- ЗАМЕНИТЕ НА ФОТО ДАНИИЛА СУХИХ -->
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'%3E%3Crect width='400' height='400' fill='%23111827'/%3E%3Ccircle cx='200' cy='200' r='100' fill='none' stroke='%23c9a96e' stroke-width='2'/%3E%3Ccircle cx='200' cy='200' r='60' fill='none' stroke='%235b8c5a' stroke-width='1.5' stroke-dasharray='10,5'/%3E%3Ctext x='200' y='210' text-anchor='middle' fill='%23c9a96e' font-size='24' font-family='sans-serif'%3EДаниил Сухих%3C/text%3E%3Ctext x='200' y='235' text-anchor='middle' fill='%239ca3af' font-size='14' font-family='sans-serif'%3EГлавный врач%3C/text%3E%3C/svg%3E" alt="Даниил Сухих">
         </div>
     </div>
 </section>
 
-<!-- ======= О ЦЕНТРЕ ======= -->
 <section id="about">
     <div class="container">
         <h2>Почему выбирают Нейролайф</h2>
@@ -281,7 +306,6 @@
     </div>
 </section>
 
-<!-- ======= УСЛУГИ ======= -->
 <section id="services">
     <div class="container">
         <h2>Диагностика и терапия</h2>
@@ -289,7 +313,6 @@
     </div>
 </section>
 
-<!-- ======= СПЕЦИАЛИСТЫ ======= -->
 <section id="specialists">
     <div class="container">
         <h2>Наши специалисты</h2>
@@ -297,7 +320,19 @@
     </div>
 </section>
 
-<!-- ======= ОТЗЫВЫ ======= -->
+<section id="diagnostics">
+    <div class="container">
+        <h2>Диагностические исследования</h2>
+        <div class="diagnostics-grid" id="diagnostics-grid"></div>
+        <div style="text-align: center; margin-top: 40px;">
+            <a href="https://vk.com/neurolifecenter" target="_blank" class="btn">Перейти к тестам в ВКонтакте</a>
+            <p style="margin-top: 12px; font-size: 0.9rem; color: var(--text-dim);">
+                <i class="fas fa-info-circle"></i> Напишите сообщение в группу ВК, чтобы получить доступ к тестам (BDI, BAI, HADS, MMPI, WAIS и др.) и полное заключение.
+            </p>
+        </div>
+    </div>
+</section>
+
 <section id="reviews">
     <div class="container">
         <h2>Что говорят пациенты</h2>
@@ -305,7 +340,6 @@
     </div>
 </section>
 
-<!-- ======= КОНТАКТЫ ======= -->
 <section id="contacts">
     <div class="container">
         <h2>Свяжитесь с нами</h2>
@@ -330,8 +364,8 @@
             </div>
             <div class="info-block">
                 <h3 style="margin-bottom:20px">Контакты</h3>
-                <p>📍 <strong>Кировская область, г. Киров, ул. Спасская, 26</strong></p>
-                <p>📞 <strong>+7 XXX XXX-XX-XX</strong> (замените на ваш номер)</p>
+                <p>📍 <strong>610000, Кировская область, г. Киров, ул. Спасская, д. 26б</strong></p>
+                <p>📞 <strong>+7 (922) 962-67-40</strong> — Нина Ивановна (администратор)</p>
                 <p>✉️ <strong>info@neurolife.ru</strong> (замените на ваш e-mail)</p>
                 <p>🕒 <strong>Пн–Пт:</strong> 09:00–19:00 <br>🕒 <strong>Сб:</strong> 11:00–16:00 <br>🕒 <strong>Вс:</strong> выходной</p>
                 <p style="font-style: italic; color: var(--accent);">По предварительной записи</p>
@@ -339,86 +373,149 @@
                     <a href="https://vk.com/neurolifecenter" target="_blank">ВКонтакте</a>
                     <a href="https://t.me/neurolifecenter" target="_blank">Telegram-канал</a>
                     <a href="https://youtube.com/channel/UCbBx_2Z4GKpSISNu2pZA9Pg" target="_blank">YouTube</a>
-                    <a href="https://vk.com/b.kandinsky" target="_blank">Личная страница ВК</a>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- ======= ПОДВАЛ ======= -->
 <footer>
     <div class="container">
-        <p>© 2026 Нейролайф. Все права защищены. Лицензия № XXX-XXX-XXX.</p>
+        <p>© 2026 Нейролайф — центр неврологии и психического здоровья</p>
+        <p>ООО «ДМЦ «Здоровые Дети»</p>
+        <p>Лицензия: № Л041-01160-43/00322654 от 04.07.2018</p>
+        <p>ИНН 4345448601, КПП 434501001, ОГРН 1164350067980</p>
+        <p>Юридический адрес: 610000, Кировская область, г. Киров, ул. Спасская, д. 26б</p>
+        <p>Учредитель: Катаев Виталий Владимирович (врач-невролог)</p>
         <p><a href="#" style="color:var(--text-dim)">Политика конфиденциальности</a> | <a href="#" style="color:var(--text-dim)">Пользовательское соглашение</a></p>
         <div class="legal-note">
             <p>Информация на сайте носит ознакомительный характер и не является медицинской консультацией. Диагноз и лечение может назначить только врач.</p>
             <p>Имеются противопоказания. Необходима консультация специалиста. 18+</p>
-            <p>Реклама. ООО «Нейролайф», ИНН 1234567890</p>
+            <p class="small">Реклама. ООО «ДМЦ «Здоровые Дети», ИНН 4345448601</p>
         </div>
     </div>
 </footer>
 
-<!-- ======= MODAL ======= -->
 <div class="modal" id="modal">
     <div class="modal-content">
         <span class="modal-close">&times;</span>
         <h3 id="modal-title"></h3>
-        <p id="modal-text"></p>
+        <div id="modal-body"></div>
     </div>
 </div>
 
-<!-- ======= СКРИПТЫ ======= -->
 <script>
-    // Данные услуг (можно расширить)
+    // ======= ДАННЫЕ =======
     const services = [
-        { name: 'Приём психотерапевта', desc: 'Индивидуальная и семейная терапия. КПТ, психоанализ, гештальт.', icon: '🧠' },
-        { name: 'Психиатрическая помощь', desc: 'Диагностика и лечение депрессий, тревожных расстройств, панических атак.', icon: '💊' },
-        { name: 'Психологическая помощь', desc: 'Консультации клинического психолога, нейропсихологическая диагностика.', icon: '❤️' },
-        { name: 'Коррекция Атланта', desc: 'Мягкая мануальная техника восстановления первого шейного позвонка.', icon: '🦴' },
-        { name: 'Иглорефлексотерапия', desc: 'Классическая акупунктура для снятия болевого синдрома и напряжения.', icon: '📍' },
-        { name: 'Карбокситерапия', desc: 'Лечение углекислым газом — улучшает микроциркуляцию.', icon: '💨' },
-        { name: 'Плазмопунктура', desc: 'Инъекции обогащённой плазмы для восстановления нервов и суставов.', icon: '💉' },
-        { name: 'Лечебный массаж', desc: 'Спина, шея, антистресс. Снимает мышечные зажимы.', icon: '💆' },
-        { name: 'Электросон', desc: 'Транскраниальная электростимуляция для нормализации сна.', icon: '😴' },
-        { name: 'ЭЭГ', desc: 'Электроэнцефалограмма — точная диагностика работы головного мозга.', icon: '📊' },
-        { name: 'Ударно-волновая терапия', desc: 'Лечение триггерных точек и суставов без операции.', icon: '🌊' }
+        { name: 'Приём психотерапевта', desc: 'Индивидуальная и семейная терапия. КПТ, психоанализ, гештальт.', icon: '🧠',
+          indications: 'Тревожные расстройства, депрессия, панические атаки, кризисные состояния, проблемы в отношениях, низкая самооценка, профессиональное выгорание.',
+          contraindications: 'Острые психотические состояния, выраженная алкогольная или наркотическая зависимость (требуется предварительная детоксикация).' },
+        { name: 'Психиатрическая помощь', desc: 'Диагностика и лечение депрессий, тревожных расстройств, панических атак.', icon: '💊',
+          indications: 'Депрессивные эпизоды, тревожные расстройства (ГТР, паническое расстройство, фобии), биполярное аффективное расстройство, шизофрения (поддерживающая терапия), ОКР.',
+          contraindications: 'Аллергия на назначенные препараты, тяжёлые заболевания печени/почек в стадии декомпенсации (требуется коррекция доз).' },
+        { name: 'Психологическая помощь', desc: 'Консультации клинического психолога, нейропсихологическая диагностика.', icon: '❤️',
+          indications: 'Психосоматические расстройства, хронический стресс, трудности адаптации, возрастные кризисы, детско-родительские отношения.',
+          contraindications: 'Не требует медицинских противопоказаний, но при острых психотических состояниях необходима консультация психиатра.' },
+        { name: 'Коррекция Атланта', desc: 'Мягкая мануальная техника восстановления первого шейного позвонка.', icon: '🦴',
+          indications: 'Головные боли, мигрень, головокружения, боль в шее и спине, нарушение осанки, снижение концентрации, хроническая усталость.',
+          contraindications: 'Острые травмы шейного отдела позвоночника, опухоли, инфекционные процессы в области шеи, нестабильность позвонков, беременность (2-3 триместры — с осторожностью).' },
+        { name: 'Иглорефлексотерапия', desc: 'Классическая акупунктура для снятия болевого синдрома и напряжения.', icon: '📍',
+          indications: 'Боли в спине, головные боли, тревожные состояния, бессонница, хронический стресс, вегетососудистая дистония, невралгии.',
+          contraindications: 'Нарушения свёртываемости крови, тяжёлые инфекции, опухоли, беременность (особенно 1 триместр), острые психозы.' },
+        { name: 'Карбокситерапия', desc: 'Лечение углекислым газом — улучшает микроциркуляцию.', icon: '💨',
+          indications: 'Хронические боли, мигрень, нарушение мозгового кровообращения, астенический синдром, снижение концентрации, постковидный синдром.',
+          contraindications: 'Острая сердечно-сосудистая недостаточность, гипертонический криз, выраженная брадикардия, эпилепсия, острые инфекции, дыхательная недостаточность.' },
+        { name: 'Плазмопунктура', desc: 'Инъекции обогащённой плазмы для восстановления нервов и суставов.', icon: '💉',
+          indications: 'Хронические невропатии, дегенеративные заболевания суставов, остеохондроз, травмы связок, алопеция, омоложение кожи.',
+          contraindications: 'Тромбоцитопения, коагулопатии, острые инфекции, онкологические заболевания, аутоиммунные заболевания в активной фазе, беременность.' },
+        { name: 'Лечебный массаж', desc: 'Спина, шея, антистресс. Снимает мышечные зажимы.', icon: '💆',
+          indications: 'Мышечные боли, остеохондроз, сколиоз, последствия травм, стресс, нарушение кровообращения.',
+          contraindications: 'Острые инфекции, тромбозы, онкологические заболевания, открытые раны, сильная боль в месте массажа.' },
+        { name: 'Электросон', desc: 'Транскраниальная электростимуляция для нормализации сна.', icon: '😴',
+          indications: 'Нарушения сна, тревожные расстройства, астенический синдром, посттравматическое стрессовое расстройство (ПТСР), вегетососудистая дистония.',
+          contraindications: 'Эпилепсия, кардиостимулятор, острые инфекции, тяжёлые заболевания ЦНС с судорожным синдромом, алкогольная/наркотическая интоксикация.' },
+        { name: 'ЭЭГ', desc: 'Электроэнцефалограмма — точная диагностика работы головного мозга.', icon: '📊',
+          indications: 'Подозрение на эпилепсию, судорожные состояния, нарушения сна, когнитивные нарушения, травмы головы, задержка развития у детей.',
+          contraindications: 'Отсутствуют (метод безопасен, но требует чистоты кожи головы — без лаков, гелей).' },
+        { name: 'Ударно-волновая терапия', desc: 'Лечение триггерных точек и суставов без операции.', icon: '🌊',
+          indications: 'Пяточная шпора, тендиниты, бурситы, плантарный фасциит, триггерные точки в мышцах, остеохондроз, эпикондилит.',
+          contraindications: 'Онкологические заболевания, беременность, острые инфекции, тромбозы, открытые раны в зоне лечения, кардиостимулятор.' },
+        { name: 'Озонотерапия', desc: 'Лечение озоном — стимуляция иммунитета, улучшение кровообращения.', icon: '💨',
+          indications: 'Хронические воспалительные процессы, боли в суставах, астенический синдром, снижение иммунитета, герпес, варикозное расширение вен.',
+          contraindications: 'Аллергия на озон, острые инфекции, тромбоцитопения, коагулопатии, беременность, заболевания щитовидной железы (гипертиреоз).' }
     ];
 
-    // Специалисты (без заглушек)
     const specs = [
-        { name: 'Даниил Сухих', role: 'Главный врач, психиатр-психотерапевт', init: 'ДС' },
-        { name: 'Елена Воронцова', role: 'Врач-невролог', init: 'ЕВ' },
-        { name: 'Андрей Ковалёв', role: 'Клинический психолог', init: 'АК' },
-        { name: 'Ольга Мельник', role: 'Психотерапевт', init: 'ОМ' }
+        { name: 'Сухих Данил Витальевич', role: 'Руководитель, врач-психиатр, психотерапевт',
+          desc: 'Окончил Кировскую государственную медицинскую академию в 2014 г. Интернатура, аспирантура (сдан кандидатский минимум). Работает с 2015 г. психиатром и психотерапевтом. Опыт работы: острое женское отделение, отделение соматопсихиатрии (тяжёлые возрастные пациенты), заведующий реабилитационным отделением «Клиника памяти» (пациенты с когнитивными нарушениями). Работал в бригаде с социальными работниками, психологами, проводил тренинги для детей и взрослых. Работал в диспансере. Владеет всем спектром психотического, невротического и психопатического регистров психических расстройств. Постоянно совершенствуется, читает лекции. Проводит диагностику и лечение всех психических и психологических проблем, включая экспертные вопросы.',
+          photo: 'images/daniil_sukih.jpg' },
+        { name: 'Катаев Виталий Владимирович', role: 'Учредитель, врач-невролог',
+          desc: 'Врач-невролог. Специализируется на лечебных блокадах, коррекции Атланта (исправление подвывиха Атланта), лечебных блокадах для обезболивания. Проводит плазмопунктуру, карбоксипунктуру. Работает с пациентами с головными болями, болями в спине и суставах.',
+          photo: 'images/vitaly_kataev.jpg' },
+        { name: 'Чермных Галина Евгеньевна', role: 'Клинический психолог',
+          desc: 'Работает с широким спектром психологических проблем: тревожные расстройства, депрессивные состояния, семейные и парные отношения, детско-родительские конфликты, кризисные ситуации, профессиональное выгорание. Клинический психолог (проводит нейропсихологическую диагностику, патопсихологическое обследование).',
+          photo: 'images/galina_chermnykh.jpg' },
+        { name: 'Колотова Анжелика Валерьевна', role: 'Детский невролог',
+          desc: 'Принимает детей от рождения до 18 лет. Диагностика и лечение: задержка психомоторного развития, нарушения речи, тики, синдром дефицита внимания и гиперактивности (СДВГ), головные боли, эпилепсия, последствия родовых травм, нарушения сна, энурез.',
+          photo: 'images/angelika_kolotova.jpg' },
+        { name: 'Пегушина Татьяна Анатольевна', role: 'Взрослый невролог',
+          desc: 'Врач-невролог. Диагностика и лечение заболеваний нервной системы у взрослых: головные боли (мигрень, напряжение), головокружения, остеохондроз, межпозвонковые грыжи, невропатии, вегетососудистая дистония, рассеянный склероз, последствия инсультов и черепно-мозговых травм. Проводит ЭЭГ, УЗДГ (ультразвуковая допплерография), назначает медикаментозное лечение и физиотерапию.',
+          photo: 'images/tatyana_pegushina.jpg' },
+        { name: 'Лежнина Нина Ивановна', role: 'Администратор',
+          desc: 'Организация приёма, подбор специалистов, помощь пациентам в записи и решении организационных вопросов. Душа центра, координирует работу всех специалистов.',
+          photo: 'images/nina_lejnina.jpg' }
     ];
 
-    // Отзывы
+    const diagnostics = [
+        { name: 'Патодиагностическое исследование (ПДИ)', desc: 'Углублённое клинико-психологическое обследование для выявления структуры психических расстройств, оценки личности, определения тактики лечения и решения экспертных вопросов.', icon: '🧪' },
+        { name: 'Тест Векслера (WAIS)', desc: 'Стандартизированный тест для оценки интеллекта взрослых. Позволяет определить общий IQ, вербальный и невербальный интеллект, выявить сильные и слабые стороны когнитивных функций.', icon: '🧠' },
+        { name: 'MMSE (Краткая шкала психического статуса)', desc: 'Быстрая оценка когнитивных функций (ориентация, память, внимание, речь). Широко используется для скрининга деменции и других когнитивных нарушений.', icon: '📋' },
+        { name: 'Монреальская шкала (MoCA)', desc: 'Чувствительный инструмент для выявления лёгких когнитивных нарушений. Оценивает память, внимание, исполнительные функции, речь, абстрактное мышление.', icon: '📝' },
+        { name: 'Матрицы Равена (RAVEN)', desc: 'Невербальный тест для оценки способности к выявлению закономерностей, абстрактному мышлению и логике. Не зависит от образования и культуры.', icon: '🔷' },
+        { name: 'Корректурная проба Бурдона', desc: 'Оценивает устойчивость, концентрацию и переключаемость внимания. Применяется для диагностики СДВГ, утомляемости, астенических состояний.', icon: '⏱️' }
+    ];
+
     const reviews = [
-        { name: 'Алексей П.', text: 'Даниил — настоящий профессионал. После нескольких сессий ушла тревога, начал лучше спать. Рекомендую!', stars: 5 },
-        { name: 'Мария К.', text: 'Ходила с депрессией. Очень чуткий подход, без давления. Сейчас чувствую себя гораздо лучше.', stars: 5 },
-        { name: 'Иван С.', text: 'Делал коррекцию Атланта — прошли головные боли. Спасибо! Буду обращаться ещё.', stars: 4 }
+        { name: 'Алексей П.', text: 'После курса карбокситерапии исчезли мигрени. Врач очень внимательный, всё подробно объяснил. Рекомендую!', stars: 5 },
+        { name: 'Мария К.', text: 'Обратилась к Даниилу Витальевичу с паническими атаками. Уже через несколько сессий почувствовала облегчение. Профессионал с большой буквы.', stars: 5 },
+        { name: 'Иван С.', text: 'Делал коррекцию Атланта у Катаева В.В. Результат — перестала болеть голова, улучшилась осанка. Спасибо!', stars: 4 },
+        { name: 'Ольга Д.', text: 'Галина Евгеньевна помогла разобраться в семейных отношениях. Мягко, тактично, без давления. Большое спасибо.', stars: 5 }
     ];
 
-    // Рендер услуг
+    // ======= РЕНДЕР =======
     function renderServices() {
         const grid = document.getElementById('services-grid');
         const select = document.getElementById('service-select');
-        services.forEach(s => {
-            grid.innerHTML += `<div class="service-card" onclick="openModal('${s.name}','${s.desc}')"><div class="icon">${s.icon}</div><h3>${s.name}</h3><p>${s.desc.substring(0,70)}...</p></div>`;
+        services.forEach((s, i) => {
+            grid.innerHTML += `<div class="service-card" onclick="openService(${i})"><div class="icon">${s.icon}</div><h3>${s.name}</h3><p>${s.desc.substring(0,70)}...</p></div>`;
             select.innerHTML += `<option value="${s.name}">${s.name}</option>`;
         });
     }
 
-    // Рендер специалистов
     function renderSpecs() {
         const grid = document.getElementById('specs-grid');
         specs.forEach(s => {
-            grid.innerHTML += `<div class="spec-card"><div class="avatar">${s.init}</div><h3>${s.name}</h3><p>${s.role}</p></div>`;
+            grid.innerHTML += `
+                <div class="spec-card">
+                    <div class="avatar">
+                        <img src="${s.photo}" alt="${s.name}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'" style="display:block;">
+                        <div class="avatar-placeholder" style="display:none;">${s.name.split(' ').map(w=>w[0]).join('')}</div>
+                    </div>
+                    <h3>${s.name}</h3>
+                    <div class="role">${s.role}</div>
+                    <div class="desc">${s.desc}</div>
+                </div>
+            `;
         });
     }
 
-    // Рендер отзывов
+    function renderDiagnostics() {
+        const grid = document.getElementById('diagnostics-grid');
+        diagnostics.forEach(d => {
+            grid.innerHTML += `<div class="diagnostic-card"><div class="icon">${d.icon}</div><h3>${d.name}</h3><p>${d.desc}</p></div>`;
+        });
+    }
+
     function renderReviews() {
         const grid = document.getElementById('reviews-grid');
         reviews.forEach(r => {
@@ -427,30 +524,32 @@
         });
     }
 
-    // Модальное окно
-    function openModal(title, text) {
-        document.getElementById('modal-title').innerText = title;
-        document.getElementById('modal-text').innerText = text;
+    function openService(index) {
+        const s = services[index];
+        document.getElementById('modal-title').innerText = s.icon + ' ' + s.name;
+        document.getElementById('modal-body').innerHTML = `
+            <p>${s.desc}</p>
+            <div class="indications"><strong>✅ Показания:</strong><br>${s.indications}</div>
+            <div class="contraindications"><strong>❌ Противопоказания:</strong><br>${s.contraindications}</div>
+            <p style="margin-top:12px; font-size:0.8rem; color:var(--text-dim);">* Требуется предварительная консультация специалиста.</p>
+        `;
         document.getElementById('modal').classList.add('active');
     }
 
     document.querySelector('.modal-close').onclick = () => document.getElementById('modal').classList.remove('active');
     document.getElementById('modal').onclick = e => { if (e.target === e.currentTarget) e.currentTarget.classList.remove('active'); };
 
-    // Бургер
     document.getElementById('burger').onclick = () => document.getElementById('nav').classList.toggle('active');
     document.querySelectorAll('#nav a').forEach(a => a.onclick = () => document.getElementById('nav').classList.remove('active'));
 
-    // Форма
     document.getElementById('contact-form').onsubmit = e => {
         e.preventDefault();
-        alert('Спасибо! Мы свяжемся с вами в ближайшее время.');
-        // Здесь можно добавить отправку данных на сервер
+        alert('✅ Спасибо! Мы свяжемся с вами в ближайшее время.');
     };
 
-    // Инициализация
     renderServices();
     renderSpecs();
+    renderDiagnostics();
     renderReviews();
 </script>
 
