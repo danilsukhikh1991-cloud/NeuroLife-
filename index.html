@@ -1,0 +1,1823 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Нейролайф — центр неврологии и психического здоровья | Киров</title>
+    <meta name="description" content="Доказательная неврология и психотерапия в Кирове. Приём ведёт психиатр-психотерапевт с 12-летним стажем. Анонимно, без очередей. Запись онлайн.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #080d17;
+            color: #e0e6f0;
+            line-height: 1.6;
+            overflow-x: hidden;
+            transition: background 0.3s, color 0.3s;
+        }
+        :root {
+            --bg-deep: #080d17;
+            --bg-card: #111827;
+            --accent: #c9a96e;
+            --accent-glow: rgba(201,169,110,0.3);
+            --green: #5b8c5a;
+            --text: #e0e6f0;
+            --text-dim: #9ca3af;
+            --border: #1f2937;
+            --radius: 16px;
+            --shadow: 0 8px 32px rgba(0,0,0,0.4);
+        }
+        .light {
+            --bg-deep: #f8fafc;
+            --bg-card: #ffffff;
+            --text: #0f172a;
+            --text-dim: #475569;
+            --border: #e2e8f0;
+            --shadow: 0 8px 32px rgba(0,0,0,0.08);
+        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        section { padding: 80px 0; }
+        h1, h2, h3 { font-weight: 700; color: inherit; }
+        h2 { font-size: 2.5rem; text-align: center; margin-bottom: 50px; }
+        .accent { color: var(--accent); }
+        .green { color: var(--green); }
+        .btn {
+            display: inline-block; padding: 14px 36px;
+            background: var(--accent); color: #080d17;
+            font-weight: 700; border-radius: 50px;
+            text-decoration: none; border: none;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        .btn:hover { transform: translateY(-3px); box-shadow: 0 8px 30px var(--accent-glow); }
+        .btn-outline {
+            background: transparent; border: 2px solid var(--accent);
+            color: var(--accent);
+        }
+        .btn-outline:hover { background: var(--accent); color: #080d17; }
+        .btn-sm { padding: 8px 20px; font-size: 0.85rem; }
+
+        header {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+            background: rgba(8,13,23,0.92); backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            padding: 8px 0;
+            transition: background 0.3s;
+        }
+        .light header {
+            background: rgba(255,255,255,0.92);
+        }
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 40px;
+            flex-wrap: wrap;
+        }
+        .logo {
+            font-size: 2.2rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            font-family: 'Playfair Display', serif;
+            margin-right: auto;
+        }
+        .logo span { color: var(--accent); }
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .phone-header {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 1rem;
+            white-space: nowrap;
+        }
+        nav {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        nav a {
+            color: var(--text-dim); text-decoration: none; font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+        nav a:hover { color: var(--accent); }
+        .burger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+        .burger span { width: 25px; height: 2px; background: var(--text); transition: 0.3s; }
+        .progress-bar {
+            width: 100%;
+            height: 3px;
+            background: var(--border);
+            margin-top: 4px;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        .progress-bar span {
+            display: block;
+            height: 100%;
+            width: 0%;
+            background: var(--accent);
+            transition: width 0.3s;
+        }
+
+        /* ===== HERO ===== */
+        #hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background: radial-gradient(ellipse at 50% 0%, #13203a 0%, var(--bg-deep) 70%);
+            padding-top: 80px;
+        }
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+        .hero-text h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.2rem;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            color: var(--accent);
+        }
+        .hero-text p { font-size: 1.1rem; color: var(--text-dim); margin-bottom: 30px; max-width: 500px; }
+        .hero-cta { display: flex; gap: 15px; flex-wrap: wrap; }
+        .hero-phone {
+            font-size: 1.5rem; color: var(--accent); font-weight: 700;
+            margin-top: 20px; display: block;
+        }
+        .hero-img img {
+            width: 100%; max-width: 400px; border-radius: 20px;
+            border: 2px solid var(--accent); box-shadow: var(--shadow);
+            transition: transform 0.5s;
+        }
+        .hero-img img:hover { transform: scale(1.02); }
+        .pulse { animation: pulse 2.5s infinite; }
+        @keyframes pulse { 0%,100% { box-shadow: 0 0 0 0 var(--accent-glow); } 50% { box-shadow: 0 0 0 15px transparent; } }
+        .hero-info {
+            display: flex; gap: 20px; flex-wrap: wrap;
+            margin-top: 10px; font-size: 0.9rem; color: var(--text-dim);
+        }
+        .hero-info span { background: var(--bg-card); padding: 6px 14px; border-radius: 50px; border: 1px solid var(--border); }
+
+        /* ===== ABOUT ===== */
+        #about .cards { display: grid; gap: 25px; grid-template-columns: repeat(3, 1fr); }
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 30px;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+        .card:hover { transform: translateY(-5px); border-color: var(--accent); }
+        .card .icon { font-size: 2.2rem; margin-bottom: 15px; }
+        .card h3 { font-size: 1.2rem; margin-bottom: 10px; }
+        .card p { font-size: 0.9rem; color: var(--text-dim); }
+
+        /* ===== EVIDENCE ===== */
+        #evidence .evidence-grid {
+            display: grid;
+            gap: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            text-align: center;
+        }
+        .evidence-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .evidence-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 20px var(--accent-glow);
+        }
+        .evidence-item .icon { font-size: 2.5rem; margin-bottom: 10px; }
+        .evidence-item h4 { font-size: 1rem; }
+
+        /* ===== HOW (оригинал) ===== */
+        #how {
+            background: linear-gradient(180deg, #0f172a 0%, #080d17 100%);
+        }
+        .how-grid { display: grid; gap: 20px; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); text-align: center; }
+        .how-step .step-num { font-size: 2.5rem; font-weight: 800; color: var(--accent); }
+        .how-step h3 { margin: 10px 0; }
+        .how-step p { color: var(--text-dim); }
+
+        /* ===== SERVICES ===== */
+        #services .services-grid {
+            display: grid;
+            gap: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        }
+        .service-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px;
+            text-align: center;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+        .service-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+        .service-card .icon { font-size: 2rem; margin-bottom: 10px; }
+        .service-card h3 { font-size: 1.1rem; margin-bottom: 6px; }
+        .service-card p { font-size: 0.85rem; color: var(--text-dim); }
+
+        /* ===== SLIDER ===== */
+        .swiper { width: 100%; height: 400px; border-radius: 20px; overflow: hidden; margin: 40px 0; }
+        .swiper-slide img { width: 100%; height: 100%; object-fit: cover; }
+        .swiper-pagination-bullet-active { background: var(--accent); }
+
+        /* ===== SCHEDULE ===== */
+        #schedule-section {
+            background: linear-gradient(180deg, #0f172a 0%, var(--bg-deep) 100%);
+        }
+        .schedule-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+        }
+        .schedule-calendar {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+            flex: 1 1 300px;
+            min-width: 280px;
+        }
+        .schedule-calendar h3 { margin-bottom: 15px; font-size: 1.2rem; text-align: center; }
+        .schedule-calendar input[type="date"] {
+            width: 100%;
+            padding: 12px;
+            background: var(--bg-deep);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: inherit;
+            font-size: 1rem;
+            margin-bottom: 15px;
+        }
+        .schedule-calendar input[type="date"]:focus { border-color: var(--accent); outline: none; }
+        .schedule-slots {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+            flex: 2 1 400px;
+            min-width: 280px;
+        }
+        .schedule-slots h3 { margin-bottom: 15px; font-size: 1.2rem; text-align: center; }
+        .slots-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 10px;
+        }
+        .slot-item {
+            padding: 10px;
+            background: var(--bg-deep);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 0.9rem;
+        }
+        .slot-item:hover:not(.booked) { border-color: var(--accent); background: rgba(201,169,110,0.1); }
+        .slot-item.booked { opacity: 0.4; cursor: not-allowed; }
+        .slot-item.selected { border-color: var(--accent); background: var(--accent); color: #080d17; font-weight: 700; }
+
+        /* ===== ADMIN PANEL ===== */
+        .admin-panel {
+            margin-top: 40px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+        }
+        .admin-panel summary {
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--accent);
+            padding: 10px;
+        }
+        .admin-panel details > div { margin-top: 15px; }
+        .admin-panel .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: var(--text-dim);
+            font-size: 0.9rem;
+        }
+        .admin-panel .btn-sm { padding: 8px 16px; font-size: 0.85rem; }
+        .admin-panel table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+        .admin-panel th, .admin-panel td {
+            padding: 8px 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+        .admin-panel th { color: var(--accent); }
+        .admin-panel tr:hover { background: rgba(255,255,255,0.03); }
+        .admin-panel .delete-btn {
+            color: #ff4646;
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-size: 1rem;
+        }
+
+        /* ===== SPECIALISTS ===== */
+        #specialists .spec-grid {
+            display: grid;
+            gap: 25px;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        }
+        .spec-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px;
+            text-align: center;
+            transition: 0.3s;
+        }
+        .spec-card:hover { border-color: var(--accent); transform: translateY(-5px); }
+        .spec-card .avatar {
+            width: 120px; height: 120px; border-radius: 50%;
+            background: var(--bg-card); margin: 0 auto 16px;
+            border: 2px solid var(--border);
+            overflow: hidden;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .spec-card .avatar img { width: 100%; height: 100%; object-fit: cover; }
+        .spec-card .avatar-placeholder {
+            width: 100%; height: 100%;
+            background: var(--accent); color: #080d17;
+            font-size: 2.5rem; font-weight: 800;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .spec-card h3 { font-size: 1.1rem; }
+        .spec-card .role { color: var(--accent); font-size: 0.9rem; margin: 6px 0; }
+        .spec-card .desc { font-size: 0.85rem; color: var(--text-dim); margin-top: 8px; }
+
+        /* ===== REVIEWS ===== */
+        #reviews {
+            background: linear-gradient(180deg, #0f172a 0%, var(--bg-deep) 100%);
+        }
+        .reviews-grid {
+            display: grid;
+            gap: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        }
+        .review-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px;
+        }
+        .review-card .quote { font-size: 1.5rem; color: var(--accent); opacity: 0.4; }
+        .review-card p { font-size: 0.95rem; margin: 10px 0; }
+        .review-card .author { font-weight: 600; color: inherit; margin-top: 12px; }
+        .review-card .stars { color: var(--accent); letter-spacing: 2px; }
+
+        /* ===== CONTACTS ===== */
+        #contacts .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+        .form-group { margin-bottom: 15px; }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%; padding: 14px 18px; border-radius: 12px;
+            border: 1px solid var(--border); background: var(--bg-card);
+            color: inherit; font-family: 'Inter', sans-serif;
+            transition: border-color 0.3s;
+        }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none; border-color: var(--accent);
+        }
+        .info-block p { margin-bottom: 12px; color: var(--text-dim); }
+        .info-block strong { color: inherit; }
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+        .social-links a { color: var(--accent); text-decoration: none; transition: opacity 0.3s; }
+        .social-links a:hover { opacity: 0.7; }
+
+        /* ===== MODAL ===== */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.85);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal.active { display: flex; }
+        .modal-content {
+            background: var(--bg-card);
+            border: 1px solid var(--accent);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 600px;
+            width: 90%;
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .modal-close {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 2rem;
+            cursor: pointer;
+            color: inherit;
+        }
+        .modal-content h3 { margin-bottom: 15px; }
+        .modal-content .indications, .modal-content .contraindications {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 8px;
+        }
+        .modal-content .indications { background: rgba(91,140,90,0.1); border-left: 3px solid var(--green); }
+        .modal-content .contraindications { background: rgba(255,70,70,0.1); border-left: 3px solid #ff4646; }
+
+        /* ===== COOKIE ===== */
+        .cookie-banner {
+            position: fixed; bottom: 0; left: 0; right: 0;
+            background: var(--bg-card);
+            border-top: 1px solid var(--border);
+            padding: 15px 20px;
+            display: none;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 3000;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .cookie-banner p { font-size: 0.9rem; color: var(--text-dim); margin: 0; }
+        .cookie-banner .btn { padding: 8px 24px; font-size: 0.9rem; }
+
+        /* ===== THEME TOGGLE ===== */
+        .theme-toggle {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 30px;
+            padding: 4px 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            transition: 0.3s;
+        }
+        .theme-toggle:hover { border-color: var(--accent); }
+
+        /* ===== AI CHAT WIDGET ===== */
+        .ai-widget {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            z-index: 999;
+            width: 60px;
+            height: 60px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 20px var(--accent-glow);
+            transition: 0.3s;
+        }
+        .ai-widget:hover { transform: scale(1.05); }
+        .ai-widget i { font-size: 1.8rem; color: #080d17; }
+        .ai-chat-box {
+            display: none;
+            position: fixed;
+            bottom: 150px;
+            right: 20px;
+            z-index: 999;
+            width: 340px;
+            max-width: 90%;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+            box-shadow: var(--shadow);
+            flex-direction: column;
+            gap: 10px;
+        }
+        .ai-chat-box.open { display: flex; }
+        .ai-chat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+        }
+        .ai-chat-close { cursor: pointer; font-size: 1.2rem; }
+        .ai-chat-messages {
+            max-height: 200px;
+            overflow-y: auto;
+            font-size: 0.9rem;
+            background: var(--bg-deep);
+            border-radius: 8px;
+            padding: 10px;
+        }
+        .ai-chat-messages .ai-msg { margin: 4px 0; }
+        .ai-chat-messages .ai-msg strong { color: var(--accent); }
+        .ai-chat-input {
+            display: flex;
+            gap: 8px;
+        }
+        .ai-chat-input input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: var(--bg-deep);
+            color: inherit;
+        }
+        .ai-chat-input button {
+            background: var(--accent);
+            border: none;
+            border-radius: 8px;
+            padding: 0 16px;
+            color: #080d17;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        /* ===== TICKER ===== */
+        .ticker {
+            background: var(--bg-card);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            padding: 10px 0;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        .ticker-content {
+            display: inline-block;
+            animation: ticker 30s linear infinite;
+        }
+        .ticker-content span { margin: 0 30px; color: var(--text-dim); font-size: 0.9rem; }
+        .ticker-content .highlight { color: var(--accent); }
+        @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            h2 { font-size: 1.8rem; }
+            .header-inner { padding: 0 15px; }
+            .logo { font-size: 1.6rem; }
+            .phone-header { font-size: 0.8rem; }
+            nav { display: none; }
+            nav.active { display: flex; flex-direction: column; background: var(--bg-deep); padding: 20px; position: absolute; top: 60px; left: 0; right: 0; border-bottom: 1px solid var(--border); }
+            .burger { display: flex; }
+            .hero-grid { grid-template-columns: 1fr; text-align: center; }
+            .hero-text h1 { font-size: 2.2rem; }
+            .hero-img { order: -1; }
+            .hero-img img { max-width: 200px; }
+            #about .cards, .reviews-grid, .contact-grid { grid-template-columns: 1fr; }
+            #services .services-grid, .spec-grid, .how-grid { grid-template-columns: 1fr 1fr; }
+            .swiper { height: 250px; }
+            .cookie-banner { flex-direction: column; text-align: center; }
+            .schedule-container { flex-direction: column; }
+            .ai-chat-box { right: 10px; width: 280px; }
+        }
+        @media (max-width: 480px) {
+            #services .services-grid, .spec-grid, .how-grid { grid-template-columns: 1fr; }
+            .hero-cta { flex-direction: column; align-items: center; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="header-inner">
+        <div class="logo">Нейро<span>лайф</span></div>
+        <div class="header-right">
+            <div class="phone-header">
+                <i class="fas fa-phone-alt"></i>
+                <span>+7 (922) 962-67-40</span>
+            </div>
+            <button onclick="loginVK()" class="btn btn-outline btn-sm" style="margin-right:8px;">
+                <i class="fab fa-vk"></i> Войти
+            </button>
+            <div id="user-block" style="display:none;align-items:center;gap:10px;">
+                <img src="" alt="" style="width:36px;height:36px;border-radius:50%;">
+                <span style="font-size:0.9rem;"></span>
+                <button onclick="logoutVK()" style="background:transparent;border:none;color:#ff4646;cursor:pointer;font-size:0.8rem;">Выйти</button>
+            </div>
+            <nav id="nav">
+                <a href="#hero">Главная</a>
+                <a href="#about">О центре</a>
+                <a href="#services">Услуги</a>
+                <a href="#how">Как мы работаем</a>
+                <a href="#schedule-section">Расписание</a>
+                <a href="#specialists">Специалисты</a>
+                <a href="#reviews">Отзывы</a>
+                <a href="#contacts">Контакты</a>
+                <a href="#contacts" class="btn btn-sm">Записаться</a>
+            </nav>
+            <div class="burger" id="burger">
+                <span></span><span></span><span></span>
+            </div>
+            <button id="themeToggle" class="theme-toggle">
+                <i class="fas fa-moon"></i> <span>Тема</span>
+            </button>
+        </div>
+    </div>
+    <div class="progress-bar"><span id="progressBar"></span></div>
+</header>
+
+<!-- ===== HERO ===== -->
+<section id="hero">
+    <div class="container hero-grid">
+        <div class="hero-text">
+            <h1>Центр неврологии и психического здоровья</h1>
+            <p>Частная практика в Кирове. Анонимно, без очередей и постановки на учёт. Индивидуальный подход и современные протоколы лечения.</p>
+            <div class="hero-info">
+                <span><i class="fas fa-map-pin" style="color:var(--accent);"></i> Киров, ул. Спасская, 26б</span>
+                <span><i class="fas fa-user-md" style="color:var(--accent);"></i> Опыт 12+ лет</span>
+                <span><i class="fas fa-lock" style="color:var(--green);"></i> Анонимно</span>
+            </div>
+            <div class="hero-cta">
+                <a href="#contacts" class="btn pulse">Записаться на приём</a>
+                <a href="https://vk.com/neurolifecenter" target="_blank" class="btn btn-outline">Пройти диагностику</a>
+            </div>
+            <span class="hero-phone"><i class="fas fa-phone-alt" style="color:var(--green);"></i> +7 (922) 962-67-40</span>
+        </div>
+        <div class="hero-img">
+            <img src="images/center.jpg?v=1" alt="Центр Нейролайф" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+            <div style="display:none; width:100%; max-width:400px; height:400px; border:2px solid var(--accent); border-radius:20px; background:var(--bg-card); align-items:center; justify-content:center; font-size:1.2rem; color:var(--text-dim); text-align:center;">
+                ФОТО ЦЕНТРА<br><small>images/center.jpg</small>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== ABOUT ===== -->
+<section id="about">
+    <div class="container">
+        <h2>Почему выбирают Нейролайф</h2>
+        <div class="cards">
+            <div class="card">
+                <div class="icon">🔬</div>
+                <h3>Доказательная медицина</h3>
+                <p>Работаем строго по международным протоколам. Никаких «авторских чудо-методик», только проверенная эффективность.</p>
+            </div>
+            <div class="card">
+                <div class="icon">🔒</div>
+                <h3>Полная анонимность</h3>
+                <p>Вы получаете помощь в частном центре, без постановки на учёт в государственных диспансерах.</p>
+            </div>
+            <div class="card">
+                <div class="icon">👥</div>
+                <h3>Опытные врачи</h3>
+                <p>Команда специалистов с клиническим стажем более 12 лет, прошедших практику в ведущих медицинских учреждениях.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== EVIDENCE (кликабельные карточки) ===== -->
+<section id="evidence">
+    <div class="container">
+        <h2>Доказательная медицина</h2>
+        <div class="evidence-grid">
+            <div class="evidence-item" onclick="openEvidence('dsm5')">
+                <div class="icon">📘</div>
+                <h4>DSM-5</h4>
+                <p>Американское диагностическое руководство по психическим расстройствам (5-е издание).</p>
+            </div>
+            <div class="evidence-item" onclick="openEvidence('icd10')">
+                <div class="icon">📖</div>
+                <h4>МКБ-10</h4>
+                <p>Международная классификация болезней (10-й пересмотр, ВОЗ).</p>
+            </div>
+            <div class="evidence-item" onclick="openEvidence('cbt')">
+                <div class="icon">🧠</div>
+                <h4>КПТ/ДБТ</h4>
+                <p>Когнитивно-поведенческая и диалектическая поведенческая терапия — доказательные протоколы.</p>
+            </div>
+            <div class="evidence-item" onclick="openEvidence('neuro')">
+                <div class="icon">🧬</div>
+                <h4>Нейробиология</h4>
+                <p>Научная основа психиатрии: мозговые механизмы и нейромедиаторы.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== HOW (оригинал) ===== -->
+<section id="how">
+    <div class="container">
+        <h2>Как мы работаем</h2>
+        <div class="how-grid">
+            <div class="how-step">
+                <div class="step-num">1</div>
+                <h3>Оставьте заявку</h3>
+                <p>Заполните форму на сайте или напишите в группу ВК.</p>
+            </div>
+            <div class="how-step">
+                <div class="step-num">2</div>
+                <h3>Свяжемся с вами</h3>
+                <p>Администратор Нина Ивановна позвонит вам для уточнения деталей.</p>
+            </div>
+            <div class="how-step">
+                <div class="step-num">3</div>
+                <h3>Подберём специалиста</h3>
+                <p>Выберите удобное время и специалиста для вашей проблемы.</p>
+            </div>
+            <div class="how-step">
+                <div class="step-num">4</div>
+                <h3>Приём и лечение</h3>
+                <p>Анонимная консультация и индивидуальная программа терапии.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== SERVICES ===== -->
+<section id="services">
+    <div class="container">
+        <h2>Диагностика и терапия</h2>
+        <div class="services-grid" id="services-grid"></div>
+    </div>
+</section>
+
+<!-- ===== SLIDER ===== -->
+<section id="slider-section">
+    <div class="container">
+        <h2>Наш центр и процедуры</h2>
+        <div class="swiper mySwiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide"><img src="images/center.jpg?v=1" alt="Центр Нейролайф"></div>
+                <div class="swiper-slide"><img src="images/procedure1.jpg?v=1" alt="Процедура 1"></div>
+                <div class="swiper-slide"><img src="images/procedure2.jpg?v=1" alt="Процедура 2"></div>
+                <div class="swiper-slide"><img src="images/procedure3.jpg?v=1" alt="Процедура 3"></div>
+            </div>
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== SCHEDULE ===== -->
+<section id="schedule-section">
+    <div class="container">
+        <h2>Запись на приём</h2>
+        <div class="schedule-container">
+            <div class="schedule-calendar">
+                <h3>Выберите дату</h3>
+                <input type="date" id="scheduleDate" min="2026-06-10" value="2026-06-10">
+                <div id="selectedDateDisplay" style="margin-top:10px;color:var(--text-dim);font-size:0.9rem;">Выбрано: 10 июня 2026</div>
+                <button id="refreshSlotsBtn" class="btn" style="width:100%;margin-top:10px;">Обновить слоты</button>
+            </div>
+            <div class="schedule-slots">
+                <h3>Свободное время</h3>
+                <div id="slotsContainer" class="slots-grid">
+                    <div style="color:var(--text-dim);grid-column:1/-1;text-align:center;">Загружаем слоты...</div>
+                </div>
+                <div style="margin-top:20px;text-align:center;">
+                    <button id="bookSlotBtn" class="btn" disabled>Записаться на выбранное время</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== ADMIN PANEL (оригинал) ===== -->
+        <div class="admin-panel">
+            <details>
+                <summary>🔐 Панель управления расписанием (для врача)</summary>
+                <div>
+                    <form id="adminLoginForm" style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:15px;">
+                        <input type="password" id="adminPassword" placeholder="Пароль" style="flex:1;min-width:150px;padding:10px;background:var(--bg-deep);border:1px solid var(--border);border-radius:8px;color:#fff;">
+                        <button type="submit" class="btn btn-sm">Войти</button>
+                        <span id="adminLoginStatus" style="color:var(--green);font-size:0.9rem;display:none;">✅ Вошли</span>
+                    </form>
+                    <div id="adminContent" style="display:none;">
+                        <div style="display:flex;flex-wrap:wrap;gap:20px;">
+                            <div style="flex:1;">
+                                <h4>Добавить слот</h4>
+                                <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px;">
+                                    <input type="date" id="adminSlotDate" value="2026-06-10" style="padding:8px;background:var(--bg-deep);border:1px solid var(--border);border-radius:8px;color:#fff;">
+                                    <input type="time" id="adminSlotTime" value="10:00" style="padding:8px;background:var(--bg-deep);border:1px solid var(--border);border-radius:8px;color:#fff;">
+                                    <button id="addSlotBtn" class="btn btn-sm">➕ Добавить</button>
+                                </div>
+                            </div>
+                            <div style="flex:2;">
+                                <h4>Все слоты</h4>
+                                <div style="max-height:300px;overflow-y:auto;">
+                                    <table id="adminSlotsTable">
+                                        <thead><tr><th>Дата</th><th>Время</th><th>Статус</th><th>Действия</th></tr></thead>
+                                        <tbody id="adminSlotsBody"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </details>
+        </div>
+    </div>
+</section>
+
+<!-- ===== SPECIALISTS ===== -->
+<section id="specialists">
+    <div class="container">
+        <h2>Наши специалисты</h2>
+        <div class="spec-grid" id="specs-grid"></div>
+    </div>
+</section>
+
+<!-- ===== REVIEWS ===== -->
+<section id="reviews">
+    <div class="container">
+        <h2>Что говорят пациенты</h2>
+        <div class="reviews-grid" id="reviews-grid"></div>
+    </div>
+</section>
+
+<!-- ===== TICKER ===== -->
+<div class="ticker">
+    <div class="ticker-content" id="tickerContent">
+        <span>🔥 Анна К. только что прошла тест на тревогу</span>
+        <span>✅ Иван С. записался к психиатру</span>
+        <span>🌟 Елена Р. получила ИИ-анализ результатов</span>
+        <span>💬 Дмитрий П. записался на психотерапию</span>
+        <span>🧠 Ольга Д. завершила тест WAIS</span>
+    </div>
+</div>
+
+<!-- ===== CONTACTS ===== -->
+<section id="contacts">
+    <div class="container">
+        <h2>Свяжитесь с нами</h2>
+        <div class="contact-grid">
+            <div class="form-block">
+                <h3 style="margin-bottom:20px">Оставьте заявку</h3>
+                <form id="contact-form">
+                    <div class="form-group"><input type="text" name="name" placeholder="Ваше имя" required></div>
+                    <div class="form-group"><input type="tel" name="phone" placeholder="+7 (___) ___-__-__" required></div>
+                    <div class="form-group">
+                        <select name="service">
+                            <option value="">Выберите услугу</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label style="display:block; margin-bottom:8px; font-size:0.85rem; color:var(--text-dim);">
+                            <input type="checkbox" required> Я согласен на обработку персональных данных
+                        </label>
+                    </div>
+                    <button type="submit" class="btn" style="width:100%">Отправить</button>
+                </form>
+            </div>
+            <div class="info-block">
+                <h3 style="margin-bottom:20px">Контакты</h3>
+                <p>📍 <strong>610000, Кировская область, г. Киров, ул. Спасская, д. 26б</strong></p>
+                <p>📞 <strong>+7 (922) 962-67-40</strong> — Нина Ивановна (администратор)</p>
+                <p>✉️ <strong>danil_suhih@mail.ru</strong></p>
+                <p>🕒 <strong>Пн–Пт:</strong> 09:00–19:00 <br>🕒 <strong>Сб:</strong> 11:00–16:00 <br>🕒 <strong>Вс:</strong> выходной</p>
+                <p style="font-style: italic; color: var(--accent);">По предварительной записи</p>
+                <div class="social-links">
+                    <a href="https://vk.com/neurolifecenter" target="_blank">ВКонтакте</a>
+                    <a href="https://t.me/neurolifecenter" target="_blank">Telegram-канал</a>
+                    <a href="https://youtube.com/channel/UCbBx_2Z4GKpSISNu2pZA9Pg" target="_blank">YouTube</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+    <div class="container">
+        <p>© 2026 Нейролайф — центр неврологии и психического здоровья</p>
+        <p>ООО «ДМЦ «Здоровые Дети»</p>
+        <p>Лицензия: № Л041-01160-43/00322654 от 04.07.2018</p>
+        <p>ИНН 4345448601, КПП 434501001, ОГРН 1164350067980</p>
+        <p>Юридический адрес: 610000, Кировская область, г. Киров, ул. Спасская, д. 26б</p>
+        <p>Учредитель: Катаев Виталий Владимирович (врач-невролог)</p>
+        <p><a href="#" style="color:var(--text-dim)">Политика конфиденциальности</a> | <a href="#" style="color:var(--text-dim)">Пользовательское соглашение</a></p>
+        <div class="legal-note">
+            <p>Информация на сайте носит ознакомительный характер и не является медицинской консультацией. Диагноз и лечение может назначить только врач.</p>
+            <p>Имеются противопоказания. Необходима консультация специалиста. 18+</p>
+            <p class="small">Реклама. ООО «ДМЦ «Здоровые Дети», ИНН 4345448601</p>
+        </div>
+    </div>
+</footer>
+
+<!-- ===== MODAL (для услуги) ===== -->
+<div class="modal" id="modal">
+    <div class="modal-content">
+        <span class="modal-close">&times;</span>
+        <h3 id="modal-title"></h3>
+        <div id="modal-body"></div>
+    </div>
+</div>
+
+<!-- ===== BOOKING MODAL (для записи через сайт) ===== -->
+<div class="modal" id="bookingModal">
+    <div class="modal-content">
+        <span class="modal-close">&times;</span>
+        <h3>Запись на приём</h3>
+        <div id="bookingModalBody">
+            <p>Вы выбрали слот: <strong id="modalSlotDisplay"></strong></p>
+            <div class="form-group">
+                <input type="text" id="modalName" placeholder="Ваше имя" required>
+            </div>
+            <div class="form-group">
+                <input type="tel" id="modalPhone" placeholder="Телефон (например, +79229626740)" required>
+            </div>
+            <div class="form-group">
+                <select id="modalSpecialist">
+                    <option value="Психиатр">Психиатр</option>
+                    <option value="Психотерапевт">Психотерапевт</option>
+                    <option value="Невролог">Невролог</option>
+                    <option value="Клинический психолог">Клинический психолог</option>
+                    <option value="Нарколог">Нарколог</option>
+                    <option value="Детский невролог">Детский невролог</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <textarea id="modalComment" placeholder="Комментарий (необязательно)" rows="3"></textarea>
+            </div>
+            <button id="confirmBookingBtn" class="btn" style="width:100%;">Подтвердить запись</button>
+            <button id="cancelBookingBtn" class="btn btn-outline" style="width:100%;margin-top:10px;">Отменить</button>
+        </div>
+    </div>
+</div>
+
+<!-- ===== COOKIE BANNER ===== -->
+<div class="cookie-banner" id="cookie-banner">
+    <p>Мы используем cookie-файлы для улучшения работы сайта. Продолжая пользоваться сайтом, вы соглашаетесь на их использование.</p>
+    <button class="btn" onclick="acceptCookies()">Принять</button>
+</div>
+
+<!-- ===== VK WIDGET ===== -->
+<script type="text/javascript" src="https://vk.com/js/api/openapi.js?169"></script>
+<script type="text/javascript">
+  VK.Widgets.Group("vk_group_widget", {mode: 0, width: "220", height: "400"}, 155313929);
+</script>
+
+<!-- ===== SWIPER ===== -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<script>
+    // =============================================
+    //  MAIN APPLICATION SCRIPT
+    // =============================================
+
+    // ===== CONSTANTS =====
+    const API_BASE = 'https://neurolife-bot-danil2402.amvera.io'; // ЗАМЕНИТЕ НА АДРЕС ВАШЕГО БОТА
+    // ID администратора VK (ваш)
+    const ADMIN_VK_ID = 345638116; // замените на ваш ID
+    // ID группы VK (со знаком минус для бесед)
+    const GROUP_ID = 155313929;
+
+    // ===== DATA =====
+    const services = [
+        { name: 'Приём психотерапевта', desc: 'Индивидуальная и семейная терапия. КПТ, психоанализ, гештальт.', icon: '🧠',
+          indications: 'Тревожные расстройства, депрессия, панические атаки, кризисные состояния, проблемы в отношениях, низкая самооценка, профессиональное выгорание.',
+          contraindications: 'Острые психотические состояния, выраженная алкогольная или наркотическая зависимость (требуется предварительная детоксикация).' },
+        { name: 'Психиатрическая помощь', desc: 'Диагностика и лечение депрессий, тревожных расстройств, панических атак.', icon: '💊',
+          indications: 'Депрессивные эпизоды, тревожные расстройства (ГТР, паническое расстройство, фобии), биполярное аффективное расстройство, шизофрения (поддерживающая терапия), ОКР.',
+          contraindications: 'Аллергия на назначенные препараты, тяжёлые заболевания печени/почек в стадии декомпенсации.' },
+        { name: 'Психологическая помощь', desc: 'Консультации клинического психолога, нейропсихологическая диагностика.', icon: '❤️',
+          indications: 'Психосоматические расстройства, хронический стресс, трудности адаптации, возрастные кризисы, детско-родительские отношения.',
+          contraindications: 'Не требует медицинских противопоказаний, но при острых психотических состояниях необходима консультация психиатра.' },
+        { name: 'Коррекция Атланта', desc: 'Мягкая мануальная техника восстановления первого шейного позвонка.', icon: '🦴',
+          indications: 'Головные боли, мигрень, головокружения, боль в шее и спине, нарушение осанки, снижение концентрации, хроническая усталость.',
+          contraindications: 'Острые травмы шейного отдела позвоночника, опухоли, инфекционные процессы в области шеи, нестабильность позвонков, беременность (2-3 триместры — с осторожностью).' },
+        { name: 'Иглорефлексотерапия', desc: 'Классическая акупунктура для снятия болевого синдрома и напряжения.', icon: '📍',
+          indications: 'Боли в спине, головные боли, тревожные состояния, бессонница, хронический стресс, вегетососудистая дистония, невралгии.',
+          contraindications: 'Нарушения свёртываемости крови, тяжёлые инфекции, опухоли, беременность (особенно 1 триместр), острые психозы.' },
+        { name: 'Карбокситерапия', desc: 'Лечение углекислым газом — улучшает микроциркуляцию.', icon: '💨',
+          indications: 'Хронические боли, мигрень, нарушение мозгового кровообращения, астенический синдром, снижение концентрации, постковидный синдром.',
+          contraindications: 'Острая сердечно-сосудистая недостаточность, гипертонический криз, выраженная брадикардия, эпилепсия, острые инфекции, дыхательная недостаточность.' },
+        { name: 'Плазмопунктура', desc: 'Инъекции обогащённой плазмы для восстановления нервов и суставов.', icon: '💉',
+          indications: 'Хронические невропатии, дегенеративные заболевания суставов, остеохондроз, травмы связок, алопеция, омоложение кожи.',
+          contraindications: 'Тромбоцитопения, коагулопатии, острые инфекции, онкологические заболевания, аутоиммунные заболевания в активной фазе, беременность.' },
+        { name: 'Лечебный массаж', desc: 'Спина, шея, антистресс. Снимает мышечные зажимы.', icon: '💆',
+          indications: 'Мышечные боли, остеохондроз, сколиоз, последствия травм, стресс, нарушение кровообращения.',
+          contraindications: 'Острые инфекции, тромбозы, онкологические заболевания, открытые раны, сильная боль в месте массажа.' },
+        { name: 'Электросон', desc: 'Транскраниальная электростимуляция для нормализации сна.', icon: '😴',
+          indications: 'Нарушения сна, тревожные расстройства, астенический синдром, посттравматическое стрессовое расстройство (ПТСР), вегетососудистая дистония.',
+          contraindications: 'Эпилепсия, кардиостимулятор, острые инфекции, тяжёлые заболевания ЦНС с судорожным синдромом, алкогольная/наркотическая интоксикация.' },
+        { name: 'ЭЭГ', desc: 'Электроэнцефалограмма — точная диагностика работы головного мозга.', icon: '📊',
+          indications: 'Подозрение на эпилепсию, судорожные состояния, нарушения сна, когнитивные нарушения, травмы головы, задержка развития у детей.',
+          contraindications: 'Отсутствуют (метод безопасен, но требует чистоты кожи головы — без лаков, гелей).' },
+        { name: 'Ударно-волновая терапия', desc: 'Лечение триггерных точек и суставов без операции.', icon: '🌊',
+          indications: 'Пяточная шпора, тендиниты, бурситы, плантарный фасциит, триггерные точки в мышцах, остеохондроз, эпикондилит.',
+          contraindications: 'Онкологические заболевания, беременность, острые инфекции, тромбозы, открытые раны в зоне лечения, кардиостимулятор.' },
+        { name: 'Озонотерапия', desc: 'Лечение озоном — стимуляция иммунитета, улучшение кровообращения.', icon: '💨',
+          indications: 'Хронические воспалительные процессы, боли в суставах, астенический синдром, снижение иммунитета, герпес, варикозное расширение вен.',
+          contraindications: 'Аллергия на озон, острые инфекции, тромбоцитопения, коагулопатии, беременность, заболевания щитовидной железы (гипертиреоз).' },
+        { name: 'ПДИ (Патодиагностическое исследование)', desc: 'Углублённая психологическая диагностика. Все тесты — в ВК.', icon: '🧪',
+          indications: 'Психические расстройства, когнитивные нарушения, экспертные вопросы (диагностика, снятие диагноза, оценка дееспособности).',
+          contraindications: 'Острые психотические состояния — требуется очная консультация психиатра.' }
+    ];
+
+    const specs = [
+        { name: 'Сухих Данил Витальевич', role: 'Руководитель, врач-психиатр, психотерапевт',
+          desc: 'Врач-психиатр, психотерапевт с 12-летним стажем. Работаю с тревожными расстройствами, паническими атаками, нарушениями сна, эмоциональными расстройствами, кризисными состояниями, проблемами в отношениях. Принимаю детей, подростков, взрослых. Провожу индивидуальную, семейную и групповую терапию. Ранее работал в острых мужском и женском отделениях, соматопсихиатрии, диспансере. Кандидатский минимум сдан, постоянно совершенствуюсь.',
+          photo: 'images/daniil_sukih.jpg?v=1' },
+        { name: 'Катаев Виталий Владимирович', role: 'Учредитель, врач-невролог',
+          desc: 'Врач-невролог. Специализируется на лечебных блокадах, коррекции Атланта, плазмопунктуре, карбоксипунктуре. Работает с головными болями, болями в спине и суставах.',
+          photo: 'images/vitaly_kataev.jpg?v=1' },
+        { name: 'Чермных Галина Евгеньевна', role: 'Клинический психолог',
+          desc: 'Работает с тревожными расстройствами, депрессией, семейными и парными отношениями, кризисными ситуациями, выгоранием. Клинический психолог (нейропсихологическая диагностика).',
+          photo: 'images/galina_chermnykh.jpg?v=1' },
+        { name: 'Колотова Анжелика Валерьевна', role: 'Детский невролог',
+          desc: 'Принимает детей от рождения до 18 лет. Диагностика и лечение: задержка развития, нарушения речи, тики, СДВГ, головные боли, эпилепсия, энурез.',
+          photo: 'images/angelika_kolotova.jpg?v=1' },
+        { name: 'Пегушина Татьяна Анатольевна', role: 'Взрослый невролог',
+          desc: 'Врач-невролог. Диагностика и лечение: головные боли, головокружения, остеохондроз, грыжи, невропатии, ВСД, рассеянный склероз, последствия инсультов и ЧМТ. Проводит ЭЭГ, УЗДГ.',
+          photo: 'images/tatyana_pegushina.jpg?v=1' },
+        { name: 'Лежнина Нина Ивановна', role: 'Администратор',
+          desc: 'Организация приёма, подбор специалистов, помощь пациентам в записи и решении организационных вопросов.',
+          photo: 'images/nina_lejnina.jpg?v=1' }
+    ];
+
+    const reviews = [
+        { name: 'Алексей П.', text: 'После курса карбокситерапии исчезли мигрени. Врач очень внимательный, всё подробно объяснил. Рекомендую!', stars: 5 },
+        { name: 'Мария К.', text: 'Обратилась к Даниилу Витальевичу с паническими атаками. Уже через несколько сессий почувствовала облегчение. Профессионал с большой буквы.', stars: 5 },
+        { name: 'Иван С.', text: 'Делал коррекцию Атланта у Катаева В.В. Результат — перестала болеть голова, улучшилась осанка. Спасибо!', stars: 4 },
+        { name: 'Ольга Д.', text: 'Галина Евгеньевна помогла разобраться в семейных отношениях. Мягко, тактично, без давления. Большое спасибо.', stars: 5 }
+    ];
+
+    // ===== RENDER =====
+    function renderServices() {
+        const grid = document.getElementById('services-grid');
+        const select = document.querySelector('#contact-form select');
+        services.forEach((s, i) => {
+            grid.innerHTML += `<div class="service-card" onclick="openService(${i})"><div class="icon">${s.icon}</div><h3>${s.name}</h3><p>${s.desc}</p></div>`;
+            select.innerHTML += `<option value="${s.name}">${s.name}</option>`;
+        });
+    }
+
+    function renderSpecs() {
+        const grid = document.getElementById('specs-grid');
+        specs.forEach(s => {
+            grid.innerHTML += `
+                <div class="spec-card">
+                    <div class="avatar">
+                        <img src="${s.photo}" alt="${s.name}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+                        <div class="avatar-placeholder" style="display:none;">${s.name.split(' ').map(w=>w[0]).join('')}</div>
+                    </div>
+                    <h3>${s.name}</h3>
+                    <div class="role">${s.role}</div>
+                    <div class="desc">${s.desc}</div>
+                </div>
+            `;
+        });
+    }
+
+    function renderReviews() {
+        const grid = document.getElementById('reviews-grid');
+        reviews.forEach(r => {
+            const stars = '★'.repeat(r.stars) + '☆'.repeat(5 - r.stars);
+            grid.innerHTML += `<div class="review-card"><div class="quote"><i class="fas fa-quote-left"></i></div><p>${r.text}</p><div class="stars">${stars}</div><div class="author">— ${r.name}</div></div>`;
+        });
+    }
+
+    function openService(index) {
+        const s = services[index];
+        document.getElementById('modal-title').innerText = s.icon + ' ' + s.name;
+        document.getElementById('modal-body').innerHTML = `
+            <p>${s.desc}</p>
+            <div class="indications"><strong>✅ Показания:</strong><br>${s.indications}</div>
+            <div class="contraindications"><strong>❌ Противопоказания:</strong><br>${s.contraindications}</div>
+            <p style="margin-top:12px; font-size:0.8rem; color:var(--text-dim);">* Требуется предварительная консультация специалиста.</p>
+        `;
+        document.getElementById('modal').classList.add('active');
+    }
+
+    document.querySelectorAll('.modal-close').forEach(el => {
+        el.onclick = function() {
+            this.closest('.modal').classList.remove('active');
+        }
+    });
+    document.querySelectorAll('.modal').forEach(m => {
+        m.onclick = function(e) {
+            if (e.target === e.currentTarget) e.currentTarget.classList.remove('active');
+        }
+    });
+
+    document.getElementById('burger').onclick = () => document.getElementById('nav').classList.toggle('active');
+    document.querySelectorAll('#nav a').forEach(a => a.onclick = () => document.getElementById('nav').classList.remove('active'));
+
+    renderServices();
+    renderSpecs();
+    renderReviews();
+
+    // ===== COOKIES =====
+    function acceptCookies() {
+        document.getElementById('cookie-banner').style.display = 'none';
+        localStorage.setItem('cookie_consent', 'true');
+    }
+    if (localStorage.getItem('cookie_consent') !== 'true') {
+        document.getElementById('cookie-banner').style.display = 'flex';
+    }
+
+    // ===== THEME TOGGLE =====
+    const themeToggle = document.getElementById('themeToggle');
+    let lightMode = localStorage.getItem('lightMode') === 'true';
+    if (lightMode) document.body.classList.add('light');
+    themeToggle.addEventListener('click', () => {
+        document.body.classList.toggle('light');
+        lightMode = document.body.classList.contains('light');
+        localStorage.setItem('lightMode', lightMode);
+        themeToggle.querySelector('i').className = lightMode ? 'fas fa-sun' : 'fas fa-moon';
+    });
+
+    // ===== SLIDER =====
+    var swiper = new Swiper(".mySwiper", {
+        loop: true,
+        autoplay: { delay: 4000, disableOnInteraction: false },
+        pagination: { el: ".swiper-pagination", clickable: true },
+        navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" },
+    });
+
+    // ===== PROGRESS BAR =====
+    function updateProgress() {
+        const scroll = window.scrollY;
+        const height = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = height > 0 ? (scroll / height) * 100 : 0;
+        document.getElementById('progressBar').style.width = Math.min(progress, 100) + '%';
+    }
+    window.addEventListener('scroll', updateProgress);
+    updateProgress();
+
+    // ===== AI CHAT WIDGET =====
+    const aiResponses = {
+        'тревога': '😰 Рекомендуем пройти тест BAI (Шкала тревоги Бека) в нашем боте VK. Также попробуйте дыхательное упражнение: вдох на 4 счёта, задержка на 4, выдох на 6.',
+        'депрессия': '📉 Пройдите тест BDI-II в боте VK. Важно: если у вас есть мысли о самоповреждении, немедленно обратитесь к специалисту или наберите 112.',
+        'бессонница': '😴 Попробуйте электроксон или медитации. В боте есть раздел «Самопознание» → «Медитации».',
+        'головная боль': '🤕 Возможно, это мигрень. Запишитесь на коррекцию Атланта или карбокситерапию.',
+        'паника': '🚨 Во время панической атаки: сосредоточьтесь на дыхании, заземлитесь (назовите 5 предметов вокруг). Пройдите тест BAI.',
+        'стресс': '🧘 Рекомендуем PSS-10 (шкала стресса) в боте. Также практикуйте ритуал дня: 5 минут тишины.',
+        'сон': '😴 См. «бессонница».',
+        'усталость': '🪫 Возможно, это астенический синдром. Пройдите тест HADS. Обратите внимание на сон и питание.',
+        'отношения': '💔 Запишитесь на консультацию к психологу или психотерапевту. В боте есть тест «Большая пятёрка» для понимания личности.',
+        'память': '🧠 Пройдите тест MMSE или RAVLT в когнитивном модуле.',
+        'концентрация': '🎯 Выполните корректурную пробу Бурдона в боте. Попробуйте метод Pomodoro.',
+        'еда': '🍽 Пройдите тест EAT-26 в боте VK. При подозрении на РПП нужна консультация психиатра.',
+        'дыхание': '🌬️ Квадратное дыхание: вдох 4-задержка 4-выдох 4-задержка 4.',
+        'цена': '💰 Стоимость консультации — от 3000 руб. Точную цену узнайте у администратора по телефону.',
+        'запись': '📅 Для записи используйте кнопку «Записаться» в меню или внизу сайта.',
+        'адрес': '📍 г. Киров, ул. Спасская, д. 26б.',
+        'телефон': '📞 +7 (922) 962-67-40 — Нина Ивановна.',
+        'email': '📧 danil_suhih@mail.ru',
+        'vk': '🔹 ВКонтакте: vk.com/neurolifecenter',
+        'telegram': '✈️ Telegram-канал: t.me/neurolifecenter'
+    };
+
+    let aiChatOpen = false;
+    const aiWidget = document.createElement('div');
+    aiWidget.className = 'ai-widget';
+    aiWidget.innerHTML = '<i class="fas fa-robot"></i>';
+    document.body.appendChild(aiWidget);
+
+    const aiChatBox = document.createElement('div');
+    aiChatBox.className = 'ai-chat-box';
+    aiChatBox.innerHTML = `
+        <div class="ai-chat-header">
+            <span>🧠 Ассистент Нейролайф</span>
+            <span class="ai-chat-close">&times;</span>
+        </div>
+        <div class="ai-chat-messages" id="aiMessages">
+            <div class="ai-msg"><strong>Привет!</strong> Напиши, что тебя беспокоит, и я дам рекомендацию.</div>
+        </div>
+        <div class="ai-chat-input">
+            <input type="text" id="aiInput" placeholder="Введите сообщение..." />
+            <button id="aiSendBtn">➤</button>
+        </div>
+    `;
+    document.body.appendChild(aiChatBox);
+
+    const aiClose = aiChatBox.querySelector('.ai-chat-close');
+    const aiMessages = document.getElementById('aiMessages');
+    const aiInput = document.getElementById('aiInput');
+    const aiSendBtn = document.getElementById('aiSendBtn');
+
+    function toggleAI() {
+        aiChatOpen = !aiChatOpen;
+        aiChatBox.classList.toggle('open', aiChatOpen);
+    }
+
+    aiWidget.addEventListener('click', toggleAI);
+    aiClose.addEventListener('click', toggleAI);
+
+    function getAIResponse(text) {
+        const lower = text.toLowerCase();
+        for (const [key, reply] of Object.entries(aiResponses)) {
+            if (lower.includes(key)) return reply;
+        }
+        return '🤔 Я не совсем понял. Попробуйте сформулировать по-другому или обратитесь к специалисту.';
+    }
+
+    function addAIMessage(text, isUser = false) {
+        const div = document.createElement('div');
+        div.className = 'ai-msg';
+        if (isUser) {
+            div.innerHTML = `<span style="color:var(--accent);">Вы:</span> ${text}`;
+        } else {
+            div.innerHTML = `<strong>Ассистент:</strong> ${text}`;
+        }
+        aiMessages.appendChild(div);
+        aiMessages.scrollTop = aiMessages.scrollHeight;
+    }
+
+    aiSendBtn.addEventListener('click', () => {
+        const msg = aiInput.value.trim();
+        if (!msg) return;
+        addAIMessage(msg, true);
+        aiInput.value = '';
+        const reply = getAIResponse(msg);
+        setTimeout(() => addAIMessage(reply), 300);
+    });
+
+    aiInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') aiSendBtn.click();
+    });
+
+    // ===== VK AUTH =====
+    let currentUser = null;
+    VK.init({ apiId: 51425804, onlyWidgets: false });
+
+    function loginVK() {
+        VK.Auth.login(function(response) {
+            if (response.session) {
+                VK.api('users.get', { fields: 'id,first_name,last_name,photo_50,sex,bdate' }, function(userData) {
+                    if (userData.response && userData.response.length > 0) {
+                        const user = userData.response[0];
+                        currentUser = {
+                            id: user.id,
+                            first_name: user.first_name,
+                            last_name: user.last_name,
+                            photo: user.photo_50,
+                            sex: user.sex,
+                            bdate: user.bdate
+                        };
+                        fetch(`${API_BASE}/api/auth/vk`, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ token: response.session.access_token })
+                        }).then(res => res.json()).then(data => {
+                            if (data.status === 'ok') updateUserUI(data.user);
+                        });
+                    }
+                });
+            } else {
+                alert('Вход отменён');
+            }
+        }, VK.accesses.FRIENDS);
+    }
+
+    function updateUserUI(user) {
+        const userBlock = document.getElementById('user-block');
+        if (!userBlock) {
+            const headerRight = document.querySelector('.header-right');
+            const div = document.createElement('div');
+            div.id = 'user-block';
+            div.style.display = 'flex';
+            div.style.alignItems = 'center';
+            div.style.gap = '10px';
+            div.innerHTML = `
+                <img src="${user.photo}" alt="${user.first_name}" style="width:40px;height:40px;border-radius:50%;">
+                <span style="font-size:0.9rem;">${user.first_name} ${user.last_name}</span>
+                <button onclick="logoutVK()" style="background:transparent;border:none;color:#ff4646;cursor:pointer;">Выйти</button>
+            `;
+            headerRight.insertBefore(div, document.getElementById('burger'));
+        } else {
+            userBlock.querySelector('img').src = user.photo;
+            userBlock.querySelector('span').textContent = `${user.first_name} ${user.last_name}`;
+        }
+        localStorage.setItem('vk_user', JSON.stringify(user));
+        const loginBtn = document.querySelector('button[onclick="loginVK()"]');
+        if (loginBtn) loginBtn.style.display = 'none';
+    }
+
+    function logoutVK() {
+        VK.Auth.logout(function() {
+            currentUser = null;
+            localStorage.removeItem('vk_user');
+            const userBlock = document.getElementById('user-block');
+            if (userBlock) userBlock.remove();
+            const loginBtn = document.querySelector('button[onclick="loginVK()"]');
+            if (loginBtn) loginBtn.style.display = 'inline-block';
+        });
+    }
+
+    // Restore session
+    const savedUser = localStorage.getItem('vk_user');
+    if (savedUser) {
+        currentUser = JSON.parse(savedUser);
+        updateUserUI(currentUser);
+    }
+
+    // ===== SCHEDULE =====
+    let selectedDate = '';
+    let selectedTime = '';
+    let currentSlots = [];
+    let selectedSlotId = null;
+
+    const dateInput = document.getElementById('scheduleDate');
+    const dateDisplay = document.getElementById('selectedDateDisplay');
+    const slotsContainer = document.getElementById('slotsContainer');
+    const refreshBtn = document.getElementById('refreshSlotsBtn');
+    const bookBtn = document.getElementById('bookSlotBtn');
+
+    function formatDate(dateStr) {
+        const d = new Date(dateStr + 'T00:00:00');
+        return d.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' });
+    }
+
+    async function loadSlots(date) {
+        if (!date) return;
+        slotsContainer.innerHTML = '<div style="grid-column:1/-1;text-align:center;color:var(--text-dim);">Загрузка...</div>';
+        try {
+            const url = `${API_BASE}/api/slots?date=${date}`;
+            const resp = await fetch(url);
+            if (!resp.ok) throw new Error('Ошибка загрузки');
+            const data = await resp.json();
+            currentSlots = data.slots || [];
+            renderSlots(currentSlots);
+        } catch (e) {
+            console.error(e);
+            slotsContainer.innerHTML = '<div style="grid-column:1/-1;text-align:center;color:#ff4646;">Ошибка загрузки. Попробуйте позже.</div>';
+        }
+    }
+
+    function renderSlots(slots) {
+        if (!slots.length) {
+            slotsContainer.innerHTML = '<div style="grid-column:1/-1;text-align:center;color:var(--text-dim);">Нет свободных слотов на эту дату</div>';
+            bookBtn.disabled = true;
+            return;
+        }
+        slotsContainer.innerHTML = '';
+        slots.forEach(slot => {
+            const div = document.createElement('div');
+            div.className = `slot-item ${slot.booked ? 'booked' : ''}`;
+            div.textContent = slot.time;
+            if (!slot.booked) {
+                div.dataset.slotId = slot.id;
+                div.addEventListener('click', function() {
+                    document.querySelectorAll('.slot-item.selected').forEach(el => el.classList.remove('selected'));
+                    this.classList.add('selected');
+                    selectedTime = slot.time;
+                    selectedSlotId = slot.id;
+                    bookBtn.disabled = false;
+                });
+            }
+            slotsContainer.appendChild(div);
+        });
+    }
+
+    dateInput.addEventListener('change', function() {
+        const val = this.value;
+        if (val) {
+            selectedDate = val;
+            dateDisplay.textContent = `Выбрано: ${formatDate(val)}`;
+            loadSlots(val);
+        }
+    });
+
+    refreshBtn.addEventListener('click', function() {
+        const val = dateInput.value;
+        if (val) loadSlots(val);
+    });
+
+    // Init schedule
+    (function() {
+        const today = new Date();
+        const defaultDate = new Date(today);
+        defaultDate.setDate(today.getDate() + 1);
+        const year = defaultDate.getFullYear();
+        const month = String(defaultDate.getMonth() + 1).padStart(2, '0');
+        const day = String(defaultDate.getDate()).padStart(2, '0');
+        const defaultStr = `${year}-${month}-${day}`;
+        dateInput.value = defaultStr;
+        selectedDate = defaultStr;
+        dateDisplay.textContent = `Выбрано: ${formatDate(defaultStr)}`;
+        loadSlots(defaultStr);
+    })();
+
+    // Booking modal
+    bookBtn.addEventListener('click', function() {
+        if (!selectedSlotId) return;
+        const modal = document.getElementById('bookingModal');
+        document.getElementById('modalSlotDisplay').textContent = `${formatDate(selectedDate)} в ${selectedTime}`;
+        let name = '';
+        let vkUserId = null;
+        if (currentUser) {
+            name = currentUser.first_name + ' ' + currentUser.last_name;
+            vkUserId = currentUser.id;
+        }
+        document.getElementById('modalName').value = name;
+        modal.classList.add('active');
+        document.getElementById('confirmBookingBtn').onclick = async function() {
+            const name = document.getElementById('modalName').value.trim();
+            const phone = document.getElementById('modalPhone').value.trim();
+            const specialist = document.getElementById('modalSpecialist').value;
+            const comment = document.getElementById('modalComment').value.trim();
+            if (!name || !phone) {
+                alert('Пожалуйста, заполните имя и телефон');
+                return;
+            }
+            try {
+                const response = await fetch(`${API_BASE}/api/book`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        date: selectedDate,
+                        time: selectedTime,
+                        name: name,
+                        phone: phone,
+                        specialist: specialist,
+                        comment: comment || 'Запись через сайт',
+                        vk_user_id: vkUserId
+                    })
+                });
+                const data = await response.json();
+                if (data.status === 'ok') {
+                    modal.classList.remove('active');
+                    alert('✅ Запись успешно создана! Заявка отправлена.');
+                    loadSlots(selectedDate);
+                } else {
+                    alert('❌ Ошибка: ' + (data.error || 'Неизвестная ошибка'));
+                }
+            } catch (e) {
+                alert('❌ Ошибка соединения с сервером: ' + e.message);
+            }
+        };
+        document.getElementById('cancelBookingBtn').onclick = function() {
+            modal.classList.remove('active');
+        };
+    });
+
+    // ===== ADMIN PANEL =====
+    let adminLoggedIn = false;
+    const ADMIN_PASSWORD = 'neurolife2026';
+
+    const adminLoginForm = document.getElementById('adminLoginForm');
+    const adminPasswordInput = document.getElementById('adminPassword');
+    const adminLoginStatus = document.getElementById('adminLoginStatus');
+    const adminContent = document.getElementById('adminContent');
+    const adminSlotsBody = document.getElementById('adminSlotsBody');
+    const addSlotBtn = document.getElementById('addSlotBtn');
+    const adminSlotDate = document.getElementById('adminSlotDate');
+    const adminSlotTime = document.getElementById('adminSlotTime');
+
+    adminLoginForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const password = adminPasswordInput.value.trim();
+        if (password === ADMIN_PASSWORD) {
+            adminLoggedIn = true;
+            adminLoginStatus.style.display = 'inline';
+            adminLoginStatus.textContent = '✅ Вы авторизованы';
+            adminLoginStatus.style.color = 'var(--green)';
+            adminContent.style.display = 'block';
+            adminPasswordInput.value = '';
+            const today = new Date().toISOString().split('T')[0];
+            loadAdminSlots(today);
+            showToast('Панель управления активирована', 'success');
+        } else {
+            adminLoginStatus.style.display = 'inline';
+            adminLoginStatus.textContent = '❌ Неверный пароль';
+            adminLoginStatus.style.color = '#ff4646';
+            setTimeout(() => { adminLoginStatus.style.display = 'none'; }, 3000);
+            showToast('Неверный пароль', 'error');
+        }
+    });
+
+    async function loadAdminSlots(date = null) {
+        if (!adminLoggedIn) return;
+        if (!date) {
+            const now = new Date();
+            date = now.toISOString().split('T')[0];
+            adminSlotDate.value = date;
+        }
+        adminSlotsBody.innerHTML = `
+            <tr>
+                <td colspan="4" style="text-align:center; padding:20px;">
+                    <i class="fas fa-spinner fa-spin" style="color:var(--accent); font-size:1.2rem;"></i>
+                    <span style="margin-left:10px;">Загрузка слотов...</span>
+                </td>
+            </tr>
+        `;
+        try {
+            const url = `${API_BASE}/api/admin/slots?date=${date}`;
+            const resp = await fetch(url);
+            if (!resp.ok) throw new Error('Ошибка загрузки');
+            const data = await resp.json();
+            renderAdminSlots(data.slots || [], date);
+        } catch (error) {
+            console.error(error);
+            adminSlotsBody.innerHTML = `
+                <tr>
+                    <td colspan="4" style="text-align:center; color:#ff4646; padding:20px;">
+                        Ошибка загрузки: ${error.message}
+                    </td>
+                </tr>
+            `;
+            showToast('Ошибка загрузки слотов', 'error');
+        }
+    }
+
+    function renderAdminSlots(slots, date) {
+        const tbody = adminSlotsBody;
+        tbody.innerHTML = '';
+        slots.sort((a, b) => a.time.localeCompare(b.time));
+        const filteredSlots = date ? slots.filter(s => s.date === date) : slots;
+        if (filteredSlots.length === 0) {
+            tbody.innerHTML = `
+                <tr>
+                    <td colspan="4" style="text-align:center; color:var(--text-dim); padding:20px;">
+                        🗓️ На ${date ? formatDate(date) : 'выбранную дату'} слотов не найдено.
+                    </td>
+                </tr>
+            `;
+            return;
+        }
+        filteredSlots.forEach(slot => {
+            const tr = document.createElement('tr');
+            const statusText = slot.booked ? '🔴 Занят' : '🟢 Свободен';
+            const statusColor = slot.booked ? '#ff4646' : 'var(--green)';
+            const isPast = isSlotPast(slot.date, slot.time);
+            tr.innerHTML = `
+                <td style="${isPast ? 'opacity:0.6;' : ''}">${formatDate(slot.date)}</td>
+                <td style="${isPast ? 'opacity:0.6;' : ''}">${slot.time}</td>
+                <td style="color:${statusColor}; font-weight:600;">${statusText}${isPast ? ' (прошедший)' : ''}</td>
+                <td>
+                    <button class="delete-btn" data-id="${slot.id}" ${slot.booked ? 'disabled' : ''} title="${slot.booked ? 'Нельзя удалить занятый слот' : 'Удалить слот'}" style="${slot.booked ? 'opacity:0.4; cursor:not-allowed;' : ''}"><i class="fas fa-trash-alt"></i></button>
+                </td>
+            `;
+            tbody.appendChild(tr);
+        });
+        document.querySelectorAll('.delete-btn:not([disabled])').forEach(btn => {
+            btn.addEventListener('click', deleteSlotHandler);
+        });
+    }
+
+    async function deleteSlotHandler(event) {
+        const btn = event.currentTarget;
+        const slotId = btn.dataset.id;
+        if (!confirm('⚠️ Вы уверены, что хотите удалить этот слот?')) return;
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+        try {
+            const resp = await fetch(`${API_BASE}/api/admin/slots/${slotId}`, { method: 'DELETE' });
+            if (!resp.ok) throw new Error('Ошибка удаления');
+            const currentDate = adminSlotDate.value;
+            await loadAdminSlots(currentDate);
+            if (selectedDate) loadSlots(selectedDate);
+            showToast('✅ Слот успешно удалён!', 'success');
+        } catch (error) {
+            showToast('❌ Ошибка удаления', 'error');
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fas fa-trash-alt"></i>';
+        }
+    }
+
+    addSlotBtn.addEventListener('click', async function() {
+        const date = adminSlotDate.value;
+        const time = adminSlotTime.value;
+        if (!date || !time) { showToast('⚠️ Укажите дату и время', 'warning'); return; }
+        this.disabled = true;
+        this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Добавление...';
+        try {
+            const resp = await fetch(`${API_BASE}/api/admin/slots`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ date, time })
+            });
+            if (!resp.ok) throw new Error('Ошибка добавления');
+            showToast('✅ Слот добавлен!', 'success');
+            loadAdminSlots(date);
+            if (selectedDate === date) loadSlots(selectedDate);
+            const nextHour = (parseInt(time.split(':')[0]) + 1).toString().padStart(2, '0');
+            adminSlotTime.value = `${nextHour}:00`;
+        } catch (error) {
+            showToast('❌ Ошибка добавления', 'error');
+        } finally {
+            this.disabled = false;
+            this.innerHTML = '➕ Добавить';
+        }
+    });
+
+    function isSlotPast(dateStr, timeStr) {
+        const slotDateTime = new Date(`${dateStr}T${timeStr}:00`);
+        const now = new Date();
+        return slotDateTime < now;
+    }
+
+    function showToast(text, type = 'info') {
+        const container = document.createElement('div');
+        container.className = `toast-message ${type}`;
+        let icon = 'ℹ️';
+        if (type === 'success') icon = '✅';
+        if (type === 'error') icon = '❌';
+        if (type === 'warning') icon = '⚠️';
+        container.innerHTML = `<span style="margin-right:8px;">${icon}</span><span>${text}</span>`;
+        container.style.cssText = `
+            position: fixed; bottom: 20px; right: 20px;
+            background: #111827; border: 1px solid #1f2937; border-radius: 12px;
+            padding: 16px 24px; box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+            color: #e0e6f0; font-size: 0.95rem; z-index: 9999;
+            animation: slideIn 0.3s ease-out; max-width: 400px;
+        `;
+        const style = document.createElement('style');
+        style.textContent = `@keyframes slideIn { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }`;
+        document.head.appendChild(style);
+        document.body.appendChild(container);
+        setTimeout(() => {
+            container.style.opacity = '0';
+            container.style.transform = 'translateX(30px)';
+            setTimeout(() => container.remove(), 300);
+        }, 4000);
+    }
+
+    // ===== CONTACT FORM (мощная версия с отправкой админу и в группу) =====
+    const contactForm = document.getElementById('contact-form');
+    contactForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        // Получаем данные из формы
+        const name = this.querySelector('input[name="name"]').value.trim();
+        const phone = this.querySelector('input[name="phone"]').value.trim();
+        const service = this.querySelector('select[name="service"]').value;
+        const consentChecked = this.querySelector('input[type="checkbox"]').checked;
+        
+        // Валидация
+        if (!name || !phone) {
+            showToast('Пожалуйста, заполните имя и телефон', 'warning');
+            return;
+        }
+        if (!consentChecked) {
+            showToast('Необходимо согласие на обработку персональных данных', 'warning');
+            return;
+        }
+        if (!service) {
+            showToast('Выберите услугу из списка', 'warning');
+            return;
+        }
+    
+        // Блокируем кнопку отправки на время обработки
+        const submitBtn = this.querySelector('button[type="submit"]');
+        submitBtn.disabled = true;
+        submitBtn.textContent = '⏳ Отправка...';
+    
+        // ===== 1. Отправка через Formspree (оригинал) =====
+        try {
+            const formData = new FormData(this);
+            await fetch(this.action, { method: 'POST', body: formData });
+            console.log('✅ Formspree: заявка отправлена');
+        } catch (e) {
+            console.warn('Formspree error:', e);
+        }
+    
+        // ===== 2. Отправка через API бота =====
+        try {
+            const response = await fetch(`${API_BASE}/api/book`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    date: new Date().toISOString().split('T')[0],
+                    time: '00:00', // специальный слот для заявок без времени
+                    name: name,
+                    phone: phone,
+                    specialist: service || 'Психиатр',
+                    comment: `Заявка с сайта (услуга: ${service})`,
+                    vk_user_id: currentUser ? currentUser.id : null
+                })
+            });
+    
+            const data = await response.json();
+            
+            if (data.status === 'ok') {
+                // ===== 3. Отправляем сообщение админу (если бот не отправил автоматически) =====
+                // Дополнительно отправляем через VK API напрямую (на случай, если бот не отправил)
+                try {
+                    // Формируем красивое сообщение для админа и группы
+                    const adminMessage = `📅 **Новая заявка с сайта!**
+                    
+    👤 **Имя:** ${name}
+    📞 **Телефон:** ${phone}
+    🎯 **Услуга:** ${service}
+    🕒 **Время:** Без конкретного времени (требуется уточнение)
+    🆔 **VK ID:** ${currentUser ? currentUser.id : 'Не авторизован'}
+    💬 **Комментарий:** Заявка с сайта
+    
+    🔹 *Отправлено через форму обратной связи*`;
+    
+                    // Отправка админу (вам)
+                    VK.Api.call('messages.send', {
+                        user_id: ADMIN_VK_ID,
+                        message: adminMessage,
+                        random_id: Date.now()
+                    }, function(res) {
+                        if (res.response) {
+                            console.log('✅ Сообщение админу отправлено');
+                        } else {
+                            console.warn('❌ Не удалось отправить админу:', res);
+                        }
+                    });
+    
+                    // Отправка в группу (сообщения сообщества)
+                    VK.Api.call('messages.send', {
+                        peer_id: -GROUP_ID,
+                        message: adminMessage,
+                        random_id: Date.now() + 1
+                    }, function(res) {
+                        if (res.response) {
+                            console.log('✅ Сообщение в группу отправлено');
+                        } else {
+                            console.warn('❌ Не удалось отправить в группу:', res);
+                        }
+                    });
+    
+                } catch (vkError) {
+                    console.warn('Ошибка отправки через VK API:', vkError);
+                }
+    
+                // ===== 4. Показываем красивое сообщение об успехе =====
+                showToast('✅ Заявка отправлена! Мы свяжемся с вами в ближайшее время.', 'success');
+                this.reset();
+            } else {
+                showToast('❌ Ошибка: ' + (data.error || 'Неизвестная ошибка'), 'error');
+            }
+        } catch (e) {
+            showToast('❌ Ошибка соединения с сервером: ' + e.message, 'error');
+        } finally {
+            // Разблокируем кнопку
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Отправить';
+        }
+    });
+
+    // ===== TICKER =====
+    const tickerItems = [
+        '🔥 Анна К. только что прошла тест на тревогу',
+        '✅ Иван С. записался к психиатру',
+        '🌟 Елена Р. получила ИИ-анализ результатов',
+        '💬 Дмитрий П. записался на психотерапию',
+        '🧠 Ольга Д. завершила тест WAIS',
+        '🙏 Мария Н. прошла тест на депрессию',
+        '⚡ Алексей В. записался на коррекцию Атланта',
+        '💪 Виктория С. завершила челлендж «7 дней осознанности»'
+    ];
+    const tickerContent = document.getElementById('tickerContent');
+    function updateTicker() {
+        const shuffled = tickerItems.sort(() => Math.random() - 0.5);
+        tickerContent.innerHTML = shuffled.map(item => `<span>${item}</span>`).join('');
+    }
+    setInterval(updateTicker, 10000);
+    updateTicker();
+
+    console.log('🚀 Нейролайф сайт загружен. API_BASE =', API_BASE);
+    
+    function openEvidence(type) {
+        const content = {
+            dsm5: 'DSM-5 (Diagnostic and Statistical Manual of Mental Disorders, 5th edition) — это классификация психических расстройств, используемая в США и многих странах мира. Она позволяет стандартизировать диагностику и лечение, а также проводить научные исследования. В центре «Нейролайф» мы опираемся на критерии DSM-5 при оценке симптомов.',
+            icd10: 'МКБ-10 (Международная классификация болезней 10-го пересмотра) — действующий в России стандарт для диагностики и кодирования всех заболеваний, включая психические расстройства. Мы используем коды МКБ-10 для оформления медицинской документации и экспертизы.',
+            cbt: 'Когнитивно-поведенческая терапия (КПТ) и диалектическая поведенческая терапия (ДБТ) — это научно обоснованные методы психотерапии. Их эффективность подтверждена сотнями рандомизированных клинических исследований. В нашем центре мы применяем эти протоколы для лечения тревожных, депрессивных и личностных расстройств.',
+            neuro: 'Нейробиология психических расстройств изучает, как изменения в работе нейронов, синапсов и нейромедиаторов приводят к симптомам. Это основа для назначения лекарственных препаратов и методов нейростимуляции. Мы опираемся на современные данные нейронаук в диагностике и терапии.'
+        };
+        document.getElementById('modal-title').innerText = 'Доказательная медицина';
+        document.getElementById('modal-body').innerHTML = `<p>${content[type]}</p>`;
+        document.getElementById('modal').classList.add('active');
+    }
+    
+</script>
+
+</body>
+</html>
