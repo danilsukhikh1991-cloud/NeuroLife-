@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>НЕЙРОЛАЙФ · ПЕРСОНАЛЬНЫЙ КОСМО-ПСИХОЛОГИЧЕСКИЙ ПРОФИЛЬ v2.0</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&family=JetBrains+Mono:wght@400;600&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet" />
+<style>
+:root { --bg: #0a0f1f; --surface: rgba(255,255,255,0.03); --accent: #64ffda; --text: #e6f1ff; --text-dim: #8892b0; --border: rgba(100,255,218,0.15); --danger: #ff6b6b; --warning: #ffd166; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.8; padding: 2rem 1.5rem 4rem; overflow-x: hidden; position: relative; min-height: 100vh; }
+#stars-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+.neural-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; opacity: 0.1; }
+.neural-bg svg { width: 100%; height: 100%; }
+.container { max-width: 1100px; margin: 0 auto; position: relative; z-index: 1; }
+.header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 2rem; border-bottom: 1px solid rgba(100,255,218,0.2); margin-bottom: 3rem; flex-wrap: wrap; gap: 1rem; animation: fadeInDown 1s ease-out; }
+.logo { font-size: 2.6rem; font-weight: 700; letter-spacing: -1px; background: linear-gradient(135deg, #64ffda, #a8f0e6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 0 40px rgba(100,255,218,0.2); font-family: 'Playfair Display', serif; }
+.logo small { display: block; font-size: 0.7rem; letter-spacing: 3px; -webkit-text-fill-color: #8892b0; color: #8892b0; font-weight: 300; }
+.badge { background: rgba(100,255,218,0.08); padding: 0.6rem 1.8rem; border-radius: 40px; border: 1px solid rgba(100,255,218,0.25); font-size: 0.8rem; color: #64ffda; display: flex; align-items: center; gap: 0.8rem; backdrop-filter: blur(6px); animation: glowPulse 3s infinite alternate; }
+.badge .dot { width: 10px; height: 10px; background: #64ffda; border-radius: 50%; box-shadow: 0 0 15px #64ffda; animation: dotPulse 2s infinite; }
+@keyframes dotPulse { 0% { opacity: 0.3; transform: scale(0.8); } 50% { opacity: 1; transform: scale(1.2); } 100% { opacity: 0.3; transform: scale(0.8); } }
+@keyframes glowPulse { 0% { box-shadow: 0 0 5px rgba(100,255,218,0.1); } 100% { box-shadow: 0 0 30px rgba(100,255,218,0.4); } }
+@keyframes fadeInDown { 0% { opacity: 0; transform: translateY(-30px); } 100% { opacity: 1; transform: translateY(0); } }
+@keyframes fadeInUp { 0% { opacity: 0; transform: translateY(30px); } 100% { opacity: 1; transform: translateY(0); } }
+@keyframes fadeIn { 0% { opacity: 0; } 100% { opacity: 1; } }
+.client-card { background: rgba(255,255,255,0.03); backdrop-filter: blur(16px); border: 1px solid var(--border); border-radius: 28px; padding: 2rem 2.8rem; margin-bottom: 3rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.8rem; box-shadow: 0 25px 60px rgba(0,0,0,0.6); animation: fadeInUp 1s ease-out 0.2s both; }
+.client-card .item .label { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 2px; color: #64ffda; opacity: 0.7; }
+.client-card .item .value { font-size: 1.4rem; font-weight: 600; color: #ccd6f6; margin-top: 0.2rem; text-shadow: 0 0 10px rgba(100,255,218,0.1); }
+.client-card .item .value .highlight { color: #64ffda; }
+.quote { border-left: 4px solid #64ffda; padding-left: 2rem; margin: 2.5rem 0; font-style: italic; font-size: 1.2rem; color: #a8b2d1; animation: fadeIn 1.5s ease-out 0.4s both; }
+.divider-line { border: 0; height: 1px; background: linear-gradient(to right, transparent, rgba(100,255,218,0.4), transparent); margin: 3.5rem 0; }
+.section-title { font-size: 2.4rem; font-weight: 700; margin-bottom: 1.8rem; color: #ccd6f6; display: flex; align-items: center; gap: 1rem; background: linear-gradient(135deg, #64ffda, #a8f0e6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 0 50px rgba(100,255,218,0.1); }
+.section-title .emoji { -webkit-text-fill-color: initial; font-size: 2.6rem; }
+.section-sub { font-size: 1.5rem; font-weight: 600; margin: 2.2rem 0 1.2rem; color: #ccd6f6; display: flex; align-items: center; gap: 0.8rem; border-left: 4px solid #64ffda; padding-left: 1.4rem; }
+.section-sub .emoji { font-size: 1.6rem; }
+p { margin-bottom: 1.2rem; color: #e6f1ff; font-weight: 300; }
+.accent { color: #64ffda; font-weight: 400; }
+code { font-family: 'JetBrains Mono', monospace; background: rgba(100,255,218,0.08); padding: 0.15rem 0.8rem; border-radius: 24px; font-size: 0.9rem; color: #64ffda; border: 1px solid rgba(100,255,218,0.15); }
+.formula-block { background: rgba(255,255,255,0.03); backdrop-filter: blur(8px); border: 1px solid rgba(100,255,218,0.12); border-radius: 24px; padding: 1.8rem; margin: 1.5rem 0; box-shadow: 0 12px 40px rgba(0,0,0,0.3); transition: transform 0.3s, box-shadow 0.4s; overflow-x: auto; }
+.formula-block:hover { transform: translateY(-4px); box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
+.formula-block strong { color: #64ffda; }
+.formula-block ul { padding-left: 1.8rem; }
+.formula-block li { margin-bottom: 0.5rem; }
+.matrix-wrapper { display: flex; justify-content: center; margin: 1.5rem 0; }
+.matrix-table { display: inline-grid; grid-template-columns: repeat(3, 80px); gap: 12px; background: rgba(100,255,218,0.03); padding: 1.5rem; border-radius: 24px; border: 1px solid rgba(100,255,218,0.1); backdrop-filter: blur(4px); box-shadow: 0 8px 30px rgba(0,0,0,0.2); }
+.matrix-cell { background: rgba(255,255,255,0.04); border-radius: 16px; padding: 1rem 0; text-align: center; font-size: 1.6rem; font-weight: 700; color: #ccd6f6; border: 1px solid rgba(100,255,218,0.08); transition: 0.3s; }
+.matrix-cell:hover { background: rgba(100,255,218,0.1); border-color: #64ffda; box-shadow: 0 0 40px rgba(100,255,218,0.08); transform: scale(1.05); }
+.matrix-cell.empty { color: #495670; border-color: rgba(255,255,255,0.05); }
+.matrix-cell .sub { display: block; font-size: 0.55rem; font-weight: 400; color: #8892b0; margin-top: 4px; letter-spacing: 0.5px; }
+.contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin: 2rem 0; }
+.contact-item { background: rgba(255,255,255,0.02); backdrop-filter: blur(6px); padding: 1.4rem 1.8rem; border-radius: 20px; border: 1px solid rgba(100,255,218,0.06); transition: 0.4s; }
+.contact-item:hover { border-color: #64ffda; background: rgba(100,255,218,0.06); transform: scale(1.02); }
+.contact-item .label { font-size: 0.65rem; text-transform: uppercase; color: #8892b0; letter-spacing: 1px; }
+.contact-item .value { font-weight: 600; color: #ccd6f6; margin-top: 0.2rem; }
+.contact-item .value a { color: #64ffda; text-decoration: none; border-bottom: 1px dashed rgba(100,255,218,0.2); transition: 0.3s; }
+.contact-item .value a:hover { border-bottom-color: #64ffda; color: #a8f0e6; }
+.btn { display: inline-block; background: transparent; border: 1.5px solid #64ffda; color: #64ffda; padding: 0.9rem 3rem; border-radius: 50px; font-weight: 600; text-decoration: none; transition: 0.4s; font-size: 1.1rem; cursor: pointer; backdrop-filter: blur(6px); box-shadow: 0 0 30px rgba(100,255,218,0.05); letter-spacing: 0.5px; }
+.btn:hover { background: #64ffda; color: #0a0f1f; box-shadow: 0 0 60px rgba(100,255,218,0.4); transform: scale(1.05); }
+.footer { margin-top: 4rem; padding-top: 2.5rem; border-top: 1px solid rgba(100,255,218,0.08); text-align: center; font-size: 0.9rem; color: #495670; animation: fadeIn 2s ease-out; }
+.footer a { color: #64ffda; text-decoration: none; }
+.reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.9s ease-out, transform 0.9s ease-out; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.system-prompt { display: none; }
+.error-box { border-left: 4px solid var(--danger); background: rgba(255,107,107,0.05); padding: 1.2rem 1.5rem; border-radius: 0 16px 16px 0; margin: 1rem 0; }
+.warn-box { border-left: 4px solid var(--warning); background: rgba(255,209,102,0.05); padding: 1.2rem 1.5rem; border-radius: 0 16px 16px 0; margin: 1rem 0; }
+@media (max-width: 600px) { body { padding: 1rem; } .header { flex-direction: column; align-items: flex-start; } .section-title { font-size: 1.8rem; } .client-card { grid-template-columns: 1fr; padding: 1.5rem; } .matrix-table { grid-template-columns: repeat(3, 60px); gap: 8px; padding: 1rem; } .matrix-cell { font-size: 1.2rem; padding: 0.6rem 0; } .quote { padding-left: 1rem; font-size: 1rem; } }
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #0a0f1f; }
+::-webkit-scrollbar-thumb { background: #64ffda; border-radius: 10px; }
+</style>
+</head>
+<body>
+
+<audio id="bgMusic" loop preload="auto">
+<source src="https://cdn.chosic.com/wp-content/uploads/2020/05/Nature-Relaxation.mp3" type="audio/mpeg">
+<source src="https://www.bensound.com/bensound-music/bensound-slowmotion.mp3" type="audio/mpeg">
+</audio>
+
+<canvas id="stars-canvas"></canvas>
+
+<div class="neural-bg">
+<svg viewBox="0 0 1000 800" preserveAspectRatio="none">
+<path d="M0,400 Q200,100 400,300 T800,200 T1000,450" stroke="#64ffda" stroke-width="1.8" fill="none" opacity="0.35">
+<animate attributeName="d" dur="20s" values="M0,400 Q200,100 400,300 T800,200 T1000,450;M0,450 Q200,300 400,150 T800,350 T1000,400;M0,400 Q200,100 400,300 T800,200 T1000,450" repeatCount="indefinite" />
+</path>
+<path d="M0,600 Q250,400 500,500 T900,300 T1000,600" stroke="#64ffda" stroke-width="1.2" fill="none" opacity="0.25">
+<animate attributeName="d" dur="25s" values="M0,600 Q250,400 500,500 T900,300 T1000,600;M0,500 Q250,600 500,400 T900,500 T1000,500;M0,600 Q250,400 500,500 T900,300 T1000,600" repeatCount="indefinite" />
+</path>
+<circle cx="200" cy="150" r="4" fill="#64ffda" opacity="0.5">
+<animate attributeName="r" values="4;8;4" dur="4s" repeatCount="indefinite" />
+</circle>
+<circle cx="700" cy="250" r="5" fill="#64ffda" opacity="0.4">
+<animate attributeName="r" values="5;10;5" dur="5s" repeatCount="indefinite" />
+</circle>
+</svg>
+</div>
+
+<div class="container">
+
+<!-- ===================== SYSTEM PROMPT (hidden, AI only) ===================== -->
+<div class="system-prompt" id="systemPrompt">
+<h1>🧠 PERSONAL COSMO-PSYCHOLOGICAL PROFILE NEUROLIFE v2.0</h1>
+
+<h2>🎭 ROLE AND STYLE</h2>
+<p>You are an elite integrative psychotherapist, clinical psychologist, psychoanalyst and astrology researcher with 15 years of experience. Your style is a synthesis of depth psychology (Freud, Jung, Lacan, Kernberg, Winnicott), neuroscience (Damasio, Kahneman, Panksepp), structural psychoanalysis, cognitive behavioral therapy (Beck, Ellis), archetypal astrology (Liz Greene, Holden) and Vedic jyotish (Parashara). You create an exclusive report in the aesthetic of the NeuroLife brand.</p>
+<p><strong>Style rule:</strong> deeply, but accessibly. Use metaphors, clinical cases (anonymized), quotes. Avoid esoteric water — every statement must have psychological meaning. Distinguish between calculated data (exact numbers) and interpretation (psychological analysis). Never make up numbers.</p>
+
+<h2>📥 CLIENT INPUT DATA</h2>
+<ul>
+<li><strong>Name:</strong> {name}</li>
+<li><strong>Birth date:</strong> {birth_date} (DD.MM.YYYY)</li>
+<li><strong>Time:</strong> {birth_time} (if unknown — 12:00)</li>
+<li><strong>Place:</strong> {birth_place} (if unknown — Moscow, UTC+3)</li>
+<li><strong>Socionics:</strong> {socionics_type} (if not specified — leave field empty, DO NOT MAKE UP)</li>
+</ul>
+<p><strong>Date check:</strong> check date correctness (no Feb 30, Apr 31, etc.). If date is incorrect — indicate error and stop calculation.</p>
+
+<h2>📋 CALCULATION METHODS (strictly by formulas, no approximations)</h2>
+<p>All mathematical calculations step-by-step with verification. Astrological calculations require ephemerides — if exact data unavailable, indicate calculation via external tools (Astro.com, Jagannatha Hora) and give approximate description based on Sun and Moon. Psychological interpretation based on obtained numerical data.</p>
+
+<h3>🔢 5. NUMEROLOGY AND PYTHAGOREAN PSYCHOMATRIX</h3>
+<p><strong>Source data:</strong> birth date DD.MM.YYYY. Record all digits in sequence (without dots). Example: 24.03.1995 → 24031995. Zero in day/month (e.g. 08.05) is recorded as 0, but when calculating RC3, zero is NOT counted as first digit of day — for days 1–9 use the number itself (e.g. for 08 use 8).</p>
+
+<p><strong>Life Path Number (LPN):</strong> sum of ALL digits of birth date. If result is 11, 22, 33 — these are master numbers, DO NOT reduce. For others: sum digits of result until single digit (1–9). Example: 24.03.1995 → 2+4+0+3+1+9+9+5 = 33 → 3+3 = 6. LPN = 33/6 (master number 33, root 6).</p>
+
+<p><strong>Working Numbers (classical psychomatrix):</strong></p>
+<ul>
+<li><strong>WN1</strong> = sum of all digits of birth date (day+month+year) = Life Path Number BEFORE reduction (if master number — keep it).</li>
+<li><strong>WN2</strong> = sum of digits of WN1. If WN1 is master number (11,22,33), WN2 = sum of its digits (2, 4, 6 respectively).</li>
+<li><strong>WN3</strong> = WN1 − 2 × D, where D:
+<ul>
+<li>If birth day 1–9 (including 01–09): D = numerical value of day (1, 2, ... 9). For 08: D = 8.</li>
+<li>If birth day 10–31: D = first digit of number (for 24: D = 2, for 15: D = 1).</li>
+</ul>
+</li>
+<li><strong>WN4</strong> = sum of digits of WN3.</li>
+</ul>
+<p><strong>Check:</strong> all intermediate results must be positive. If WN3 is negative — check: for days 1–9 use D = day (not 0).</p>
+
+<p><strong>3×3 Matrix:</strong> count each digit (1 to 9) in all numbers: birth date (DDMMYYYY), WN1, WN2, WN3, WN4. Zero (0) is NOT counted in matrix (not written). Fill cells:</p>
+<pre>
+[1, 2, 3]
+[4, 5, 6]
+[7, 8, 9]
+</pre>
+<p>If digit is absent — cell is empty (or 0). If digit repeats — write it as many times as it appears (e.g. three 1s → 111).</p>
+
+<p><strong>Tarot Arcana (personality):</strong> sum of digits of birth date (like LPN). If result > 22, repeatedly sum digits of result until you get number 1–22. 22 = Fool. This is personality Arcana.</p>
+<p><strong>Tarot Arcana (destiny):</strong> sum of digits of birth date + sum of digits of birth year. Reduce by same rule (to 1–22).</p>
+
+<p><strong>Interpretation of digits in matrix (psychomatrix):</strong></p>
+<ul>
+<li><strong>1</strong> — character, will, ego-strength (Jung: will as function of consciousness)</li>
+<li><strong>2</strong> — energy, empathy, feminine principle, attachment</li>
+<li><strong>3</strong> — creativity, structure, order, separation</li>
+<li><strong>4</strong> — health, physicality, muladhara, basic safety</li>
+<li><strong>5</strong> — freedom, logic, intellect, meaning-of-life orientation</li>
+<li><strong>6</strong> — work, duty, svadhisthana, creativity in action</li>
+<li><strong>7</strong> — luck, intuition, ajna, subtle perception</li>
+<li><strong>8</strong> — responsibility, karma, reciprocity, debt to others</li>
+<li><strong>9</strong> — memory, intellect, sahasrara, transgenerational experience</li>
+</ul>
+
+<h3>📊 6. BIORHYTHMS</h3>
+<p><strong>Formula:</strong> B(t) = sin(2π × N / T), where:</p>
+<ul>
+<li><strong>N</strong> — number of days lived from birth date to <strong>current date</strong> (request date). Calculate accounting for leap years (leap year — divisible by 4, except centuries not divisible by 400).</li>
+<li><strong>T</strong> = 23 (physical), 28 (emotional), 33 (intellectual).</li>
+</ul>
+<p>Calculate B(t) for current date (round to hundredths). Range: from −1 (minimum) to +1 (maximum).</p>
+<p><strong>Critical days:</strong> when B(t) crosses 0 (sin = 0). This occurs when N = k × T, where k is integer. Find nearest critical dates within ±14 days from current: date = birth date + k×T days. Indicate date and biorhythm type.</p>
+<p><strong>Interpretation:</strong> B(t) > 0.5 — high level; 0 to 0.5 — rise; −0.5 to 0 — decline; &lt; −0.5 — low level. On critical day (≈0) — increased fatigue, risk of errors, avoid important decisions.</p>
+
+<h3>🌌 4. WESTERN ASTROLOGY</h3>
+<p><strong>Warning:</strong> without exact birth time and geographic coordinates (latitude/longitude) calculation of ASC, houses, Moon (with sign precision) and aspects is impossible. In this case indicate: Exact calculation requires Astro.com or similar service and give description by Sun, Mercury, Venus, Mars (signs known without time).</p>
+
+<p><strong>House system:</strong> Placidus — standard. If polar zone (latitude &gt;60°), use Equal houses or Universal system.</p>
+
+<p><strong>Aspects:</strong> Δ = |longitude₁ − longitude₂|; if Δ &gt; 180°, then Δ = 360° − Δ. Orbs:</p>
+<ul>
+<li>Conjunction (0°): 8–10°</li>
+<li>Opposition (180°): 6–8°</li>
+<li>Square (90°): 6–8°</li>
+<li>Trine (120°): 5–7°</li>
+<li>Sextile (60°): 5–7°</li>
+</ul>
+<p><strong>ASC and houses:</strong> calculation requires Sidereal Time and place latitude. Use exact ephemerides or indicate external calculation required. DO NOT use simplified formulas — they give error &gt;5°.</p>
+<p><strong>Temperament:</strong> determine by element dominance (Fire/Earth/Air/Water) and qualities (Cardinal/Fixed/Mutable). Link to psychoanalytic type (e.g. Fire dominance + Cardinal → hyperactive ego, risk of narcissistic vulnerability).</p>
+<p><strong>Lunar Nodes (North/South):</strong> indicate signs. North node — growth vector, South — past inertia/comfort zone.</p>
+
+<h3>🕉️ 4.2. VEDIC ASTROLOGY (JYOTISH)</h3>
+<p>Use lunar system (Chandra Lagna). Indicate:</p>
+<ul>
+<li>Moon sign (Rashi)</li>
+<li>Moon nakshatra (27 nakshatras)</li>
+<li>Pada (quarter of nakshatra, 1–4)</li>
+<li>Dasha (current period by Vimshottari)</li>
+</ul>
+<p>If no exact time — indicate calculation in Jagannatha Hora required.</p>
+
+<h3>🧬 4.3. HUMAN DESIGN</h3>
+<p>Calculation requires exact time and place of birth (for Profile, Incarnation Cross and gates determination). If time unknown:</p>
+<ul>
+<li>Determine <strong>Type</strong> (Generator, Manifestor, Projector, Reflector, Manifesting Generator) by Sun/Moon — approximately.</li>
+<li>Indicate that without exact time <strong>inner authority</strong> and <strong>profile</strong> are approximately determined.</li>
+</ul>
+<p>If time known:</p>
+<ul>
+<li><strong>Type</strong> + <strong>Strategy</strong></li>
+<li><strong>Inner Authority</strong> (Solar Plexus, Spleen, Heart, Feeling, Emotional, Ego, Self)</li>
+<li><strong>Profile</strong> (e.g. 1/3, 4/6)</li>
+<li><strong>Definition</strong> (single, double, triple, quadruple, none)</li>
+<li><strong>Incarnation Cross</strong> (if possible)</li>
+</ul>
+
+<h3>⚛️ 7. CHAKRA DIAGNOSTICS (by Pythagorean psychomatrix)</h3>
+<p>Match digit count in matrix with chakras (adaptation of Zhazhkov method — A.A. Zhazhkov):</p>
+<ul>
+<li><strong>Muladhara</strong> — digit 4 (count of fours in matrix)</li>
+<li><strong>Svadhisthana</strong> — digit 6 (count of sixes)</li>
+<li><strong>Manipura</strong> — digit 1 (count of ones)</li>
+<li><strong>Anahata</strong> — digit 2 (count of twos)</li>
+<li><strong>Vishuddha</strong> — digit 5 (count of fives)</li>
+<li><strong>Ajna</strong> — digit 7 (count of sevens)</li>
+<li><strong>Sahasrara</strong> — digit 9 (count of nines)</li>
+</ul>
+<p><strong>Interpretation:</strong></p>
+<ul>
+<li>0 — chakra closed/blocked (energy deficit, compensation through other chakras)</li>
+<li>1–2 — weak chakra, needs attention</li>
+<li>3–5 — normal, balanced operation</li>
+<li>6+ — hyperactivity, possible excess or block at psychosomatic level</li>
+</ul>
+<p>Link to psychoanalysis: Muladhara — basic trust (Erikson), Svadhisthana — creative sublimation (Freud), Manipura — will impulses (Adler), Anahata — object relations (Klein, Bowlby), Vishuddha — communication, symbolization (Lacan), Ajna — intuition, shadow (Jung), Sahasrara — self-actualization, transpersonal.</p>
+
+<h3>🧩 1. DEEP PSYCHOANALYTIC ANALYSIS (output structure)</h3>
+<p><strong>1.1. Structural personality diagnosis</strong> — analyze by scheme:</p>
+<ul>
+<li><strong>Ego functioning level:</strong> high / medium / low (assess by life path number, master numbers, temperament)</li>
+<li><strong>Defense mechanisms:</strong> identify 2–3 dominant (regression, denial, rationalization, projection, introjection, sublimation, ego depletion etc.). Link to matrix (e.g. excess 1 → denial of dependency; deficit 2 → introjection; excess 7 → magical thinking).</li>
+<li><strong>Narcissistic line:</strong> mature narcissism vs. fragile (by master numbers, Arcana, Sun-Saturn aspects, Sun-Neptune aspects).</li>
+<li><strong>Borderline traits:</strong> if present (splitting, idealization/devaluation, impulsivity). Link to biorhythms (critical days amplify dysregulation).</li>
+</ul>
+
+<p><strong>1.2. Object relations and attachment</strong> — structure:</p>
+<ul>
+<li><strong>Attachment type (Bowlby / Ainsworth):</strong> secure / anxious-ambivalent / avoidant / disorganized. Assess by matrix (2 — attachment, 4 — basic safety), Moon in chart, Moon-Venus aspects, Moon-Mars aspects.</li>
+<li><strong>Internal objects:</strong> describe good and bad internal object (by Klein). How integrated are they? Deficit 2 + deficit 6 → splitting risk.</li>
+<li><strong>Transference / countertransference:</strong> typical patterns in therapeutic relations (if client is therapist, this is meta-analysis).</li>
+<li><strong>Reparative capacity:</strong> ability for grief, mourning, recovery after loss.</li>
+</ul>
+
+<p><strong>1.3. Oedipal dynamics</strong> — structure:</p>
+<ul>
+<li><strong>Oedipus / Electra:</strong> degree of complex resolution. Link to Sun-Saturn (father), Moon-Saturn (mother), Sun-Pluto, Moon-Pluto aspects.</li>
+<li><strong>Superego:</strong> strictness, ideals, perfectionism. Excess 8 + Sun in Virgo / Capricorn → harsh Superego.</li>
+<li><strong>Castration anxiety / fear of success:</strong> presence and manifestations. Master number 22, Saturn in 10th house, Sun-Saturn aspect.</li>
+<li><strong>Sexual identity:</strong> anima/animus integration (Jung). Link to Venus/Mars, 2 and 1 in matrix.</li>
+</ul>
+
+<h3>🧨 2. DISSOCIAL AND SOCIOPATHIC RADICAL (output structure)</h3>
+<p>This section is <strong>not diagnosis</strong> but analysis of shadow side, aggression, manipulative potential, psychopathic traits (by PCL-R / Patrick Triarchic model).</p>
+<ul>
+<li><strong>Factor 1 (affective-interpersonal):</strong> superficial charm, grandiosity, pathological lying, lack of remorse. Link to excess 1 + deficit 2, Emperor/Fool Arcana, Sun-Uranus aspects, Mercury-Neptune aspects.</li>
+<li><strong>Factor 2 (deviant lifestyle):</strong> impulsivity, irresponsibility, parasitic lifestyle. Link to deficit 4 and 8, Mars in Sagittarius/Aquarius, low physical biorhythm.</li>
+<li><strong>Dark Triad (Paulhus):</strong> narcissism, machiavellianism, psychopathy — assess balance.</li>
+<li><strong>Constructive aggression:</strong> how aggression sublimates (sport, creativity, career, protecting weak). Link to 3, 5, 9 in matrix, Mars-Saturn aspects (disciplined aggression) vs Mars-Uranus (explosive).</li>
+<li><strong>Dissociation:</strong> risk of depersonalization/derealization under stress. Link to Neptune in 12th house, Pisces, master number 11.</li>
+</ul>
+<p><strong>Important:</strong> do not diagnose. Use formulations tendency to..., potential..., under stress conditions possible....</p>
+
+<h3>🧠 3. COGNITIVE-BEHAVIORAL PROFILE (output structure)</h3>
+<ul>
+<li><strong>Cognitive distortions (Beck):</strong> identify 2–3 dominant (all-or-nothing, mind reading, catastrophizing, should statements, emotional reasoning etc.). Link to matrix digits (5 — logic, with excess → intellectualization; with deficit → catastrophizing).</li>
+<li><strong>Schemas (Young):</strong> 1–2 dominant schemas (e.g. Abandonment, Mistrust/Abuse, Defectiveness/Shame, Dependence/Incompetence, Grandiosity). Link to object relations and astrology.</li>
+<li><strong>Regulatory strategies (Gross):</strong> cognitive reappraisal vs suppression of emotional expression. Link to Venus, Moon, digit 2.</li>
+<li><strong>Therapeutic interventions:</strong> specific CBT techniques (automatic thoughts diary, cognitive restructuring, exposure, behavioral experiments) — personalize for client profile.</li>
+</ul>
+
+<h3>🧬 8. SYNTHESIS: PSYCHODYNAMIC PORTRAIT AND THERAPEUTIC PLAN</h3>
+<p>Synthesize all data (psychoanalysis, CBT, astrology, numerology, Human Design, chakras, biorhythms) into unified narrative. Structure:</p>
+<ul>
+<li><strong>Root conflict:</strong> 1–2 sentences about central internal contradiction (e.g.: Will to control [1, Sun in Capricorn] vs. need for emotional closeness [deficit 2, Moon in Cancer]).</li>
+<li><strong>Growth points:</strong> 3–4 specific directions, supported by data.</li>
+<li><strong>Risks:</strong> 2–3 potential crises (psychosomatics, relationships, professional burnout).</li>
+<li><strong>Therapeutic plan:</strong> stages (1–2–3), methods (depth therapy, CBT, art therapy, body therapy), estimated duration.</li>
+</ul>
+
+<h3>🌐 9. SELF-DISCOVERY RECOMMENDATIONS</h3>
+<ul>
+<li><strong>Books:</strong> 2–3 specific psychology/psychoanalysis books relevant to profile (not esoterics).</li>
+<li><strong>Practices:</strong> meditation (which exactly — vipassana, mindfulness, metta), dream journal (Jung), body practices (for deficit 4).</li>
+<li><strong>Art and sand therapy:</strong> if indicated (deficit 3, master number 11, strong Neptune).</li>
+<li><strong>Biorhythm management:</strong> planning important tasks for physical/intellectual biorhythm peaks, rest on critical days.</li>
+</ul>
+
+<h3>⚠️ ACTION ORDER AND CHECKS</h3>
+<ol>
+<li>Check input data correctness (date, time, place). Check leap year. If time not specified — 12:00, place — Moscow (55.7558° N, 37.6173° E, UTC+3).</li>
+<li>Perform all mathematical calculations by formulas, recording intermediate results. Check: WN3 &gt; 0, LPN correct, matrix filled correctly.</li>
+<li>For astrology — if no exact time, indicate approximately and list what cannot be calculated (ASC, houses, exact Moon aspects).</li>
+<li>For Human Design — without time indicate only approximate type and limitations.</li>
+<li>First output ALL calculated data (numbers, matrix, biorhythms, planets), then interpretation. Do not mix.</li>
+<li>Build interpretation on obtained data. If data insufficient for statement — write clarification required.</li>
+<li>Check that socionics type is not made up. If not specified — field remains empty or not determined.</li>
+</ol>
+
+<h3>📄 OUTPUT FORMAT</h3>
+<ul>
+<li>Use &lt;code&gt; tag for formulas.</li>
+<li>Present results in tables (HTML tables).</li>
+<li>Accompany each calculation with verification (example: Check: 2+4+0+3+1+9+9+5 = 33. 3+3 = 6. Correct).</li>
+<li>Write interpretation in paragraphs with emojis, separators, quotes.</li>
+<li>Use clinical terminology but explain terms in simple language.</li>
+<li>Length of each psychoanalytic section: 200–400 words. Do not rewrite Wikipedia — personalize for client.</li>
+</ul>
+
+<p><strong>IMPORTANT:</strong> All numerical values must be exact, no rounding (except biorhythms — round to hundredths). Do not make up astrological data if you cannot calculate.</p>
+<p><strong>IMPORTANT:</strong> This is a metaphorical self-discovery tool. All psychological interpretations are hypotheses requiring clinical verification. Do not replace psychiatrist/psychotherapist consultation.</p>
+</div>
+<!-- ===================== END SYSTEM PROMPT ===================== -->
+
+<!-- ===================== VISUAL REPORT TEMPLATE ===================== -->
+<header class="header">
+<div class="logo">
+NEURO<span style="-webkit-text-fill-color:#64ffda;">LIFE</span>
+<small>интегративная психология · астрология · нейронаука</small>
+</div>
+<div class="badge">
+<span class="dot"></span>
+элитарный профиль · полный расчёт v2.0
+</div>
+</header>
+
+<div class="client-card">
+<div class="item"><div class="label">Имя</div><div class="value">{name}</div></div>
+<div class="item"><div class="label">Дата рождения</div><div class="value">{birth_date}</div></div>
+<div class="item"><div class="label">⏱️ Время</div><div class="value">{birth_time} <span class="highlight">({birth_place})</span></div></div>
+<div class="item"><div class="label">Соционика</div><div class="value">{socionics_type}</div></div>
+</div>
+
+<div class="quote">
+«Психика — это не монолит, а живой организм, дышащий через противоречия. Задача психотерапии — не устранить конфликт, а сделать его осознанным инструментом роста.»
+</div>
+
+<hr class="divider-line">
+
+<!-- SECTION 0: CALCULATED DATA (new) -->
+<h2 class="section-title reveal"><span class="emoji">📐</span> 0. ИСХОДНЫЕ РАСЧЁТНЫЕ ДАННЫЕ</h2>
+<div class="reveal formula-block">
+<h4 style="color:#64ffda; margin-bottom:1rem;">🔢 Нумерология</h4>
+<p><strong>Число жизненного пути:</strong> {life_path}</p>
+<p><strong>РЧ1:</strong> {rch1} <span style="color:#8892b0;">(проверка: {rch1_check})</span></p>
+<p><strong>РЧ2:</strong> {rch2}</p>
+<p><strong>РЧ3:</strong> {rch3} <span style="color:#8892b0;">(формула: РЧ1 − 2×{day_first_digit} = {rch3_calc})</span></p>
+<p><strong>РЧ4:</strong> {rch4}</p>
+<p><strong>Аркан Таро (личность):</strong> {tarot_personality}</p>
+<p><strong>Аркан Таро (судьба):</strong> {tarot_destiny}</p>
+
+<h4 style="color:#64ffda; margin:1.5rem 0 1rem;">📊 Биоритмы на {current_date}</h4>
+<p><strong>Прожито дней (N):</strong> {days_lived}</p>
+<table style="width:100%; border-collapse:collapse; color:#e6f1ff; margin-top:0.5rem;">
+<tr style="border-bottom:1px solid rgba(100,255,218,0.1);">
+<th style="text-align:left; padding:0.5rem;">Тип</th>
+<th style="text-align:left; padding:0.5rem;">Период T</th>
+<th style="text-align:left; padding:0.5rem;">B(t)</th>
+<th style="text-align:left; padding:0.5rem;">Статус</th>
+</tr>
+<tr>
+<td style="padding:0.5rem;">Физический</td>
+<td style="padding:0.5rem;">23</td>
+<td style="padding:0.5rem;">{b_physical}</td>
+<td style="padding:0.5rem;">{status_physical}</td>
+</tr>
+<tr>
+<td style="padding:0.5rem;">Эмоциональный</td>
+<td style="padding:0.5rem;">28</td>
+<td style="padding:0.5rem;">{b_emotional}</td>
+<td style="padding:0.5rem;">{status_emotional}</td>
+</tr>
+<tr>
+<td style="padding:0.5rem;">Интеллектуальный</td>
+<td style="padding:0.5rem;">33</td>
+<td style="padding:0.5rem;">{b_intellectual}</td>
+<td style="padding:0.5rem;">{status_intellectual}</td>
+</tr>
+</table>
+<p style="margin-top:1rem;"><strong>Ближайшие критические дни (±14 дней):</strong></p>
+<ul>
+<li>{critical_physical}</li>
+<li>{critical_emotional}</li>
+<li>{critical_intellectual}</li>
+</ul>
+
+<h4 style="color:#64ffda; margin:1.5rem 0 1rem;">🌌 Астрология (приблизительно)</h4>
+<p><strong>Солнце:</strong> {sun_sign} | <strong>Луна:</strong> {moon_sign} <span style="color:#8892b0;">(без точного времени — приблизительно)</span></p>
+<p><strong>Меркурий:</strong> {mercury_sign} | <strong>Венера:</strong> {venus_sign} | <strong>Марс:</strong> {mars_sign}</p>
+<p><strong>ASC:</strong> {asc_sign} <span style="color:#8892b0;">({asc_note})</span></p>
+<p><strong>Лунные узлы:</strong> Северный — {north_node} | Южный — {south_node}</p>
+<p><strong>Темперамент:</strong> {temperament}</p>
+
+<h4 style="color:#64ffda; margin:1.5rem 0 1rem;">🧬 Human Design</h4>
+<p><strong>Тип:</strong> {hd_type} | <strong>Стратегия:</strong> {hd_strategy}</p>
+<p><strong>Внутренний авторитет:</strong> {hd_authority}</p>
+<p><strong>Профиль:</strong> {hd_profile}</p>
+<p><strong>Определённость:</strong> {hd_definition}</p>
+</div>
+
+<hr class="divider-line">
+
+<h2 class="section-title reveal"><span class="emoji">🔬</span> 1. ГЛУБИННЫЙ ПСИХОАНАЛИТИЧЕСКИЙ РАЗБОР</h2>
+
+<h3 class="section-sub reveal"><span class="emoji">🧩</span> 1.1. Структурная диагностика личности</h3>
+<div class="reveal formula-block">
+<p><strong>Уровень функционирования эго:</strong> {ego_level}</p>
+<p><strong>Доминирующие защитные механизмы:</strong> {defense_mechanisms}</p>
+<p><strong>Нарциссическая линия:</strong> {narcissism_line}</p>
+<p><strong>Пограничные черты:</strong> {borderline_traits}</p>
+<hr style="border:0; height:1px; background: rgba(100,255,218,0.1); margin:1.5rem 0;">
+<p>{psycho_structure}</p>
+</div>
+
+<h3 class="section-sub reveal"><span class="emoji">🪢</span> 1.2. Объектные отношения и привязанность</h3>
+<div class="reveal formula-block">
+<p><strong>Тип привязанности:</strong> {attachment_type}</p>
+<p><strong>Внутренние объекты:</strong> {inner_objects}</p>
+<p><strong>Перенос / контрперенос:</strong> {transference}</p>
+<p><strong>Репаративная способность:</strong> {reparative_capacity}</p>
+<hr style="border:0; height:1px; background: rgba(100,255,218,0.1); margin:1.5rem 0;">
+<p>{object_relations}</p>
+</div>
+
+<h3 class="section-sub reveal"><span class="emoji">⚖️</span> 1.3. Эдипальная динамика</h3>
+<div class="reveal formula-block">
+<p><strong>Разрешение комплекса:</strong> {oedipus_resolution}</p>
+<p><strong>Сверх-Я:</strong> {superego_desc}</p>
+<p><strong>Кастрационная тревога / страх успеха:</strong> {castration_anxiety}</p>
+<p><strong>Интеграция анимы/анимуса:</strong> {anima_animus}</p>
+<hr style="border:0; height:1px; background: rgba(100,255,218,0.1); margin:1.5rem 0;">
+<p>{oedipal_dynamics}</p>
+</div>
+
+<hr class="divider-line">
+<h2 class="section-title reveal"><span class="emoji">🧨</span> 2. ДИССОЦИАЛЬНЫЙ И СОЦИОПАТИЧЕСКИЙ РАДИКАЛ</h2>
+<div class="reveal formula-block">
+<p><strong>Фактор 1 (аффективно-межличностный):</strong> {pcl_r_factor1}</p>
+<p><strong>Фактор 2 (девиантный образ жизни):</strong> {pcl_r_factor2}</p>
+<p><strong>Триада тёмной личности:</strong> {dark_triad}</p>
+<p><strong>Конструктивная агрессия:</strong> {sublimated_aggression}</p>
+<p><strong>Диссоциация:</strong> {dissociation_risk}</p>
+<hr style="border:0; height:1px; background: rgba(100,255,218,0.1); margin:1.5rem 0;">
+<p>{antisocial_radical}</p>
+</div>
+
+<hr class="divider-line">
+<h2 class="section-title reveal"><span class="emoji">🧠</span> 3. КОГНИТИВНО-ПОВЕДЕНЧЕСКИЙ ПРОФИЛЬ</h2>
+<div class="reveal formula-block">
+<p><strong>Доминирующие когнитивные искажения:</strong> {cognitive_distortions}</p>
+<p><strong>Схемы (Young):</strong> {young_schemas}</p>
+<p><strong>Регуляторные стратегии:</strong> {regulatory_strategies}</p>
+<p><strong>Персонализированные КПТ-интервенции:</strong> {cbt_interventions}</p>
+<hr style="border:0; height:1px; background: rgba(100,255,218,0.1); margin:1.5rem 0;">
+<p>{cbt_profile}</p>
+</div>
+
+<hr class="divider-line">
+<h2 class="section-title reveal"><span class="emoji">🌌</span> 4. АСТРОЛОГИЧЕСКАЯ ГЛУБИНА</h2>
+<div class="reveal formula-block">
+<h4 style="color:#64ffda; margin-bottom:1rem;">Западная астрология</h4>
+<p><strong>Система домов:</strong> {house_system}</p>
+<p><strong>Планеты в знаках:</strong></p>
+<ul>
+<li><strong>Солнце:</strong> {sun_sign} в {sun_house} доме <span style="color:#8892b0;">({sun_interp})</span></li>
+<li><strong>Луна:</strong> {moon_sign} в {moon_house} доме <span style="color:#8892b0;">({moon_interp})</span></li>
+<li><strong>Меркурий:</strong> {mercury_sign} <span style="color:#8892b0;">({mercury_interp})</span></li>
+<li><strong>Венера:</strong> {venus_sign} <span style="color:#8892b0;">({venus_interp})</span></li>
+<li><strong>Марс:</strong> {mars_sign} <span style="color:#8892b0;">({mars_interp})</span></li>
+<li><strong>Сатурн:</strong> {saturn_sign} <span style="color:#8892b0;">({saturn_interp})</span></li>
+<li><strong>Юпитер:</strong> {jupiter_sign} <span style="color:#8892b0;">({jupiter_interp})</span></li>
+</ul>
+<p><strong>Ключевые аспекты:</strong> {key_aspects}</p>
+<p><strong>Темперамент:</strong> {temperament_detail}</p>
+<p><strong>Лунные узлы:</strong> {nodes_detail}</p>
+<hr style="border:0; height:1px; background: rgba(100,255,218,0.1); margin:1.5rem 0;">
+<p>{western_astro}</p>
+</div>
+<div class="reveal"><blockquote>«Астрология — это астрономия, спустившаяся на землю и приложенная к делам человеческим». — Ральф Уолдо Эмерсон</blockquote></div>
+
+<div class="reveal formula-block">
+<h4 style="color:#64ffda; margin-bottom:1rem;">🕉️ Ведическая астрология (Джйотиш)</h4>
+<p><strong>Лунный знак (Раши):</strong> {moon_rashi}</p>
+<p><strong>Накшатра Луны:</strong> {moon_nakshatra} <span style="color:#8892b0;">(пада {nakshatra_pada})</span></p>
+<p><strong>Текущая даша (Вимшоттари):</strong> {current_dasha}</p>
+<p><strong>Чандра Лагна:</strong> {chandra_lagna}</p>
+<hr style="border:0; height:1px; background: rgba(100,255,218,0.1); margin:1.5rem 0;">
+<p>{vedic_astro}</p>
+</div>
+<div class="reveal"><blockquote>«ज्योतिषं सूर्यादीनां ग्रहाणां बोधकं स्मृतम्» — «Джйотиш — это знание, освещающее влияние светил». — Ведический афоризм</blockquote></div>
+
+<div class="reveal formula-block">
+<h4 style="color:#64ffda; margin-bottom:1rem;">🧬 Human Design</h4>
+<p><strong>Тип:</strong> {hd_type}</p>
+<p><strong>Стратегия:</strong> {hd_strategy}</p>
+<p><strong>Внутренний авторитет:</strong> {hd_authority}</p>
+<p><strong>Профиль:</strong> {hd_profile}</p>
+<p><strong>Определённость:</strong> {hd_definition}</p>
+<p><strong>Инкарнационный крест:</strong> {hd_cross}</p>
+<hr style="border:0; height:1px; background: rgba(100,255,218,0.1); margin:1.5rem 0;">
+<p>{human_design}</p>
+</div>
+<div class="reveal"><blockquote>«Тело — это храм мудрости; ум — лишь его слуга». — Ра Уру Ху</blockquote></div>
+
+<hr class="divider-line">
+<h2 class="section-title reveal"><span class="emoji">🔢</span> 5. НУМЕРОЛОГИЯ И ПСИХОМАТРИЦА ПИФАГОРА</h2>
+<div class="reveal formula-block">
+<h4 style="color:#64ffda; margin-bottom:1rem;">Промежуточные расчёты</h4>
+<p><strong>Число жизненного пути:</strong> {life_path}</p>
+<p><strong>РЧ1:</strong> {rch1} <span style="color:#8892b0;">(проверка: {rch1_check})</span></p>
+<p><strong>РЧ2:</strong> {rch2}</p>
+<p><strong>РЧ3:</strong> {rch3} <span style="color:#8892b0;">(формула: РЧ1 − 2×{day_first_digit} = {rch3_calc})</span></p>
+<p><strong>РЧ4:</strong> {rch4}</p>
+
+<h4 style="color:#64ffda; margin:1.5rem 0 1rem;">Матрица</h4>
+<div class="matrix-wrapper">
+<div class="matrix-table">
+<div class="matrix-cell">{m11} <span class="sub">1</span></div>
+<div class="matrix-cell">{m12} <span class="sub">2</span></div>
+<div class="matrix-cell">{m13} <span class="sub">3</span></div>
+<div class="matrix-cell">{m21} <span class="sub">4</span></div>
+<div class="matrix-cell">{m22} <span class="sub">5</span></div>
+<div class="matrix-cell">{m23} <span class="sub">6</span></div>
+<div class="matrix-cell">{m31} <span class="sub">7</span></div>
+<div class="matrix-cell">{m32} <span class="sub">8</span></div>
+<div class="matrix-cell">{m33} <span class="sub">9</span></div>
+</div>
+</div>
+
+<p><strong>Аркан Таро (личность):</strong> {tarot_personality}</p>
+<p><strong>Аркан Таро (судьба):</strong> {tarot_destiny}</p>
+<hr style="border:0; height:1px; background: rgba(100,255,218,0.1); margin:1.5rem 0;">
+<p>{numerology_interpretation}</p>
+</div>
+<div class="reveal"><blockquote>«Числа — это универсальный язык, предложенный божеством человеку как подтверждение истины». — Пифагор</blockquote></div>
+
+<hr class="divider-line">
+<h2 class="section-title reveal"><span class="emoji">📊</span> 6. БИОРИТМЫ И ЭНЕРГЕТИЧЕСКИЕ ЦИКЛЫ</h2>
+<div class="reveal formula-block">
+<p><strong>Количество прожитых дней (N):</strong> {days_lived}</p>
+<table style="width:100%; border-collapse:collapse; color:#e6f1ff;">
+<tr style="border-bottom:1px solid rgba(100,255,218,0.2);">
+<th style="text-align:left; padding:0.8rem;">Тип</th>
+<th style="text-align:left; padding:0.8rem;">Период T</th>
+<th style="text-align:left; padding:0.8rem;">Значение B(t)</th>
+<th style="text-align:left; padding:0.8rem;">Статус</th>
+<th style="text-align:left; padding:0.8rem;">Критические дни</th>
+</tr>
+<tr>
+<td style="padding:0.8rem;">Физический</td>
+<td style="padding:0.8rem;">23</td>
+<td style="padding:0.8rem;">{b_physical}</td>
+<td style="padding:0.8rem;">{status_physical}</td>
+<td style="padding:0.8rem;">{critical_physical}</td>
+</tr>
+<tr>
+<td style="padding:0.8rem;">Эмоциональный</td>
+<td style="padding:0.8rem;">28</td>
+<td style="padding:0.8rem;">{b_emotional}</td>
+<td style="padding:0.8rem;">{status_emotional}</td>
+<td style="padding:0.8rem;">{critical_emotional}</td>
+</tr>
+<tr>
+<td style="padding:0.8rem;">Интеллектуальный</td>
+<td style="padding:0.8rem;">33</td>
+<td style="padding:0.8rem;">{b_intellectual}</td>
+<td style="padding:0.8rem;">{status_intellectual}</td>
+<td style="padding:0.8rem;">{critical_intellectual}</td>
+</tr>
+</table>
+<p style="margin-top:1rem;"><strong>Индивидуальный суточный ритм:</strong> {daily_rhythm}</p>
+<hr style="border:0; height:1px; background: rgba(100,255,218,0.1); margin:1.5rem 0;">
+<p>{biorhythms_interpretation}</p>
+</div>
+<div class="reveal"><blockquote>«Вся жизнь — это ритм: вдох и выдох, сон и бодрствование, прилив и отлив». — Дипак Чопра</blockquote></div>
+
+<hr class="divider-line">
+<h2 class="section-title reveal"><span class="emoji">🕉️</span> 7. ЧАКРАЛЬНАЯ ДИАГНОСТИКА</h2>
+<div class="reveal formula-block">
+<p><strong>Сопоставление цифр матрицы с чакрами:</strong></p>
+<ul>
+<li><strong>Муладхара (4):</strong> {chakra_muladhara} <span style="color:#8892b0;">— {chakra_muladhara_interp}</span></li>
+<li><strong>Свадхистана (6):</strong> {chakra_svadhisthana} <span style="color:#8892b0;">— {chakra_svadhisthana_interp}</span></li>
+<li><strong>Манипура (1):</strong> {chakra_manipura} <span style="color:#8892b0;">— {chakra_manipura_interp}</span></li>
+<li><strong>Анахата (2):</strong> {chakra_anahata} <span style="color:#8892b0;">— {chakra_anahata_interp}</span></li>
+<li><strong>Вишудха (5):</strong> {chakra_vishuddha} <span style="color:#8892b0;">— {chakra_vishuddha_interp}</span></li>
+<li><strong>Аджна (7):</strong> {chakra_ajna} <span style="color:#8892b0;">— {chakra_ajna_interp}</span></li>
+<li><strong>Сахасрара (9):</strong> {chakra_sahasrara} <span style="color:#8892b0;">— {chakra_sahasrara_interp}</span></li>
+</ul>
+<p><strong>Практики для балансировки:</strong> {chakra_practices}</p>
+<hr style="border:0; height:1px; background: rgba(100,255,218,0.1); margin:1.5rem 0;">
+<p>{chakra_interpretation}</p>
+</div>
+<div class="reveal"><blockquote>«Энергия течёт туда, куда направлено внимание». — Йоги Бхаджан</blockquote></div>
+
+<hr class="divider-line">
+<h2 class="section-title reveal"><span class="emoji">🧬</span> 8. СИНТЕЗ: ПСИХОДИНАМИЧЕСКИЙ ПОРТРЕТ И ТЕРАПЕВТИЧЕСКИЙ ПЛАН</h2>
+<div class="reveal formula-block">
+<p><strong>Корневой конфликт:</strong> {root_conflict}</p>
+<p><strong>Точки роста:</strong></p>
+<ul>{growth_points}</ul>
+<p><strong>Риски:</strong></p>
+<ul>{risks}</ul>
+<p><strong>Терапевтический план:</strong></p>
+<p>{therapy_plan}</p>
+<hr style="border:0; height:1px; background: rgba(100,255,218,0.1); margin:1.5rem 0;">
+<p>{synthesis}</p>
+</div>
+
+<hr class="divider-line">
+<h2 class="section-title reveal"><span class="emoji">🌐</span> 9. РЕКОМЕНДАЦИИ ПО САМОПОЗНАНИЮ</h2>
+<div class="reveal formula-block">
+<p><strong>Литература:</strong></p>
+<ul>{book_recommendations}</ul>
+<p><strong>Практики:</strong></p>
+<ul>{practice_recommendations}</ul>
+<p><strong>Биоритмический менеджмент:</strong> {biorhythm_management}</p>
+<hr style="border:0; height:1px; background: rgba(100,255,218,0.1); margin:1.5rem 0;">
+<p>{self_discovery}</p>
+</div>
+
+<hr class="divider-line">
+<h2 class="section-title reveal"><span class="emoji">💎</span> ЗАКЛЮЧЕНИЕ И ПРИГЛАШЕНИЕ</h2>
+<div class="reveal formula-block">
+<p>{conclusion}</p>
+</div>
+
+<div class="contact-grid reveal">
+<div class="contact-item"><div class="label">🌐 Сайт</div><div class="value"><a href="https://danilsukhikh1991-cloud.github.io/NeuroLife-/" target="_blank">NeuroLife</a></div></div>
+<div class="contact-item"><div class="label">💬 ВКонтакте</div><div class="value"><a href="https://vk.com/neurolifecenter" target="_blank">vk.com/neurolifecenter</a></div></div>
+<div class="contact-item"><div class="label">📞 Запись</div><div class="value"><a href="tel:+79229626740">+7 (922) 962-67-40</a></div></div>
+</div>
+
+<div style="text-align: center; margin: 2.5rem 0;">
+<a href="https://vk.com/neurolifecenter" target="_blank" class="btn">✨ Записаться на консультацию</a>
+</div>
+
+<div class="formula-block reveal" style="border-left: 4px solid #8892b0;">
+<p><strong>⚠️ ВАЖНОЕ ПРЕДУПРЕЖДЕНИЕ:</strong> Методики (астрология, нумерология, Human Design, биоритмы, чакры) не имеют научной валидации. Это метафорические инструменты самопознания. Клиническая диагностика и терапия — только под наблюдением специалиста (психиатр, психотерапевт, клинический психолог) на основе критериев МКБ‑11/DSM‑5.</p>
+</div>
+
+<div class="footer">
+<p>© 2026 NeuroLife — интегративная психология. Сделано с ❤️ и 🧠.</p>
+</div>
+
+</div>
+
+<script>
+// Star background
+const canvas = document.getElementById('stars-canvas');
+const ctx = canvas.getContext('2d');
+let stars = [], w, h;
+function resize() { w = canvas.width = window.innerWidth; h = canvas.height = window.innerHeight; }
+window.addEventListener('resize', resize);
+resize();
+class Star {
+constructor() {
+this.x = Math.random() * w;
+this.y = Math.random() * h;
+this.size = Math.random() * 1.8 + 0.5;
+this.opacity = Math.random() * 0.8 + 0.2;
+this.speed = Math.random() * 0.02 + 0.005;
+this.angle = Math.random() * Math.PI * 2;
+}
+update() {
+this.angle += this.speed;
+this.opacity = 0.5 + 0.5 * Math.sin(this.angle);
+this.x += Math.sin(this.angle) * 0.1;
+this.y += Math.cos(this.angle) * 0.1;
+if (this.x < 0) this.x = w;
+if (this.x > w) this.x = 0;
+if (this.y < 0) this.y = h;
+if (this.y > h) this.y = 0;
+}
+draw() {
+ctx.beginPath();
+ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+ctx.fillStyle = `rgba(100, 255, 218, ${this.opacity * 0.7})`;
+ctx.fill();
+ctx.shadowColor = '#64ffda';
+ctx.shadowBlur = 10;
+ctx.fill();
+ctx.shadowBlur = 0;
+}
+}
+for (let i = 0; i < 200; i++) stars.push(new Star());
+function drawStars() {
+ctx.clearRect(0, 0, w, h);
+stars.forEach(s => { s.update(); s.draw(); });
+requestAnimationFrame(drawStars);
+}
+drawStars();
+
+// Background music (quiet start)
+(function() {
+const audio = document.getElementById('bgMusic');
+if (!audio) return;
+audio.volume = 0.15;
+const playPromise = audio.play();
+if (playPromise !== undefined) {
+playPromise.catch(() => {
+document.addEventListener('click', function start() {
+audio.play();
+document.removeEventListener('click', start);
+}, { once: true });
+});
+}
+})();
+
+// Reveal animation
+const revealElements = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+revealElements.forEach(el => observer.observe(el));
+setTimeout(() => {
+revealElements.forEach(el => {
+if (el.getBoundingClientRect().top < window.innerHeight * 0.9) el.classList.add('visible');
+});
+}, 300);
+</script>
+</body>
+</html>
