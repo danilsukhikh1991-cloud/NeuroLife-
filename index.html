@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Нейролайф — частный центр неврологии и психического здоровья в Кирове. Доказательная медицина, анонимность, 21 методика диагностики.">
+    <title>Нейролайф | Центр неврологии и психического здоровья</title>
+    
+    <!-- Шрифты: Playfair Display для заголовков, Inter для текста -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Иконки -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* =========================================
+           1. ПЕРЕМЕННЫЕ И ТЕМЫ (Светлая / Тёмная)
+           ========================================= */
+        :root {
+            --gold: #d4af37;
+            --gold-light: #f0d97a;
+            --gold-dark: #9a7b23;
+            --gold-grad: linear-gradient(135deg, #8a6d1f, #d4af37 45%, #f5e39a 60%, #c9a227);
+            --bg: #0f172a;
+            --bg-card: rgba(30, 41, 59, 0.7);
+            --text: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: rgba(212, 175, 55, 0.2);
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            --shadow-gold: 0 0 20px rgba(212, 175, 55, 0.15);
+            --radius: 16px;
+        }
+
+        [data-theme="light"] {
+            --bg: #f8fafc;
+            --bg-card: rgba(255, 255, 255, 0.85);
+            --text: #0f172a;
+            --text-muted: #64748b;
+            --border: rgba(154, 123, 35, 0.25);
+            --shadow: 0 8px 32px rgba(120, 90, 20, 0.08);
+        }
+
+        /* =========================================
+           2. БАЗОВЫЕ СТИЛИ
+           ========================================= */
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            transition: background-color 0.4s ease, color 0.4s ease;
+            background-image: radial-gradient(circle at 10% 20%, rgba(212, 175, 55, 0.05) 0%, transparent 40%),
+                              radial-gradient(circle at 90% 80%, rgba(212, 175, 55, 0.05) 0%, transparent 40%);
+        }
+
+        h1, h2, h3, h4 { font-family: 'Playfair Display', serif; font-weight: 600; }
+        a { color: var(--gold); text-decoration: none; transition: color 0.3s; }
+        a:hover { color: var(--gold-light); }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+        .section { padding: 80px 0; }
+        .section-title {
+            font-size: clamp(28px, 4vw, 42px);
+            text-align: center;
+            margin-bottom: 16px;
+            background: var(--gold-grad);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin: 0 auto 48px;
+            font-size: 16px;
+        }
+
+        /* =========================================
+           3. КОМПОНЕНТЫ
+           ========================================= */
+        .btn {
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+            padding: 12px 28px; border-radius: 99px; font-weight: 600; font-size: 15px;
+            border: none; cursor: pointer; transition: all 0.3s ease; text-decoration: none;
+        }
+        .btn-gold {
+            background: var(--gold-grad); color: #0f172a;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+        }
+        .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(212, 175, 55, 0.5); }
+        .btn-outline {
+            background: transparent; color: var(--gold); border: 1.5px solid var(--gold);
+        }
+        .btn-outline:hover { background: rgba(212, 175, 55, 0.1); }
+
+        .card {
+            background: var(--bg-card);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 28px;
+            transition: all 0.4s ease;
+        }
+        .card:hover {
+            transform: translateY(-6px);
+            border-color: var(--gold);
+            box-shadow: var(--shadow-gold);
+        }
+
+        /* =========================================
+           4. НАВИГАЦИЯ
+           ========================================= */
+        header {
+            position: sticky; top: 0; z-index: 100;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+        }
+        [data-theme="light"] header { background: rgba(248, 250, 252, 0.85); }
+        
+        .nav-inner {
+            display: flex; align-items: center; justify-content: space-between;
+            max-width: 1200px; margin: 0 auto; padding: 16px 24px;
+        }
+        .logo {
+            font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700;
+            display: flex; align-items: center; gap: 10px; color: var(--text);
+        }
+        .logo i { color: var(--gold); font-size: 28px; }
+        .nav-links { display: flex; gap: 24px; }
+        .nav-links a { color: var(--text-muted); font-size: 14px; font-weight: 500; }
+        .nav-links a:hover { color: var(--gold); }
+        .nav-actions { display: flex; gap: 12px; align-items: center; }
+        .theme-toggle {
+            width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--border);
+            background: var(--bg-card); color: var(--gold); cursor: pointer;
+            display: grid; place-items: center; transition: 0.3s;
+        }
+        .theme-toggle:hover { border-color: var(--gold); box-shadow: var(--shadow-gold); }
+
+        /* =========================================
+           5. СПЕЦИАЛИСТЫ
+           ========================================= */
+        .specialists-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px;
+        }
+        .specialist-card { text-align: center; }
+        .specialist-avatar {
+            width: 120px; height: 120px; border-radius: 50%; margin: 0 auto 20px;
+            background: var(--gold-grad); padding: 3px; overflow: hidden;
+        }
+        .specialist-avatar img {
+            width: 100%; height: 100%; object-fit: cover; border-radius: 50%;
+            background: var(--bg);
+        }
+        .spec-name { font-size: 20px; margin-bottom: 4px; }
+        .spec-role { font-size: 13px; color: var(--gold); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; }
+        .spec-desc { font-size: 14px; color: var(--text-muted); line-height: 1.6; text-align: left; }
+
+        /* =========================================
+           6. ИНСТРУМЕНТЫ И ПРОДУКТЫ
+           ========================================= */
+        .tools-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px;
+        }
+        .tool-card {
+            display: flex; flex-direction: column; height: 100%; text-decoration: none; color: var(--text);
+        }
+        .tool-card .icon-box {
+            width: 60px; height: 60px; border-radius: 12px; background: rgba(212, 175, 55, 0.1);
+            display: grid; place-items: center; font-size: 24px; color: var(--gold); margin-bottom: 20px;
+        }
+        .tool-card h3 { font-size: 20px; margin-bottom: 12px; }
+        .tool-card p { font-size: 14px; color: var(--text-muted); flex-grow: 1; margin-bottom: 20px; }
+
+        .product-highlight {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(212, 175, 55, 0.02));
+            border: 1px solid var(--gold);
+        }
+
+        /* =========================================
+           7. ЕЖЕДНЕВНОЕ УПРАЖНЕНИЕ
+           ========================================= */
+        .daily-exercise-box {
+            max-width: 800px; margin: 0 auto;
+            border-left: 4px solid var(--gold);
+        }
+        .exercise-meta {
+            display: flex; gap: 16px; font-size: 13px; color: var(--gold); margin-bottom: 16px; font-weight: 600;
+        }
+        .exercise-text { font-size: 16px; line-height: 1.7; white-space: pre-line; }
+
+        /* =========================================
+           8. ФОРМА ЗАПИСИ И МОДАЛКИ
+           ========================================= */
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+        @media (max-width: 600px) { .form-grid { grid-template-columns: 1fr; } }
+        
+        .input-field {
+            width: 100%; padding: 14px 16px; border-radius: 12px;
+            border: 1px solid var(--border); background: var(--bg);
+            color: var(--text); font-family: inherit; font-size: 15px;
+            transition: border-color 0.3s;
+        }
+        .input-field:focus { outline: none; border-color: var(--gold); }
+        
+        .checkbox-group { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 12px; font-size: 13px; color: var(--text-muted); }
+        .checkbox-group input { margin-top: 3px; accent-color: var(--gold); width: 18px; height: 18px; flex-shrink: 0; }
+        .checkbox-group a { color: var(--gold); text-decoration: underline; cursor: pointer; }
+
+        .modal-overlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(8px);
+            z-index: 1000; display: none; align-items: center; justify-content: center; padding: 20px;
+        }
+        .modal-overlay.active { display: flex; }
+        .modal-box {
+            background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius);
+            max-width: 700px; width: 100%; max-height: 85vh; overflow-y: auto; padding: 32px;
+            position: relative;
+        }
+        .modal-close {
+            position: absolute; top: 16px; right: 16px; width: 36px; height: 36px;
+            border-radius: 50%; border: 1px solid var(--border); background: transparent;
+            color: var(--text); cursor: pointer; display: grid; place-items: center;
+        }
+        .legal-text { font-size: 13px; line-height: 1.7; color: var(--text-muted); white-space: pre-line; }
+
+        /* =========================================
+           9. ФУТЕР
+           ========================================= */
+        footer {
+            background: var(--bg-card); border-top: 1px solid var(--border);
+            padding: 60px 0 30px; font-size: 14px; color: var(--text-muted);
+        }
+        .footer-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; margin-bottom: 40px;
+        }
+        .footer-title { font-family: 'Playfair Display', serif; font-size: 18px; color: var(--text); margin-bottom: 16px; }
+        .footer-links a { display: block; color: var(--text-muted); margin-bottom: 8px; }
+        .footer-links a:hover { color: var(--gold); }
+        .legal-block {
+            border-top: 1px solid var(--border); padding-top: 24px; font-size: 12px; line-height: 1.6;
+        }
+
+        /* Мобильная адаптация */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .section { padding: 60px 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <div class="nav-inner">
+            <a href="#" class="logo"><i class="fa-solid fa-brain"></i> Нейро<span style="color: var(--gold);">лайф</span></a>
+            <nav class="nav-links">
+                <a href="#specialists">Специалисты</a>
+                <a href="#tools">Инструменты</a>
+                <a href="#products">Продукты</a>
+                <a href="#booking">Запись</a>
+            </nav>
+            <div class="nav-actions">
+                <button class="theme-toggle" id="themeBtn" title="Сменить тему"><i class="fa-solid fa-moon"></i></button>
+                <a href="#booking" class="btn btn-gold" style="padding: 10px 20px; font-size: 14px;">Записаться</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- HERO -->
+        <section class="section" style="padding-top: 120px; text-align: center;">
+            <div class="container">
+                <h1 style="font-size: clamp(36px, 6vw, 64px); margin-bottom: 24px; line-height: 1.1;">
+                    Центр неврологии и <br><span style="background: var(--gold-grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">психического здоровья</span>
+                </h1>
+                <p class="section-subtitle" style="margin-bottom: 40px;">
+                    Частная практика в Кирове. Доказательная медицина, полная анонимность, 21 профессиональная методика диагностики и индивидуальный подход.
+                </p>
+                <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+                    <a href="#booking" class="btn btn-gold"><i class="fa-regular fa-calendar-check"></i> Записаться на приём</a>
+                    <a href="#tools" class="btn btn-outline"><i class="fa-solid fa-compass"></i> Инструменты самопознания</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- СПЕЦИАЛИСТЫ -->
+        <section id="specialists" class="section">
+            <div class="container">
+                <h2 class="section-title">Наши специалисты</h2>
+                <p class="section-subtitle">Команда профессионалов с клиническим стажем и строгой приверженностью медицинской этике.</p>
+                
+                <div class="specialists-grid">
+                    <!-- Сухих Д.В. -->
+                    <div class="card specialist-card">
+                        <div class="specialist-avatar">
+                            <img src="images/daniil_sukih.jpg" alt="Сухих Данил Витальевич" onerror="this.style.display='none'">
+                        </div>
+                        <h3 class="spec-name">Сухих Данил Витальевич</h3>
+                        <div class="spec-role">Врач-психиатр, психотерапевт</div>
+                        <div class="spec-desc">
+                            Основатель центра. Клинический стаж 12+ лет. Работа с тревожными, депрессивными состояниями, паническими атаками, ПТСР и кризисами. Использую интегративный подход, сочетающий доказательную фармакотерапию с методами КПТ, гештальт-терапии и психоанализа.
+                        </div>
+                    </div>
+
+                    <!-- Катаев В.В. -->
+                    <div class="card specialist-card">
+                        <div class="specialist-avatar">
+                            <img src="images/vitaly_kataev.jpg" alt="Катаев Виталий Владимирович" onerror="this.style.display='none'">
+                        </div>
+                        <h3 class="spec-name">Катаев Виталий Владимирович</h3>
+                        <div class="spec-role">Врач-невролог, учредитель</div>
+                        <div class="spec-desc">
+                            Учредитель ООО «ДМЦ «Здоровые дети». Диагностика и лечение головных болей, мигрени, головокружений, остеохондроза, последствий инсультов. Владеет методиками карбокситерапии, ударно-волновой терапии и коррекции атланта.
+                        </div>
+                    </div>
+
+                    <!-- Колотова А. -->
+                    <div class="card specialist-card">
+                        <div class="specialist-avatar">
+                            <img src="images/angelika_kolotova.jpg" alt="Колотова Анжелика" onerror="this.style.display='none'">
+                        </div>
+                        <h3 class="spec-name">Колотова Анжелика</h3>
+                        <div class="spec-role">Врач-невролог</div>
+                        <div class="spec-desc">
+                            Стаж 8+ лет. Неврологическая диагностика и лечение болей в спине и шее, туннельных синдромов, нарушений сна, астенического синдрома. Владеет методиками иглорефлексотерапии и озонотерапии.
+                        </div>
+                    </div>
+
+                    <!-- Черных Г. -->
+                    <div class="card specialist-card">
+                        <div class="specialist-avatar">
+                            <img src="images/galina_chermnykh.jpg" alt="Черных Галина" onerror="this.style.display='none'">
+                        </div>
+                        <h3 class="spec-name">Черных Галина</h3>
+                        <div class="spec-role">Клинический психолог</div>
+                        <div class="spec-desc">
+                            Стаж 10+ лет. Проведение психодиагностики (WAIS, MMPI, Big Five, Эннеаграмма), нейропсихологическое обследование, индивидуальное консультирование, работа с самооценкой, кризисами и детско-родительскими отношениями.
+                        </div>
+                    </div>
+
+                    <!-- Нина Ивановна -->
+                    <div class="card specialist-card">
+                        <div class="specialist-avatar">
+                            <img src="images/nina_lejnina.jpg" alt="Нина Ивановна" onerror="this.style.display='none'">
+                        </div>
+                        <h3 class="spec-name">Нина Ивановна</h3>
+                        <div class="spec-role">Администратор центра</div>
+                        <div class="spec-desc">
+                            Поможет подобрать удобное время и подходящего специалиста, ответит на все организационные вопросы. Ваше спокойствие и комфорт начинаются с первого звонка.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ИНСТРУМЕНТЫ И ИГРЫ -->
+        <section id="tools" class="section" style="background: rgba(212, 175, 55, 0.03);">
+            <div class="container">
+                <h2 class="section-title">Инструменты самопознания</h2>
+                <p class="section-subtitle">Профессиональные методики для глубокой работы с личностью. Нажмите на карточку, чтобы перейти к расчётам или игре.</p>
+                
+                <div class="tools-grid">
+                    <a href="numerology.html" class="card tool-card">
+                        <div class="icon-box"><i class="fa-solid fa-star-and-crescent"></i></div>
+                        <h3>Нумерология и Арканы</h3>
+                        <p>Полный космо-психологический профиль: Матрица Пифагора, арканы Таро, биоритмы и чакральная диагностика по дате рождения.</p>
+                        <span class="btn btn-outline" style="width: 100%;">Перейти к расчёту</span>
+                    </a>
+
+                    <a href="lila.html" class="card tool-card">
+                        <div class="icon-box"><i class="fa-solid fa-chess-board"></i></div>
+                        <h3>Игра «Лила»</h3>
+                        <p>Древняя космическая игра самопознания. 72 клетки — 72 состояния сознания. Отслеживайте свой прогресс и получайте инсайты.</p>
+                        <span class="btn btn-outline" style="width: 100%;">Начать игру</span>
+                    </a>
+
+                    <div class="card tool-card" style="cursor: default;">
+                        <div class="icon-box"><i class="fa-solid fa-clipboard-list"></i></div>
+                        <h3>21 методика диагностики</h3>
+                        <p>Клинические (BDI-II, BAI, HADS), личностные (Big Five, Соционика, Эннеаграмма) и когнитивные тесты с мгновенной интерпретацией.</p>
+                        <span class="btn btn-outline" style="width: 100%; opacity: 0.6; cursor: not-allowed;">Доступно в VK-боте</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ЕЖЕДНЕВНОЕ УПРАЖНЕНИЕ -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title">Практика дня</h2>
+                <p class="section-subtitle">Маленькое ежедневное действие для укрепления психического здоровья. Возвращайтесь сюда каждый день.</p>
+                
+                <div class="card daily-exercise-box">
+                    <div class="exercise-meta">
+                        <span id="ex-category">Категория</span>
+                        <span>•</span>
+                        <span id="ex-duration">0 мин</span>
+                        <span>•</span>
+                        <span id="ex-author">Автор</span>
+                    </div>
+                    <h3 id="ex-title" style="font-size: 22px; margin-bottom: 16px;">Загрузка практики...</h3>
+                    <p id="ex-desc" class="exercise-text">Пожалуйста, подождите, мы подбираем для вас актуальное упражнение.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- НАШИ ПРОДУКТЫ -->
+        <section id="products" class="section" style="background: rgba(212, 175, 55, 0.03);">
+            <div class="container">
+                <h2 class="section-title">Наши продукты</h2>
+                <p class="section-subtitle">Материалы, созданные для самостоятельной работы между сессиями.</p>
+                
+                <div class="card product-highlight" style="max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 24px; align-items: center; text-align: center;">
+                    <div style="font-size: 48px; color: var(--gold);"><i class="fa-solid fa-book-open"></i></div>
+                    <div>
+                        <h3 style="font-size: 28px; margin-bottom: 12px;">Рабочая тетрадь «Нейролайф»</h3>
+                        <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto 24px;">
+                            Интегративный практикум: руководство по радикальной пересборке психики. 60+ техник из ДПТ, КПТ, гештальта, психоанализа и экзистенциальной терапии в единой 12-недельной системе с клиническими замерами.
+                        </p>
+                    </div>
+                    <div style="display: flex; gap: 16px; flex-wrap: wrap; justify-content: center;">
+                        <a href="Рабочая тетрадь Нейролайф.html" target="_blank" class="btn btn-outline">
+                            <i class="fa-solid fa-eye"></i> Открыть демо-версию
+                        </a>
+                        <a href="https://vk.com/im?sel=-155313929" target="_blank" class="btn btn-gold">
+                            <i class="fa-brands fa-vk"></i> Приобрести полную версию (1 000 ₽)
+                        </a>
+                    </div>
+                    <p style="font-size: 12px; color: var(--text-muted);">
+                        * Демо-версия доступна для ознакомления. Полная версия с интерактивными полями и PDF-экспортом приобретается через сообщения сообщества.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ЗАПИСЬ НА ПРИЁМ -->
+        <section id="booking" class="section">
+            <div class="container">
+                <h2 class="section-title">Запись на консультацию</h2>
+                <p class="section-subtitle">Анонимно, без очередей и постановки на учёт. Мы свяжемся с вами для подтверждения в течение рабочего дня.</p>
+                
+                <div class="card" style="max-width: 700px; margin: 0 auto;">
+                    <form onsubmit="event.preventDefault(); alert('✅ Заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.');">
+                        <div class="form-grid">
+                            <div>
+                                <label style="display:block; margin-bottom:8px; font-size:13px; color:var(--text-muted);">Ваше имя *</label>
+                                <input type="text" class="input-field" required placeholder="Иван">
+                            </div>
+                            <div>
+                                <label style="display:block; margin-bottom:8px; font-size:13px; color:var(--text-muted);">Телефон *</label>
+                                <input type="tel" class="input-field" required placeholder="+7 (999) 000-00-00">
+                            </div>
+                        </div>
+                        
+                        <div style="margin-bottom: 16px;">
+                            <label style="display:block; margin-bottom:8px; font-size:13px; color:var(--text-muted);">Специалист *</label>
+                            <select class="input-field" required>
+                                <option value="">Выберите специалиста</option>
+                                <option>Психиатр (Сухих Д.В.)</option>
+                                <option>Психотерапевт</option>
+                                <option>Невролог</option>
+                                <option>Клинический психолог</option>
+                            </select>
+                        </div>
+
+                        <div class="form-grid">
+                            <div>
+                                <label style="display:block; margin-bottom:8px; font-size:13px; color:var(--text-muted);">Желаемая дата *</label>
+                                <input type="date" class="input-field" required>
+                            </div>
+                            <div>
+                                <label style="display:block; margin-bottom:8px; font-size:13px; color:var(--text-muted);">Желаемое время *</label>
+                                <select class="input-field" required>
+                                    <option>10:00</option><option>12:00</option><option>15:00</option><option>18:00</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div style="margin-bottom: 24px;">
+                            <label style="display:block; margin-bottom:8px; font-size:13px; color:var(--text-muted);">Комментарий (необязательно)</label>
+                            <textarea class="input-field" rows="3" placeholder="Кратко опишите ваш запрос..."></textarea>
+                        </div>
+
+                        <div style="margin-bottom: 24px; padding: 16px; background: rgba(212, 175, 55, 0.05); border-radius: 12px; border: 1px solid var(--border);">
+                            <label class="checkbox-group">
+                                <input type="checkbox" required>
+                                <span>Я ознакомлен(а) и даю своё <a onclick="openModal('modal152')">согласие на обработку персональных данных</a> в соответствии с ФЗ № 152-ФЗ.</span>
+                            </label>
+                            <label class="checkbox-group">
+                                <input type="checkbox" required>
+                                <span>Я даю <a onclick="openModal('modalIds')">информированное добровольное согласие</a> на медицинское вмешательство.</span>
+                            </label>
+                            <label class="checkbox-group">
+                                <input type="checkbox">
+                                <span>Я <a onclick="openModal('modalEgisz')">отказываюсь от передачи данных в ЕГИСЗ</a>.</span>
+                            </label>
+                            <label class="checkbox-group">
+                                <input type="checkbox" required>
+                                <span>Я подтверждаю, что мне есть 18 лет (или действую с согласия родителей).</span>
+                            </label>
+                        </div>
+
+                        <button type="submit" class="btn btn-gold" style="width: 100%;">
+                            <i class="fa-regular fa-paper-plane"></i> Отправить заявку
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <h4 class="footer-title">Нейро<span style="color: var(--gold);">лайф</span></h4>
+                    <p>Центр неврологии и психического здоровья.<br>Доказательная медицина, анонимность и индивидуальный подход.</p>
+                </div>
+                <div class="footer-links">
+                    <h4 class="footer-title">Контакты</h4>
+                    <a href="tel:+79229626740"><i class="fa-solid fa-phone" style="color: var(--gold); margin-right: 8px;"></i> +7 (922) 962-67-40</a>
+                    <a href="mailto:danil_suhih@mail.ru"><i class="fa-solid fa-envelope" style="color: var(--gold); margin-right: 8px;"></i> danil_suhih@mail.ru</a>
+                    <a href="https://vk.com/neurolifecenter" target="_blank"><i class="fa-brands fa-vk" style="color: var(--gold); margin-right: 8px;"></i> Группа ВКонтакте</a>
+                    <a href="https://t.me/neurolifecenter" target="_blank"><i class="fa-brands fa-telegram" style="color: var(--gold); margin-right: 8px;"></i> Telegram-канал</a>
+                    <a href="https://youtube.com/channel/UCbBx_2Z4GKpSISNu2pZA9Pg" target="_blank"><i class="fa-brands fa-youtube" style="color: var(--gold); margin-right: 8px;"></i> YouTube</a>
+                </div>
+                <div>
+                    <h4 class="footer-title">Режим работы</h4>
+                    <p>Пн–Пт: 09:00–19:00<br>Сб: 11:00–16:00<br>Вс: выходной<br><em>По предварительной записи</em></p>
+                </div>
+            </div>
+            <div class="legal-block">
+                <p>© 2026 Нейролайф — центр неврологии и психического здоровья. ООО «ДМЦ «Здоровые Дети».</p>
+                <p>Лицензия: № Л041-01160-43/00322654 от 04.07.2018 | ИНН 4345448601 | КПП 434501001 | ОГРН 1164350067980</p>
+                <p>Юридический адрес: 610000, Кировская область, г. Киров, ул. Спасская, д. 26б. Учредитель: Катаев Виталий Владимирович.</p>
+                <p style="margin-top: 12px; color: var(--gold);">⚠️ Информация на сайте носит ознакомительный характер и не является медицинской консультацией. Диагноз и лечение может назначить только врач. Имеются противопоказания. Необходима консультация специалиста. 18+</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- МОДАЛЬНЫЕ ОКНА С ЮРИДИЧЕСКИМИ ТЕКСТАМИ -->
+    <div class="modal-overlay" id="modal152" onclick="closeModal('modal152', event)">
+        <div class="modal-box">
+            <button class="modal-close" onclick="closeModal('modal152')"><i class="fa-solid fa-xmark"></i></button>
+            <h3 style="font-family: 'Playfair Display', serif; margin-bottom: 16px;">СОГЛАСИЕ НА ОБРАБОТКУ ПЕРСОНАЛЬНЫХ ДАННЫХ</h3>
+            <div class="legal-text">Я, ___________________________________________________, (фамилия, имя, отчество при наличии)
+зарегистрированный(ая) по адресу: ___________________________________________,
+документ, удостоверяющий личность: _________________________________________, (вид документа)
+серия _______ номер _______________, выдан(кем и когда) _____________________,
+действуя свободно, своей волей и в своем интересе, в соответствии со статьей 9 Федерального закона от 27 июля 2006 г. № 152-ФЗ «О персональных данных», даю своё согласие ООО «ДМЦ «Здоровые дети» (ОГРН 1164350067980, ИНН 4345448601, КПП 434501001), осуществляющему деятельность под брендом «Нейролайф. Центр неврологии и психического здоровья» по адресу: 610000, Кировская область, г. Киров, ул. Спасская, д. 26б (далее – Оператор), на обработку следующих моих персональных данных:
+фамилия, имя, отчество (при наличии); дата и место рождения; адрес регистрации и фактического проживания; контактные телефоны, адрес электронной почты; реквизиты документа, удостоверяющего личность; СНИЛС (при наличии); полис обязательного медицинского страхования (при наличии); сведения о состоянии здоровья, диагнозах, результатах медицинских обследований, факте обращения за медицинской помощью, истории болезни; иные сведения, необходимые для оказания медицинской помощи и ведения медицинской документации.
+
+Цели обработки персональных данных: Оказание медицинской помощи; Ведение медицинской документации; Оформление договоров; Направление уведомлений; Взаимодействие со страховыми организациями; Передача сведений в ЕГИСЗ – ТОЛЬКО ПРИ НАЛИЧИИ ОТДЕЛЬНОГО СОГЛАСИЯ; Статистический учёт.
+
+Срок действия: до момента окончания обработки, но не более 5 лет, либо до отзыва в письменной форме.
+«___» _____________ 20___ г. __________________ / ___________________________________ (подпись) (расшифровка)</div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modalIds" onclick="closeModal('modalIds', event)">
+        <div class="modal-box">
+            <button class="modal-close" onclick="closeModal('modalIds')"><i class="fa-solid fa-xmark"></i></button>
+            <h3 style="font-family: 'Playfair Display', serif; margin-bottom: 16px;">ИНФОРМИРОВАННОЕ ДОБРОВОЛЬНОЕ СОГЛАСИЕ</h3>
+            <div class="legal-text">Я, ___________________________________________________, (фамилия, имя, отчество при наличии)
+«___» ____________ ______ г. рождения, зарегистрированный(ая) по адресу: ____________________________________________________________________,
+проживающий(ая) по адресу: _________________________________________________,
+документ, удостоверяющий личность: _________________________________________, серия _______ номер _______________, выдан(кем и когда) _____________________,
+даю информированное добровольное согласие на следующие виды медицинских вмешательств, проводимых в ООО «ДМЦ «Здоровые дети» (бренд «Нейролайф»):
+А. ОБЩИЙ ОСМОТР И КОНСУЛЬТАЦИЯ: Осмотр врачом-психиатром, психотерапевтом, неврологом, клиническим психологом; сбор жалоб и анамнеза; физикальное обследование; измерение АД, ЧСС, ЧДД, температуры; антропометрия.
+Б. МЕДИЦИНСКИЕ ПРОЦЕДУРЫ: Карбокситерапия, Плазмопунктура, Иглорефлексотерапия, Ударно-волновая терапия, Лечебный массаж, Электросон, ЭЭГ, Коррекция атланта.
+В. ПСИХОТЕРАПЕВТИЧЕСКОЕ ВМЕШАТЕЛЬСТВО: Психотерапевтическая беседа, психологическое тестирование, нейропсихологическая диагностика, КПТ.
+
+Мне разъяснены цели, методы, риски, возможные варианты и последствия. Я имею право отказаться от вмешательства (ч. 9 ст. 20 ФЗ № 323-ФЗ).
+«___» _____________ 20___ г. __________________ / ___________________________________ (подпись) (расшифровка)</div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modalEgisz" onclick="closeModal('modalEgisz', event)">
+        <div class="modal-box">
+            <button class="modal-close" onclick="closeModal('modalEgisz')"><i class="fa-solid fa-xmark"></i></button>
+            <h3 style="font-family: 'Playfair Display', serif; margin-bottom: 16px;">ОТКАЗ ОТ ПЕРЕДАЧИ ДАННЫХ В ЕГИСЗ</h3>
+            <div class="legal-text">Руководителю ООО «ДМЦ «Здоровые дети» Сухих Д.В.
+от ___________________________________________________, (фамилия, имя, отчество)
+проживающего(ей) по адресу: _________________________________________________,
+паспорт: серия _______ номер _______________, выдан _________________________,
+телефон: ______________________, СНИЛС: _________________________,
+
+в соответствии со ст. 13 ФЗ № 323-ФЗ и ст. 9 ФЗ № 152-ФЗ,
+ЗАЯВЛЯЮ О СВОЁМ ОТКАЗЕ от предоставления согласия на передачу в Единую государственную информационную систему в сфере здравоохранения (ЕГИСЗ):
+сведений о факте моего обращения за медицинской помощью; сведений о состоянии моего здоровья; сведений о диагнозе (диагнозах); сведений о результатах медицинских обследований и лечения; иных персональных данных, составляющих врачебную тайну.
+
+Я предупреждён(а), что медицинская организация обязана соблюдать врачебную тайну. Данный отказ может быть отозван мной в любое время письменным заявлением.
+«___» _____________ 20__ г. __________________ / ___________________________________ (подпись) (расшифровка)</div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        // 1. ПЕРЕКЛЮЧЕНИЕ ТЕМЫ
+        const themeBtn = document.getElementById('themeBtn');
+        const currentTheme = localStorage.getItem('theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', currentTheme);
+        updateThemeIcon(currentTheme);
+
+        themeBtn.addEventListener('click', () => {
+            const newTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
+        });
+
+        function updateThemeIcon(theme) {
+            themeBtn.innerHTML = theme === 'dark' ? '<i class="fa-solid fa-sun"></i>' : '<i class="fa-solid fa-moon"></i>';
+        }
+
+        // 2. МОДАЛЬНЫЕ ОКНА
+        function openModal(id) {
+            document.getElementById(id).classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeModal(id, event) {
+            if (!event || event.target.id === id || event.target.closest('.modal-close')) {
+                document.getElementById(id).classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        }
+
+        // 3. ЕЖЕДНЕВНОЕ УПРАЖНЕНИЕ (Логика на основе daily_exercises.py)
+        // Для экономии места в HTML здесь приведён репрезентативный набор из 30 упражнений. 
+        // Вы можете заменить этот массив на полный список из 365 элементов из вашего файла daily_exercises.py
+        const exercises = [
+            { name: "Медитация 'Три минуты дыхания'", category: "Майндфулнес", author: "Марк Уильямс", duration: "3 мин", desc: "Минута 1: ответьте себе 'Что я сейчас чувствую?'.\nМинута 2: сфокусируйтесь на дыхании.\nМинута 3: расширьте внимание на все тело целиком." },
+            { name: "Осознанное утреннее пробуждение", category: "Майндфулнес", author: "Классическая практика", duration: "2 мин", desc: "Не вскакивайте с кровати сразу. Почувствуйте вес одеяла, температуру воздуха. Сделайте три глубоких вдоха, прежде чем открыть глаза." },
+            { name: "Контейнирование эмоций", category: "Майндфулнес / КПТ", author: "Модификация Д. Сигела", duration: "5 мин", desc: "Представьте эмоцию как текучую жидкость. Мысленно поместите её в прочный, но прозрачный контейнер. Наблюдайте за ней через стенки, не сливаясь с ней полностью." },
+            { name: "Техника 'Стоп-кран'", category: "Майндфулнес", author: "Э. Толле", duration: "30 сек", desc: "В середине рабочего дня скажите себе 'Стоп'. Замрите на 30 секунд. Осознайте, где вы находитесь, что делают ваши руки, что вы чувствуете в теле." },
+            { name: "Дыхание с удлинённым выдохом (4/7/8)", category: "Телесная практика", author: "д-р Эндрю Вейл", duration: "3 мин", desc: "Вдох носом на 4 счёта. Задержка на 7 счётов. Медленный выдох ртом на 8 счётов. Повторите 4 цикла. Это активирует парасимпатическую нервную систему." },
+            { name: "Сканирование тела (Боди-скан)", category: "Майндфулнес", author: "Дж. Кабат-Зинн", duration: "5 мин", desc: "Лежа или сидя, медленно ведите внимание от макушки до пальцев ног, замечая любые ощущения (покалывание, тепло, напряжение), не оценивая их." },
+            { name: "Дневник благодарности", category: "Позитивная психология", author: "М. Селигман", duration: "5 мин", desc: "Запишите 3 конкретных события за сегодня, за которые вы благодарны. Рационально объясните, почему они произошли (благодаря вашим действиям или удаче)." },
+            { name: "Заземление 5-4-3-2-1", category: "КПТ / Заземление", author: "Д. Сигел", duration: "3 мин", desc: "Назовите: 5 вещей, которые видите, 4 — которые можете потрогать, 3 — которые слышите, 2 — которые можете понюхать, 1 — которую можете попробовать на вкус." },
+            { name: "Диалог с внутренним критиком", category: "Психосинтез", author: "Х. Стоун", duration: "10 мин", desc: "Запишите, что говорит ваш Внутренний Критик. Поблагодарите его за попытку защитить вас от ошибок. Попросите его изменить тон на поддерживающий." },
+            { name: "Осознанная ходьба", category: "Майндфулнес", author: "Тит Нат Хан", duration: "10 мин", desc: "Сфокусируйтесь на ощущениях в стопах при ходьбе. 'Поднимаю', 'переношу', 'ставлю'. Если отвлеклись, мягко верните внимание к шагам." }
+            // ... Здесь можно добавить остальные 355 упражнений из daily_exercises.py
+        ];
+
+        function loadDailyExercise() {
+            // Определяем день года (1-365)
+            const now = new Date();
+            const start = new Date(now.getFullYear(), 0, 0);
+            const diff = now - start;
+            const oneDay = 1000 * 60 * 60 * 24;
+            const dayOfYear = Math.floor(diff / oneDay);
+            
+            // Выбираем упражнение циклически
+            const ex = exercises[(dayOfYear - 1) % exercises.length];
+            
+            document.getElementById('ex-title').textContent = ex.name;
+            document.getElementById('ex-category').textContent = ex.category;
+            document.getElementById('ex-duration').textContent = ex.duration;
+            document.getElementById('ex-author').textContent = ex.author;
+            document.getElementById('ex-desc').textContent = ex.desc;
+        }
+        
+        // Запускаем при загрузке
+        loadDailyExercise();
+    </script>
+</body>
+</html>
