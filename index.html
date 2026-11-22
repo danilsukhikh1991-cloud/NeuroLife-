@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#0a0a0f">
+    <meta name="description" content="Нейролайф — центр неврологии и психического здоровья. Доказательная медицина, анонимность, 21 методика диагностики.">
+    <title>Нейролайф | Центр неврологии и психического здоровья</title>
+    
+    <!-- Шрифты: Inter для текста, Playfair Display для премиальных заголовков -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Иконки -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- VK Bridge для будущей интеграции Mini App -->
+    <script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
+
+    <style>
+        /* =========================================
+           1. ПЕРЕМЕННЫЕ И БАЗОВЫЕ НАСТРОЙКИ
+           ========================================= */
+        :root {
+            --gold: #d4af37;
+            --gold-light: #f0d97a;
+            --gold-dark: #8a6d1f;
+            --gold-grad: linear-gradient(135deg, #8a6d1f, #d4af37 45%, #f5e39a 60%, #c9a227);
+            --bg: #0a0a0f;
+            --bg-card: rgba(20, 20, 30, 0.7);
+            --text: #f3edda;
+            --text-muted: #9d94ab;
+            --border: rgba(212, 175, 55, 0.2);
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            --shadow-gold: 0 0 20px rgba(212, 175, 55, 0.15);
+            --radius: 16px;
+            --font-main: 'Inter', sans-serif;
+            --font-serif: 'Playfair Display', serif;
+        }
+
+        [data-theme="light"] {
+            --bg: #f8f5f0;
+            --bg-card: rgba(255, 255, 255, 0.8);
+            --text: #1a1510;
+            --text-muted: #6d6357;
+            --border: rgba(154, 123, 35, 0.25);
+            --shadow: 0 8px 32px rgba(120, 90, 20, 0.08);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            transition: background 0.4s, color 0.4s;
+            background-image: radial-gradient(circle at 10% 20%, rgba(212, 175, 55, 0.05) 0%, transparent 40%),
+                              radial-gradient(circle at 90% 80%, rgba(212, 175, 55, 0.05) 0%, transparent 40%);
+        }
+
+        /* =========================================
+           2. КОМПОНЕНТЫ ИНТЕРФЕЙСА
+           ========================================= */
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        
+        .btn {
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+            padding: 12px 24px; border-radius: 99px; font-weight: 600; font-size: 15px;
+            border: none; cursor: pointer; transition: all 0.3s ease; text-decoration: none;
+        }
+        .btn-gold {
+            background: var(--gold-grad); color: #0a0a0f;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+        }
+        .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(212, 175, 55, 0.5); }
+        .btn-outline {
+            background: transparent; color: var(--gold); border: 1.5px solid var(--gold);
+        }
+        .btn-outline:hover { background: rgba(212, 175, 55, 0.1); }
+
+        .card {
+            background: var(--bg-card);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 28px;
+            transition: all 0.4s ease;
+        }
+        .card:hover {
+            transform: translateY(-4px);
+            border-color: var(--gold);
+            box-shadow: var(--shadow-gold);
+        }
+
+        .section-title {
+            font-family: var(--font-serif);
+            font-size: clamp(28px, 4vw, 42px);
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 16px;
+            background: var(--gold-grad);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .section-subtitle {
+            text-align: center; color: var(--text-muted); max-width: 700px;
+            margin: 0 auto 48px; font-size: 16px;
+        }
+
+        /* =========================================
+           3. НАВИГАЦИЯ
+           ========================================= */
+        header {
+            position: sticky; top: 0; z-index: 100;
+            background: rgba(10, 10, 15, 0.85);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+        }
+        [data-theme="light"] header { background: rgba(248, 245, 240, 0.85); }
+        
+        .nav-inner {
+            display: flex; align-items: center; justify-content: space-between;
+            max-width: 1200px; margin: 0 auto; padding: 16px 20px;
+        }
+        .logo {
+            font-family: var(--font-serif); font-size: 24px; font-weight: 700;
+            display: flex; align-items: center; gap: 10px; color: var(--text); text-decoration: none;
+        }
+        .logo i { color: var(--gold); font-size: 28px; }
+        
+        .nav-links { display: flex; gap: 24px; }
+        .nav-links a {
+            color: var(--text-muted); text-decoration: none; font-size: 14px; font-weight: 500;
+            transition: color 0.3s; position: relative;
+        }
+        .nav-links a:hover, .nav-links a.active { color: var(--gold); }
+        .nav-links a.active::after {
+            content: ''; position: absolute; bottom: -4px; left: 0; width: 100%; height: 2px;
+            background: var(--gold-grad); border-radius: 2px;
+        }
+
+        .nav-actions { display: flex; gap: 12px; align-items: center; }
+        .theme-toggle {
+            width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--border);
+            background: var(--bg-card); color: var(--gold); cursor: pointer;
+            display: grid; place-items: center; transition: 0.3s;
+        }
+        .theme-toggle:hover { border-color: var(--gold); box-shadow: var(--shadow-gold); }
+
+        /* =========================================
+           4. СЕКЦИИ (SPA Роутинг)
+           ========================================= */
+        .view { display: none; animation: fadeIn 0.5s ease; padding: 60px 0; }
+        .view.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Hero Section */
+        .hero {
+            text-align: center; padding: 100px 0 80px;
+            background: radial-gradient(circle at center, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
+        }
+        .hero h1 {
+            font-family: var(--font-serif); font-size: clamp(36px, 6vw, 64px);
+            font-weight: 700; line-height: 1.1; margin-bottom: 24px;
+        }
+        .hero p { font-size: 18px; color: var(--text-muted); max-width: 600px; margin: 0 auto 40px; }
+        .hero-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+        /* Grid layouts */
+        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+        .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 24px; }
+
+        /* Forms */
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; font-size: 13px; color: var(--text-muted); margin-bottom: 8px; font-weight: 500; }
+        .form-input {
+            width: 100%; padding: 14px 16px; border-radius: 12px;
+            border: 1px solid var(--border); background: rgba(255,255,255,0.03);
+            color: var(--text); font-family: var(--font-main); font-size: 15px;
+            transition: all 0.3s;
+        }
+        .form-input:focus { outline: none; border-color: var(--gold); box-shadow: var(--shadow-gold); }
+
+        /* =========================================
+           5. МОДАЛЬНЫЕ ОКНА
+           ========================================= */
+        .modal-overlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(8px);
+            z-index: 1000; display: none; align-items: center; justify-content: center; padding: 20px;
+        }
+        .modal-overlay.active { display: flex; }
+        .modal-box {
+            background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius);
+            max-width: 500px; width: 100%; max-height: 90vh; overflow-y: auto;
+            padding: 32px; position: relative; animation: modalPop 0.3s ease;
+        }
+        @keyframes modalPop { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        .modal-close {
+            position: absolute; top: 16px; right: 16px; width: 36px; height: 36px;
+            border-radius: 50%; border: 1px solid var(--border); background: transparent;
+            color: var(--text); cursor: pointer; display: grid; place-items: center;
+        }
+        .modal-close:hover { border-color: var(--gold); color: var(--gold); }
+
+        .login-option {
+            display: flex; align-items: center; gap: 12px; width: 100%; padding: 14px;
+            border-radius: 12px; border: 1px solid var(--border); background: transparent;
+            color: var(--text); font-size: 15px; cursor: pointer; transition: 0.3s; margin-bottom: 12px;
+        }
+        .login-option:hover { border-color: var(--gold); background: rgba(212, 175, 55, 0.05); }
+        .login-option i { font-size: 20px; width: 24px; text-align: center; }
+        .login-option.vk i { color: #0077FF; }
+        .login-option.tg i { color: #24A1DE; }
+        .login-option.max i { color: #FF5722; }
+        .login-option.phone i { color: var(--gold); }
+
+        /* =========================================
+           6. АНИМАЦИИ И УТИЛИТЫ
+           ========================================= */
+        .glow-text { text-shadow: 0 0 20px rgba(212, 175, 55, 0.4); }
+        .text-gold { color: var(--gold); }
+        .mt-4 { margin-top: 32px; }
+        
+        /* Мобильная навигация */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .mobile-nav {
+                display: flex; position: fixed; bottom: 0; left: 0; right: 0;
+                background: var(--bg-card); backdrop-filter: blur(16px);
+                border-top: 1px solid var(--border); z-index: 90;
+                justify-content: space-around; padding: 12px 0 env(safe-area-inset-bottom);
+            }
+            .mobile-nav a {
+                display: flex; flex-direction: column; align-items: center; gap: 4px;
+                color: var(--text-muted); text-decoration: none; font-size: 11px;
+            }
+            .mobile-nav a.active { color: var(--gold); }
+            .mobile-nav a i { font-size: 20px; }
+            .view { padding-bottom: 80px; }
+        }
+        @media (min-width: 769px) { .mobile-nav { display: none; } }
+
+        /* Loader для нумерологии */
+        .loader {
+            border: 3px solid rgba(212, 175, 55, 0.1); border-top: 3px solid var(--gold);
+            border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite;
+            margin: 20px auto; display: none;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+   3. Нумерология и биоритмы (интерфейс готов к подключению API)
+    4. Дневник жизни с трекером настроения
+    5. Аудио-практики и медитации
+    6. Форма записи на приём с юридическими согласиями
+    7. Мульти-вход (VK, TG, MAX, Телефон)
+    -->
+
+    <!-- HEADER -->
+    <header>
+        <div class="nav-inner">
+            <a href="#/home" class="logo" onclick="navigate('home')">
+                <i class="fa-solid fa-brain"></i>
+                <span>Нейро<span class="text-gold">лайф</span></span>
+            </a>
+            <nav class="nav-links">
+                <a href="#/home" onclick="navigate('home')">Главная</a>
+                <a href="#/profile" onclick="navigate('profile')">Карта пути</a>
+                <a href="#/tests" onclick="navigate('tests')">Тесты</a>
+                <a href="#/numerology" onclick="navigate('numerology')">Нумерология</a>
+                <a href="#/diary" onclick="navigate('diary')">Дневник</a>
+                <a href="#/booking" onclick="navigate('booking')">Запись</a>
+            </nav>
+            <div class="nav-actions">
+                <button class="theme-toggle" onclick="toggleTheme()" title="Сменить тему">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+                <button class="btn btn-gold" onclick="openModal('loginModal')">
+                    <i class="fa-solid fa-right-to-bracket"></i> Войти
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MOBILE NAV -->
+    <nav class="mobile-nav">
+        <a href="#/home" onclick="navigate('home')"><i class="fa-solid fa-house"></i><span>Главная</span></a>
+        <a href="#/profile" onclick="navigate('profile')"><i class="fa-solid fa-map"></i><span>Путь</span></a>
+        <a href="#/tests" onclick="navigate('tests')"><i class="fa-solid fa-clipboard-list"></i><span>Тесты</span></a>
+        <a href="#/booking" onclick="navigate('booking')"><i class="fa-solid fa-calendar-check"></i><span>Запись</span></a</section>
+
+        <!-- НУМЕРОЛОГИЯ -->
+        <section id="numerology" class="view">
+            <div class="container">
+                <h2 class="section-title">Космо-психологический профиль</h2>
+                <p class="section-subtitle">Матрица Пифагора, арканы и биоритмы на основе вашей даты рождения.</p>
+                
+                <div class="grid-3" style="max-width: 900px; margin: 0 auto;">
+                    <div class="card" style="grid-column: span 2;">
+                        <h3 style="font-family: var(--font-serif); margin-bottom: 24px; font-size: 24px;">Введите данные для расчёта</h3>
+                        <div class="form-group">
+                            <label>Дата рождения *</label>
+                            <input type="date" id="numDate" class="form-input" required>
+                        </div>
+                        <div class="grid-3" style="grid-template-columns: 1fr 1fr; gap: 16px;">
+                            <div class="form-group">
+                                <label>Время рождения (если известно)</label>
+                                <input type="time" id="numTime" class="form-input">
+                            </div>
+                            <div class="form-group">
+                                <label>Место рождения</label>
+                                <input type="text" id="numPlace" class="form-input" placeholder="Например: Киров">
+                            </div>
+                        </div>
+                        <button class="btn btn-gold" style="width: 100%; margin-top: 16px;" onclick="calculateNumerology()">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i> Рассчитать профиль
+                        </button>
+                        
+                        <div id="numLoader" class="loader"></div>
+                        
+                        <div id="numResult" style="display: none; margin-top: 32px; border-top: 1px solid var(--border); padding-top: 24px;">
+                            <h3 class="text-gold" style="font-family: var(--font-serif); margin-bottom: 16px;">✨ Ваш результат</h3>
+                            <p style="color: var(--text-muted); margin-bottom: 16px;">
+                                <strong>Число жизненного пути:</strong> <span class="text-gold" style="font-size: 24px; font-weight: 700;">7</span><br>
+                                <em>Аналитик, искатель истины, обладает глубокой интуицией и стремлением к знаниям.</em>
+                            </p>
+                            <div style="background: rgba(212, 175, 55, 0.05); padding: 16px; border-radius: 12px; border: 1px solid var(--border);">
+                                <strong>💡 Рекомендация дня:</strong> Уделите время уединению и анализу наколенного опыта. Избегайте суеты.
+                            </div>
+                            <p style="font-size: 12px; color: var(--text-muted); margin-top: 16px;">
+                                * Полный развёрнутый отчёт с арканами и биоритмами будет доступен после подключения модуля расчётов.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="card" style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
+                        <i class="fa-solid fa-star-and-crescent" style="font-size: 48px; color: var(--gold); margin-bottom: 16px;"></i>
+                        <h4 style="font-family: var(--font-serif); margin-bottom: 8px;">Точность расчёта</h4>
+                        <p style="font-size: 14px; color: var(--text-muted);">
+                            Для максимально точного расчёта арканов и астрологических аспектов укажите точное время и город рождения.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ДНЕВНИК -->
+        <section id="diary" class="view">
+            <div class="container">
+                <h2 class="section-title">Дневник жизни</h2>
+                <p class="section-subtitle">Ваши заметки, рефлексии после тестов и трекинг настроения в одном месте.</p>
+                
+                <div class="grid-3" style="max-width: 900px; margin: 0 auto;">
+                    <div class="card" style="grid-column: span 2;">
+                        <h3 style="font-family: var(--font-serif); margin-bottom: 16px;">Новая запись</h3>
+                        <div style="display: flex; gap: 8px; margin-bottom: 16px;">
+                            <button class="btn btn-outline" style="padding: 8px 12px; font-size: 20px;" onclick="setMood(5)">😊</button>
+                            <button class="btn btn-outline" style="padding: 8px 12px; font-size: 20px;" onclick="setMood3)">😐</button>
+                            <button class="btn btn-outline" style="padding: 8px 12px; font-size: 20px;" onclick="setMood(1)">😔</button>
+                        </div>
+                        <textarea class="form-input" rows="4" placeholder="Что вы чувствуете сегодня? О чём думаете?"></textarea>
+                        <button class="btn btn-gold" style="margin-top: 16px;" onclick="showToast('Запись сохранена!')">
+                            <i class="fa-solid fa-save"></i> Сохранить
+                        </button>
+                    </div>
+                    <div class="card">
+                        <h3 style="font-family: var(--font-serif); margin-bottom: 16px;">Последние записи</h3>
+                        <div style="display: flex; flex-direction: column; gap: 16px;">
+                            <div style="padding: 12px; background: rgba(255,255,255,0.03); border-radius: 8px; border-left: 3px solid var(--gold);">
+                                <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 4px;">Сегодня, 10:30 • 😊</div>
+                                <p style="font-size: 14px;">Сделал упражнение на дыхание, стало намного спокойнее.</p>
+                            </div>
+                            <div style="padding: 12px; background: rgba(255,255,255,0.03); border-radius: 8px; border-left: 3px solid var(--text-muted);">
+                                <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 4px;">Вчера, 21:15 • 😐</div>
+                                <p style="font-size: 14px;">Пройден тест BDI-II. Результат в норме, но есть над чем работать.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- АУДИО -->
+        <section id="audio" class="view">
+            <div class="container">
+                <h2 class="section-title">Медитации и практики</h2>
+                <p class="section-subtitle">Аудиоматериалы для расслабления, настройки на день и глубокой работы с подсознанием.</p>
+                <div class="grid-3">
+                    <div class="card" style="text-align: center;">
+                        <i class="fa-solid fa-sun" style="font-size: 32px; color: var(--gold); margin-bottom: 16px;"></i>
+                        <h3 style="margin-bottom: 8px;">Утренняя настройка</h3>
+                        <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 16px;">10 мин • Осознанность</p>
+                        <button class="btn btn-outline" style="width: 100%;"><i class="fa-solid fa-play"></i> Слушать</button>
+                    </div>
+                    <div class="card" style="text-align: center;">
+                        <i class="fa-solid fa-moon" style="font-size: 32px; color: var(--gold); margin-bottom: 16px;"></i>
+                        <h3 style="margin-bottom: 8px;">Вечернее расслабление</h3>
+                        <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 16px;">15 мин • Йога-нидра</p>
+                        <button class="btn btn-outline" style="width: 100%;"><i class="fa-solid fa-play"></i> Слушать</button>
+                    </div>
+                    <div class="card" style="text-align: center;">
+                        <i class="fa-solid fa-wind" style="font-size: 32px; color: var(--gold); margin-bottom: 16px;"></i>
+                        <h3 style="margin-bottom: 8px;">Дыхание 4-7-8</h3>
+                        <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 16px;">5 мин • Снятие тревоги</p>
+                        <button class="btn btn-outline" style="width: 100%;"><i class="fa-solid fa-play"></i> Слушать</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ЗАПИСЬ НА ПРИЁМ -->
+        <section id="booking" class="view">
+            <div class="container">
+                <h2 class="section-title">Запись на консультацию</h2>
+                <p class="section-subtitle">Анонимно, без очередей и постановки на учёт. Мы свяжемся с вами для подтверждения.</p>
+                
+                <div class="card" style="max-width: 700px; margin: 0 auto;">
+                    <form onsubmit="event.preventDefault(); showToast('Заявка успешно отправлена!');">
+                        <div class="grid-3" style="grid-template-columns: 1fr 1fr; gap: 16px;">
+                            <div class="form-group">
+                                <label>Ваше имя *</label>
+                                <input type="text" class="form-input" required placeholder="Иван">
+                            </div>
+                            <div class="form-group">
+                                <label>Телефон *</label>
+                                <input type="tel" class="form-input" required placeholder="+7 (999) 000-00-00">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Специалист *</label>
+                            <select class="form-input" required>
+                                <option value="">Выберите специалиста</option>
+                                <option>Психиатр (Сухих Д.В.)</option>
+                                <option>Психотерапевт</option>
+                                <option>Невролог</option>
+                                <option>Клинический психолог</option>
+                            </select>
+                        </div>
+                        <div class="grid-3" style="grid-template-columns: 1fr 1fr; gap: 16px;">
+                            <div class="form-group">
+                                <label>Желаемая дата *</label>
+                                <input type="date" class="form-input" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Желаемое время *</label>
+                                <select class="form-input" required>
+                                    <option>10:00</option><option>12:00</option><option>15:00</option><option>18:00</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Комментарий (необязательно)</label>
+                            <textarea class="form-input" rows="3" placeholder="Кратко опишите ваш запрос..."></textarea>
+                        </div>
+
+                        <div style="margin: 24px 0; padding: 16px; background: rgba(212, 175, 55, 0.05); border-radius: 12px; border: 1px solid var(--border);">
+                            <label style="display: flex; gap: 12px; align-items: flex-start; margin-bottom: 12px; font-size: 14px; cursor: pointer;">
+                                <input type="checkbox" required style="margin-top: 3px; accent-color: var(--gold);">
+                                <span>Я даю <a href="#" onclick="openModal('consent152'); return false;" class="text-gold">согласие на обработку персональных данных</a> (152-ФЗ).</span>
+                            </label>
+                            <label style="display: flex; gap: 12px; align-items: flex-start; margin-bottom: 12px; font-size: 14px; cursor: pointer;">
+                                <input type="checkbox" required style="margin-top: 3px; accent-color: var(--gold);">
+                                <span>Я даю <a href="#" onclick="openModal('consentIds'); return false;" class="text-gold">информированное добровольное согласие</a> на мед. вмешательство.</span>
+                            </label>
+                            <label style="display: flex; gap: 12px; align-items: flex-start; font-size: 14px; cursor: pointer;">
+                                <input type="checkbox" style="margin-top: 3px; accent-color: var(--gold);">
+                                <span>Я <a href="#" onclick="openModal('consentEgisz'); return false;" class="text-gold">отказываюсь от передачи данных в ЕГИСЗ</a>.</span>
+                            </label>
+                        </div>
+
+                        <button type="submit" class="btn btn-gold" style="width: 100%;">
+                            <i class="fa-solid fa-paper-plane"></i> Отправить заявку
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer style="border-top: 1px solid var(--border); padding: 60px 0 30px; background: var(--bg-card);">
+        <div class="container">
+            <div class="grid-3" style="margin-bottom: 40px;">
+                <div>
+                    <h4 style="font-family: var(--font-serif); font-size: 20px; margin-bottom: 16px;">Нейро<span class="text-gold">лайф</span></h4>
+                    <p style="color: var(--text-muted); font-size: 14px; line-height: 1.6;">
+                        Центр неврологии и психического здоровья.<br>
+                        Доказательная медицина, анонимность и индивидуальный подход.
+                    </p>
+                </div>
+                <div>
+                    <h4 style="font-family: var(--font-serif); margin-bottom: 16px;">Контакты</h4>
+                    <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 8px;"><i class="fa-solid fa-phone text-gold"></i> +7 (922) 962-67-40</p>
+                    <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 8px;"><i class="fa-solid fa-envelope text-gold"></i> danil_suhih@mail.ru</p>
+                    <p style="color: var(--text-muted); font-size: 14px;"><i class="fa-solid fa-location-dot text-gold"></i> г. Киров, ул. Спасская, 26б</p>
+                </div>
+                <div>
+                    <h4 style="font-family: var(--font-serif); margin-bottom: 16px;">Мы в соцсетях</h4>
+                    <div style="display: flex; gap: 12px;">
+                        <a href="https://vk.com/neurolifecenter" target="_blank" class="btn btn-outline" style="padding: 8px 16px;"><i class="fa-brands fa-vk"></i> VK</a>
+                        <a href="https://t.me/neurolifecenter" target="_blank" class="btn btn-outline" style="padding: 8px 16px;"><i class="fa-brands fa-telegram"></i> TG</a>
+                    </div>
+                </div>
+            </div>
+            <div style="border-top: 1px solid var(--border); padding-top: 24px; font-size: 12px; color: var(--text-muted); text-align: center; line-height: 1.6;">
+                <p>© 2026 ООО «ДМЦ «Здоровые Дети» (бренд «Нейролайф»). Лицензия: № Л041-01160-43/00322654 от 04.07.2018</p>
+                <p>ИНН 4345448601 | КПП 434501001 | ОГРН 1164350067980 | Учредитель: Катаев В.В.</p>
+                <p style="margin-top: 12px; color: var(--gold);">⚠️ Информация на сайте носит ознакомительный характер и не является медицинской консультацией. Имеются противопоказания. Необходима консультация специалиста. 18+</p>
+            </div>
+        </div
+</script>
+</body>
+</html>
