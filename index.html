@@ -1,0 +1,2221 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Нейролайф — центр неврологии и психического здоровья в Кирове. Доказательная медицина, полная анонимность, опытные специалисты.">
+    <title>Нейролайф — Центр неврологии и психического здоровья | Киров</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* ═══════════════════════════════════════════════════════════════════
+           CSS ПЕРЕМЕННЫЕ И ТЕМЫ
+           ═══════════════════════════════════════════════════════════════════ */
+        :root {
+            --primary: #6366f1;
+            --primary-light: #818cf8;
+            --primary-dark: #4f46e5;
+            --secondary: #ec4899;
+            --accent: #06b6d4;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #13131f;
+            --bg-tertiary: #1a1a2e;
+            --bg-card: rgba(26, 26, 46, 0.6);
+            --bg-glass: rgba(255, 255, 255, 0.03);
+            
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --text-muted: #64748b;
+            
+            --border: rgba(255, 255, 255, 0.08);
+            --border-light: rgba(255, 255, 255, 0.15);
+            
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+            --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.4);
+            --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.5);
+            --shadow-glow: 0 0 40px rgba(99, 102, 241, 0.3);
+            
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+            
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            
+            --font-main: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-display: 'Playfair Display', Georgia, serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-tertiary: #f1f5f9;
+            --bg-card: rgba(255, 255, 255, 0.8);
+            --bg-glass: rgba(0, 0, 0, 0.02);
+            
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #94a3b8;
+            
+            --border: rgba(0, 0, 0, 0.08);
+            --border-light: rgba(0, 0, 0, 0.15);
+            
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+            --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.12);
+            --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.15);
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════
+           СБРОС И БАЗОВЫЕ СТИЛИ
+           ═══════════════════════════════════════════════════════════════════ */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            transition: var(--transition);
+        }
+
+        /* Анимированный фон */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(236, 72, 153, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(6, 182, 212, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+            animation: bgPulse 15s ease-in-out infinite;
+        }
+
+        @keyframes bgPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════
+           УТИЛИТЫ
+           ═══════════════════════════════════════════════════════════════════ */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 64px;
+        }
+
+        .section-label {
+            display: inline-block;
+            padding: 8px 16px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-radius: 100px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+            animation: fadeInDown 0.6s ease;
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--text-secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-subtitle {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════
+           НАВИГАЦИЯ
+           ═══════════════════════════════════════════════════════════════════ */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(10, 10, 15, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            transition: var(--transition);
+        }
+
+        [data-theme="light"] .navbar {
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        .navbar.scrolled {
+            background: rgba(10, 10, 15, 0.95);
+            box-shadow: var(--shadow-md);
+        }
+
+        .navbar-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 24px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            animation: logoPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes logoPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+        }
+
+        .logo-text span:first-child {
+            font-size: 1.25rem;
+            font-weight: 800;
+        }
+
+        .logo-text span:last-child {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            list-style: none;
+        }
+
+        .nav-link {
+            padding: 10px 16px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9375rem;
+            border-radius: var(--radius-md);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: var(--text-primary);
+            background: var(--bg-glass);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 4px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transition: var(--transition);
+        }
+
+        .nav-link:hover::after {
+            width: 60%;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .theme-toggle {
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--border);
+            background: var(--bg-glass);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            background: var(--bg-tertiary);
+            transform: rotate(180deg);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            border: none;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            font-size: 0.9375rem;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn:active::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            box-shadow: 0 4px 16px rgba(99, 102, 241, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(99, 102, 241, 0.4);
+        }
+
+        .btn-secondary {
+            background: var(--bg-glass);
+            color: var(--text-primary);
+            border: 1px solid var(--border-light);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-tertiary);
+            border-color: var(--primary);
+        }
+
+        .btn-large {
+            padding: 16px 32px;
+            font-size: 1rem;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--border);
+            background: var(--bg-glass);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+        }
+
+        .mobile-menu-btn span {
+            width: 20px;
+            height: 2px;
+            background: var(--text-primary);
+            transition: var(--transition);
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════
+           HERO СЕКЦИЯ
+           ═══════════════════════════════════════════════════════════════════ */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 120px 0 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 64px;
+            align-items: center;
+        }
+
+        .hero-content {
+            animation: fadeInLeft 1s ease;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: var(--bg-glass);
+            border: 1px solid var(--border-light);
+            border-radius: 100px;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+        }
+
+        .hero-badge .dot {
+            width: 8px;
+            height: 8px;
+            background: var(--success);
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .hero-title {
+            font-family: var(--font-display);
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 24px;
+        }
+
+        .hero-title .gradient-text {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 50%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            background-size: 200% 200%;
+            animation: gradientShift 5s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .hero-description {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+            line-height: 1.7;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 32px;
+            margin-bottom: 40px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .hero-image {
+            position: relative;
+            animation: fadeInRight 1s ease;
+        }
+
+        .hero-image-wrapper {
+            position: relative;
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .hero-image-wrapper::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(236, 72, 153, 0.2));
+            z-index: 1;
+        }
+
+        .hero-image-wrapper img {
+            width: 100%;
+            height: 600px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .hero-float-card {
+            position: absolute;
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            padding: 16px 20px;
+            box-shadow: var(--shadow-md);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .hero-float-card.card-1 {
+            top: 10%;
+            left: -30px;
+            animation-delay: 0s;
+        }
+
+        .hero-float-card.card-2 {
+            bottom: 20%;
+            right: -30px;
+            animation-delay: 2s;
+        }
+
+        .hero-float-card.card-3 {
+            bottom: 10%;
+            left: 10%;
+            animation-delay: 4s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .float-card-icon {
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+        }
+
+        .float-card-title {
+            font-weight: 600;
+            font-size: 0.9375rem;
+            margin-bottom: 4px;
+        }
+
+        .float-card-text {
+            font-size: 0.8125rem;
+            color: var(--text-muted);
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════
+           О ЦЕНТРЕ
+           ═══════════════════════════════════════════════════════════════════ */
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .about-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: var(--transition);
+        }
+
+        .about-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--primary);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .about-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .about-icon {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .about-card h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .about-card p {
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════
+           ПРОЦЕДУРЫ
+           ═══════════════════════════════════════════════════════════════════ */
+        .procedures-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 32px;
+        }
+
+        .procedure-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .procedure-card:hover {
+            transform: translateY(-12px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary);
+        }
+
+        .procedure-image {
+            width: 100%;
+            height: 240px;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .procedure-card:hover .procedure-image {
+            transform: scale(1.05);
+        }
+
+        .procedure-image-wrapper {
+            overflow: hidden;
+            position: relative;
+        }
+
+        .procedure-image-wrapper::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 50%;
+            background: linear-gradient(to top, var(--bg-card), transparent);
+        }
+
+        .procedure-content {
+            padding: 24px;
+        }
+
+        .procedure-tag {
+            display: inline-block;
+            padding: 4px 12px;
+            background: rgba(99, 102, 241, 0.1);
+            color: var(--primary-light);
+            border-radius: 100px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .procedure-card h3 {
+            font-size: 1.375rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .procedure-card p {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 16px;
+        }
+
+        .procedure-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border);
+        }
+
+        .procedure-detail {
+            font-size: 0.875rem;
+        }
+
+        .procedure-detail strong {
+            display: block;
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════
+           СПЕЦИАЛИСТЫ
+           ═══════════════════════════════════════════════════════════════════ */
+        .specialists-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+        }
+
+        .specialist-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .specialist-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .specialist-photo {
+            width: 100%;
+            height: 320px;
+            object-fit: cover;
+        }
+
+        .specialist-content {
+            padding: 24px;
+        }
+
+        .specialist-role {
+            color: var(--primary-light);
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .specialist-card h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .specialist-bio {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 16px;
+        }
+
+        .specialist-stats {
+            display: flex;
+            gap: 16px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border);
+        }
+
+        .specialist-stat {
+            text-align: center;
+            flex: 1;
+        }
+
+        .specialist-stat-value {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary-light);
+        }
+
+        .specialist-stat-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════
+           ДИАГНОСТИКА
+           ═══════════════════════════════════════════════════════════════════ */
+        .diagnostics-showcase {
+            background: linear-gradient(135deg, var(--bg-secondary), var(--bg-tertiary));
+            border-radius: var(--radius-xl);
+            padding: 64px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .diagnostics-showcase::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.2) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .diagnostics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+            margin-top: 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .diagnostic-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 24px;
+            transition: var(--transition);
+        }
+
+        .diagnostic-item:hover {
+            border-color: var(--primary);
+            transform: translateY(-4px);
+        }
+
+        .diagnostic-icon {
+            font-size: 2rem;
+            margin-bottom: 12px;
+        }
+
+        .diagnostic-item h4 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .diagnostic-item p {
+            color: var(--text-secondary);
+            font-size: 0.9375rem;
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════
+           АНИМАЦИИ
+           ═══════════════════════════════════════════════════════════════════ */
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: var(--transition-slow);
+        }
+
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════
+           АДАПТИВНОСТЬ
+           ═══════════════════════════════════════════════════════════════════ */
+        @media (max-width: 1024px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+                gap: 48px;
+            }
+
+            .about-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .nav-menu {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .section {
+                padding: 60px 0;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-stats {
+                flex-wrap: wrap;
+                gap: 24px;
+            }
+
+            .hero-actions {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .diagnostics-showcase {
+                padding: 32px;
+            }
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════
+           СКРОЛЛБАР
+           ═══════════════════════════════════════════════════════════════════ */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-primary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, var(--primary), var(--secondary));
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-light);
+        }
+    </style>
+</head>
+<body>
+    <!-- Навигация -->
+    <nav class="navbar" id="navbar">
+        <div class="navbar-inner">
+            <a href="#home" class="logo">
+                <div class="logo-icon">🧠</div>
+                <div class="logo-text">
+                    <span>Нейролайф</span>
+                    <span>Центр неврологии и психического здоровья</span>
+                </div>
+            </a>
+
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link">Главная</a></li>
+                <li><a href="#about" class="nav-link">О центре</a></li>
+                <li><a href="#procedures" class="nav-link">Процедуры</a></li>
+                <li><a href="#specialists" class="nav-link">Специалисты</a></li>
+                <li><a href="#diagnostics" class="nav-link">Диагностика</a></li>
+                <li><a href="#self-development" class="nav-link">Саморазвитие</a></li>
+                <li><a href="#contacts" class="nav-link">Контакты</a></li>
+            </ul>
+
+            <div class="nav-actions">
+                <button class="theme-toggle" id="themeToggle" title="Сменить тему">🌙</button>
+                <a href="#booking" class="btn btn-primary">Записаться</a>
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero секция -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-grid">
+                <div class="hero-content">
+                    <div class="hero-badge">
+                        <span class="dot"></span>
+                        <span>Работаем с 2018 года · Лицензия № Л041-01160-43/00322654</span>
+                    </div>
+
+                    <h1 class="hero-title">
+                        Ваше <span class="gradient-text">психическое здоровье</span> — наш приоритет
+                    </h1>
+
+                    <p class="hero-description">
+                        Частная практика в Кирове. Доказательная медицина, полная анонимность, 
+                        индивидуальный подход и современные протоколы лечения. Без очередей и постановки на учёт.
+                    </p>
+
+                    <div class="hero-stats">
+                        <div class="stat-item">
+                            <div class="stat-value">12+</div>
+                            <div class="stat-label">лет опыта</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">21</div>
+                            <div class="stat-label">методика</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">100%</div>
+                            <div class="stat-label">анонимность</div>
+                        </div>
+                    </div>
+
+                    <div class="hero-actions">
+                        <a href="#booking" class="btn btn-primary btn-large">
+                            <span>📅</span> Записаться на приём
+                        </a>
+                        <a href="#diagnostics" class="btn btn-secondary btn-large">
+                            <span>🧠</span> Пройти диагностику
+                        </a>
+                    </div>
+                </div>
+
+                <div class="hero-image">
+                    <div class="hero-image-wrapper">
+                        <img src="изображения/главная.jpg" alt="Нейролайф — центр неврологии и психического здоровья">
+                    </div>
+
+                    <div class="hero-float-card card-1">
+                        <div class="float-card-icon">🔒</div>
+                        <div class="float-card-title">Полная анонимность</div>
+                        <div class="float-card-text">Без постановки на учёт</div>
+                    </div>
+
+                    <div class="hero-float-card card-2">
+                        <div class="float-card-icon">⚕️</div>
+                        <div class="float-card-title">Доказательная медицина</div>
+                        <div class="float-card-text">DSM-5, МКБ-11</div>
+                    </div>
+
+                    <div class="hero-float-card card-3">
+                        <div class="float-card-icon">🎯</div>
+                        <div class="float-card-title">Индивидуальный подход</div>
+                        <div class="float-card-text">Современные протоколы</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- О центре -->
+    <section class="section" id="about">
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <span class="section-label">О центре</span>
+                <h2 class="section-title">Почему выбирают Нейролайф</h2>
+                <p class="section-subtitle">
+                    Доказательная медицина, полная анонимность и опытные специалисты — три причины, по которым нам доверяют
+                </p>
+            </div>
+
+            <div class="about-grid">
+                <div class="about-card animate-on-scroll">
+                    <div class="about-icon">⚕️</div>
+                    <h3>Доказательная медицина</h3>
+                    <p>Международные протоколы лечения, основанные на DSM-5 и МКБ-11. Используем только методы с подтверждённой эффективностью.</p>
+                </div>
+
+                <div class="about-card animate-on-scroll">
+                    <div class="about-icon">🔒</div>
+                    <h3>Полная анонимность</h3>
+                    <p>Без постановки на учёт, врачебная тайна соблюдается строго. Ваши данные защищены и не передаются третьим лицам.</p>
+                </div>
+
+                <div class="about-card animate-on-scroll">
+                    <div class="about-icon">👨‍⚕️</div>
+                    <h3>Опытные врачи</h3>
+                    <p>Клинический стаж 12+ лет. Регулярное повышение квалификации, участие в конференциях, работа с сложными случаями.</p>
+                </div>
+
+                <div class="about-card animate-on-scroll">
+                    <div class="about-icon">🎯</div>
+                    <h3>Индивидуальный подход</h3>
+                    <p>Каждый пациент уникален. Разрабатываем персональную программу лечения с учётом ваших особенностей и целей.</p>
+                </div>
+
+                <div class="about-card animate-on-scroll">
+                    <div class="about-icon">🧠</div>
+                    <h3>Современная диагностика</h3>
+                    <p>21 клиническая и личностная методика. Мгновенная интерпретация с рекомендациями. Отслеживание динамики.</p>
+                </div>
+
+                <div class="about-card animate-on-scroll">
+                    <div class="about-icon">💊</div>
+                    <h3>Комплексное лечение</h3>
+                    <p>Психотерапия, фармакотерапия, физиотерапия, телесные практики. Интегративный подход для максимального результата.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Процедуры -->
+    <section class="section" id="procedures" style="background: var(--bg-secondary);">
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <span class="section-label">Услуги</span>
+                <h2 class="section-title">Процедуры и методы лечения</h2>
+                <p class="section-subtitle">
+                    Широкий спектр медицинских услуг для восстановления вашего здоровья
+                </p>
+            </div>
+
+            <div class="procedures-grid">
+                <!-- Психотерапия -->
+                <div class="procedure-card animate-on-scroll">
+                    <div class="procedure-image-wrapper">
+                        <img src="изображения/психотерапия.jpg" alt="Психотерапия" class="procedure-image">
+                    </div>
+                    <div class="procedure-content">
+                        <span class="procedure-tag">Психическое здоровье</span>
+                        <h3>Приём психотерапевта</h3>
+                        <p>Тревожные расстройства, депрессия, панические атаки, кризисные состояния, проблемы в отношениях, низкая самооценка, выгорание.</p>
+                        <div class="procedure-details">
+                            <div class="procedure-detail">
+                                <strong>Противопоказания</strong>
+                                Острые психотические состояния, выраженная зависимость
+                            </div>
+                            <div class="procedure-detail">
+                                <strong>Длительность</strong>
+                                50-60 минут
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Психиатрия -->
+                <div class="procedure-card animate-on-scroll">
+                    <div class="procedure-image-wrapper">
+                        <img src="изображения/психиатрия.jpg" alt="Психиатрическая помощь" class="procedure-image">
+                    </div>
+                    <div class="procedure-content">
+                        <span class="procedure-tag">Медицина</span>
+                        <h3>Психиатрическая помощь</h3>
+                        <p>Депрессивные эпизоды, тревожные расстройства (ГТР, паническое расстройство, фобии), биполярное расстройство, шизофрения (поддерживающая терапия), ОКР.</p>
+                        <div class="procedure-details">
+                            <div class="procedure-detail">
+                                <strong>Противопоказания</strong>
+                                Аллергия на препараты, тяжёлые заболевания печени/почек
+                            </div>
+                            <div class="procedure-detail">
+                                <strong>Формат</strong>
+                                Очно / Онлайн
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Психология -->
+                <div class="procedure-card animate-on-scroll">
+                    <div class="procedure-image-wrapper">
+                        <img src="изображения/психология.jpg" alt="Психологическая помощь" class="procedure-image">
+                    </div>
+                    <div class="procedure-content">
+                        <span class="procedure-tag">Консультирование</span>
+                        <h3>Психологическая помощь</h3>
+                        <p>Психосоматические расстройства, хронический стресс, трудности адаптации, возрастные кризисы, детско-родительские отношения.</p>
+                        <div class="procedure-details">
+                            <div class="procedure-detail">
+                                <strong>Противопоказания</strong>
+                                При острых психозах — консультация психиатра
+                            </div>
+                            <div class="procedure-detail">
+                                <strong>Подходы</strong>
+                                КПТ, Гештальт, Психоанализ
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Коррекция атланта -->
+                <div class="procedure-card animate-on-scroll">
+                    <div class="procedure-image-wrapper">
+                        <img src="изображения/атлант.jpg" alt="Коррекция атланта" class="procedure-image">
+                    </div>
+                    <div class="procedure-content">
+                        <span class="procedure-tag">Мануальная терапия</span>
+                        <h3>Коррекция Атланта</h3>
+                        <p>Головные боли, мигрень, головокружения, боль в шее и спине, нарушение осанки, снижение концентрации, хроническая усталость.</p>
+                        <div class="procedure-details">
+                            <div class="procedure-detail">
+                                <strong>Противопоказания</strong>
+                                Острые травмы шейного отдела, опухоли, нестабильность позвонков
+                            </div>
+                            <div class="procedure-detail">
+                                <strong>Метод</strong>
+                                Мягкая мануальная техника
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Иглорефлексотерапия -->
+                <div class="procedure-card animate-on-scroll">
+                    <div class="procedure-image-wrapper">
+                        <img src="изображения/иглорефлексотерапия.jpg" alt="Иглорефлексотерапия" class="procedure-image">
+                    </div>
+                    <div class="procedure-content">
+                        <span class="procedure-tag">Рефлексотерапия</span>
+                        <h3>Иглорефлексотерапия</h3>
+                        <p>Боли в спине, головные боли, тревожные состояния, бессонница, хронический стресс, вегетососудистая дистония, невралгии.</p>
+                        <div class="procedure-details">
+                            <div class="procedure-detail">
+                                <strong>Противопоказания</strong>
+                                Нарушения свёртываемости, тяжёлые инфекции, беременность
+                            </div>
+                            <div class="procedure-detail">
+                                <strong>Курс</strong>
+                                10-15 процедур
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Карбокситерапия -->
+                <div class="procedure-card animate-on-scroll">
+                    <div class="procedure-image-wrapper">
+                        <img src="изображения/карбокситерапия.jpg" alt="Карбокситерапия" class="procedure-image">
+                    </div>
+                    <div class="procedure-content">
+                        <span class="procedure-tag">Физиотерапия</span>
+                        <h3>Карбокситерапия</h3>
+                        <p>Хронические боли, мигрень, нарушение мозгового кровообращения, астенический синдром, снижение концентрации, постковидный синдром.</p>
+                        <div class="procedure-details">
+                            <div class="procedure-detail">
+                                <strong>Противопоказания</strong>
+                                Острая сердечно-сосудистая недостаточность, эпилепсия
+                            </div>
+                            <div class="procedure-detail">
+                                <strong>Эффект</strong>
+                                Улучшение микроциркуляции
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Плазмопунктура -->
+                <div class="procedure-card animate-on-scroll">
+                    <div class="procedure-image-wrapper">
+                        <img src="изображения/плазмопунктура.jpg" alt="Плазмопунктура" class="procedure-image">
+                    </div>
+                    <div class="procedure-content">
+                        <span class="procedure-tag">Регенеративная медицина</span>
+                        <h3>Плазмопунктура</h3>
+                        <p>Хронические невропатии, дегенеративные заболевания суставов, остеохондроз, травмы связок, алопеция, омоложение кожи.</p>
+                        <div class="procedure-details">
+                            <div class="procedure-detail">
+                                <strong>Противопоказания</strong>
+                                Тромбоцитопения, онкология, аутоиммунные заболевания
+                            </div>
+                            <div class="procedure-detail">
+                                <strong>Метод</strong>
+                                PRP-терапия
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Лечебный массаж -->
+                <div class="procedure-card animate-on-scroll">
+                    <div class="procedure-image-wrapper">
+                        <img src="изображения/массаж.jpg" alt="Лечебный массаж" class="procedure-image">
+                    </div>
+                    <div class="procedure-content">
+                        <span class="procedure-tag">Телесная терапия</span>
+                        <h3>Лечебный массаж</h3>
+                        <p>Мышечные боли, остеохондроз, сколиоз, последствия травм, стресс, нарушение кровообращения.</p>
+                        <div class="procedure-details">
+                            <div class="procedure-detail">
+                                <strong>Противопоказания</strong>
+                                Острые инфекции, тромбозы, онкология, открытые раны
+                            </div>
+                            <div class="procedure-detail">
+                                <strong>Длительность</strong>
+                                40-60 минут
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Электросон -->
+                <div class="procedure-card animate-on-scroll">
+                    <div class="procedure-image-wrapper">
+                        <img src="изображения/электросон.jpg" alt="Электросон" class="procedure-image">
+                    </div>
+                    <div class="procedure-content">
+                        <span class="procedure-tag">Физиотерапия</span>
+                        <h3>Электросон</h3>
+                        <p>Нарушения сна, тревожные расстройства, астенический синдром, ПТСР, вегетососудистая дистония.</p>
+                        <div class="procedure-details">
+                            <div class="procedure-detail">
+                                <strong>Противопоказания</strong>
+                                Эпилепсия, кардиостимулятор, острые инфекции
+                            </div>
+                            <div class="procedure-detail">
+                                <strong>Курс</strong>
+                                10-20 процедур
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ЭЭГ -->
+                <div class="procedure-card animate-on-scroll">
+                    <div class="procedure-image-wrapper">
+                        <img src="изображения/ээг.jpg" alt="ЭЭГ" class="procedure-image">
+                    </div>
+                    <div class="procedure-content">
+                        <span class="procedure-tag">Диагностика</span>
+                        <h3>ЭЭГ</h3>
+                        <p>Подозрение на эпилепсию, судорожные состояния, нарушения сна, когнитивные нарушения, травмы головы, задержка развития у детей.</p>
+                        <div class="procedure-details">
+                            <div class="procedure-detail">
+                                <strong>Противопоказания</strong>
+                                Отсутствуют (метод безопасен)
+                            </div>
+                            <div class="procedure-detail">
+                                <strong>Подготовка</strong>
+                                Чистота кожи головы
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ударно-волновая терапия -->
+                <div class="procedure-card animate-on-scroll">
+                    <div class="procedure-image-wrapper">
+                        <img src="изображения/увт.jpg" alt="Ударно-волновая терапия" class="procedure-image">
+                    </div>
+                    <div class="procedure-content">
+                        <span class="procedure-tag">Физиотерапия</span>
+                        <h3>Ударно-волновая терапия</h3>
+                        <p>Пяточная шпора, тендиниты, бурситы, плантарный фасциит, триггерные точки в мышцах, остеохондроз, эпикондилит.</p>
+                        <div class="procedure-details">
+                            <div class="procedure-detail">
+                                <strong>Противопоказания</strong>
+                                Онкология, беременность, тромбозы, кардиостимулятор
+                            </div>
+                            <div class="procedure-detail">
+                                <strong>Курс</strong>
+                                5-10 процедур
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Озонотерапия -->
+                <div class="procedure-card animate-on-scroll">
+                    <div class="procedure-image-wrapper">
+                        <img src="изображения/озонотерапия.jpg" alt="Озонотерапия" class="procedure-image">
+                    </div>
+                    <div class="procedure-content">
+                        <span class="procedure-tag">Озонотерапия</span>
+                        <h3>Озонотерапия</h3>
+                        <p>Хронические воспалительные процессы, боли в суставах, астенический синдром, снижение иммунитета, герпес, варикозное расширение вен.</p>
+                        <div class="procedure-details">
+                            <div class="procedure-detail">
+                                <strong>Противопоказания</strong>
+                                Аллергия на озон, тромбоцитопения, гипертиреоз
+                            </div>
+                            <div class="procedure-detail">
+                                <strong>Эффект</strong>
+                                Иммуномодуляция
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ПДИ -->
+                <div class="procedure-card animate-on-scroll">
+                    <div class="procedure-image-wrapper">
+                        <img src="изображения/пди.jpg" alt="Патодиагностическое исследование" class="procedure-image">
+                    </div>
+                    <div class="procedure-content">
+                        <span class="procedure-tag">Диагностика</span>
+                        <h3>ПДИ (Патодиагностическое исследование)</h3>
+                        <p>Психические расстройства, когнитивные нарушения, экспертные вопросы (диагностика, уточнение диагноза, оценка дееспособности).</p>
+                        <div class="procedure-details">
+                            <div class="procedure-detail">
+                                <strong>Противопоказания</strong>
+                                Острые психотические состояния
+                            </div>
+                            <div class="procedure-detail">
+                                <strong>Результат</strong>
+                                Заключение специалиста
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Продолжение следует в следующей части -->
+</body>
+</html>
+
+<!-- Специалисты -->
+    <section class="section" id="specialists">
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <span class="section-label">Команда</span>
+                <h2 class="section-title">Наши специалисты</h2>
+                <p class="section-subtitle">
+                    Опытные врачи с клиническим стажем 12+ лет. Регулярное повышение квалификации и участие в международных конференциях.
+                </p>
+            </div>
+
+            <div class="specialists-grid">
+                <!-- Сухих Данил Витальевич -->
+                <div class="specialist-card animate-on-scroll">
+                    <img src="изображения/сухих.jpg" alt="Сухих Данил Витальевич — врач-психиатр, психотерапевт" class="specialist-photo">
+                    <div class="specialist-content">
+                        <div class="specialist-role">Врач-психиатр · Психотерапевт · Автор методик</div>
+                        <h3>Сухих Данил Витальевич</h3>
+                        <p class="specialist-bio">
+                            Врач-психиатр, психотерапевт с клиническим стажем более 12 лет. Специализация: тревожные и депрессивные расстройства, панические атаки, ПТСР, пограничные состояния, внутренние конфликты, кризисы и поиск себя.
+                            <br><br>
+                            Автор integrative-подхода, объединяющего доказательную психиатрию (DSM-5, МКБ-11), когнитивно-поведенческую терапию, гештальт-терапию, психоанализ, экзистенциальную терапию и телесные практики.
+                            <br><br>
+                            Создатель «Рабочей тетради Нейролайф» — 60+ техник из ДПТ, КПТ, НЛП, гештальта, психосинтеза, психоанализа и АСТ в единой 12-недельной системе.
+                            <br><br>
+                            Регулярно повышает квалификацию, участвует в международных конференциях по психиатрии и психотерапии.
+                        </p>
+                        <div class="specialist-stats">
+                            <div class="specialist-stat">
+                                <div class="specialist-stat-value">12+</div>
+                                <div class="specialist-stat-label">лет опыта</div>
+                            </div>
+                            <div class="specialist-stat">
+                                <div class="specialist-stat-value">60+</div>
+                                <div class="specialist-stat-label">методик</div>
+                            </div>
+                            <div class="specialist-stat">
+                                <div class="specialist-stat-value">1000+</div>
+                                <div class="specialist-stat-label">пациентов</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Катаев Виталий Владимирович -->
+                <div class="specialist-card animate-on-scroll">
+                    <img src="изображения/катаев.jpg" alt="Катаев Виталий Владимирович — врач-невролог" class="specialist-photo">
+                    <div class="specialist-content">
+                        <div class="specialist-role">Врач-невролог · Учредитель центра</div>
+                        <h3>Катаев Виталий Владимирович</h3>
+                        <p class="specialist-bio">
+                            Врач-невролог, учредитель ООО «ДМЦ «Здоровые дети» (бренд «Нейролайф»). Клинический опыт работы с неврологическими расстройствами, головными болями, мигренью, последствиями ЧМТ, нарушениями сна и когнитивными нарушениями.
+                            <br><br>
+                            Специализируется на интегративном подходе: сочетание классической неврологии с мануальной терапией, иглорефлексотерапией, карбокситерапией и ударно-волновой терапией.
+                            <br><br>
+                            Проводит коррекцию Атланта по мягким мануальным техникам, ЭЭГ-диагностику, патодиагностические исследования.
+                            <br><br>
+                            Активный участник медицинских конференций, автор научных публикаций по неврологии.
+                        </p>
+                        <div class="specialist-stats">
+                            <div class="specialist-stat">
+                                <div class="specialist-stat-value">15+</div>
+                                <div class="specialist-stat-label">лет опыта</div>
+                            </div>
+                            <div class="specialist-stat">
+                                <div class="specialist-stat-value">21</div>
+                                <div class="specialist-stat-label">методика</div>
+                            </div>
+                            <div class="specialist-stat">
+                                <div class="specialist-stat-value">2000+</div>
+                                <div class="specialist-stat-label">пациентов</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Нина Ивановна — администратор -->
+                <div class="specialist-card animate-on-scroll">
+                    <img src="изображения/администратор.jpg" alt="Нина Ивановна — администратор" class="specialist-photo">
+                    <div class="specialist-content">
+                        <div class="specialist-role">Администратор · Координатор записей</div>
+                        <h3>Нина Ивановна</h3>
+                        <p class="specialist-bio">
+                            Администратор центра «Нейролайф». Координирует записи на приём, помогает пациентам с выбором специалиста и времени визита.
+                            <br><br>
+                            Обеспечивает полную конфиденциальность и комфорт каждого пациента. Отвечает на вопросы по телефону и в мессенджерах.
+                            <br><br>
+                            Помогает с оформлением документов, согласий и медицинской документации в соответствии с ФЗ № 152-ФЗ.
+                            <br><br>
+                            Всегда на связи в рабочее время: Пн–Пт 09:00–19:00, Сб 11:00–16:00.
+                        </p>
+                        <div class="specialist-stats">
+                            <div class="specialist-stat">
+                                <div class="specialist-stat-value">24/7</div>
+                                <div class="specialist-stat-label">на связи</div>
+                            </div>
+                            <div class="specialist-stat">
+                                <div class="specialist-stat-value">100%</div>
+                                <div class="specialist-stat-label">конфиденциальность</div>
+                            </div>
+                            <div class="specialist-stat">
+                                <div class="specialist-stat-value">5★</div>
+                                <div class="specialist-stat-label">рейтинг</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Диагностика -->
+    <section class="section" id="diagnostics" style="background: var(--bg-secondary);">
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <span class="section-label">Диагностика</span>
+                <h2 class="section-title">21 клиническая методика</h2>
+                <p class="section-subtitle">
+                    Профессиональные тесты с мгновенной интерпретацией. Мгновенные результаты и рекомендации.
+                </p>
+            </div>
+
+            <div class="diagnostics-showcase animate-on-scroll">
+                <h3 style="font-size: 1.75rem; font-weight: 700; margin-bottom: 16px; font-family: var(--font-display);">
+                    Пройти диагностику онлайн
+                </h3>
+                <p style="color: var(--text-secondary); font-size: 1.125rem; margin-bottom: 32px; max-width: 700px;">
+                    21 клиническая и личностная методика. Мгновенная интерпретация с рекомендациями. Отслеживание динамики. Все результаты сохраняются в вашем профиле.
+                </p>
+
+                <div class="diagnostics-grid">
+                    <div class="diagnostic-item">
+                        <div class="diagnostic-icon">😰</div>
+                        <h4>Тревога и депрессия</h4>
+                        <p>BDI-II, BAI, HADS, PSS-10, EAT-26</p>
+                    </div>
+                    <div class="diagnostic-item">
+                        <div class="diagnostic-icon">🧠</div>
+                        <h4>Личность и характер</h4>
+                        <p>Big Five, Соционика, Эннеаграмма, MMPI, ПДО</p>
+                    </div>
+                    <div class="diagnostic-item">
+                        <div class="diagnostic-icon">🧬</div>
+                        <h4>Когнитивные функции</h4>
+                        <p>MMSE, WAIS, MOCA, RAVEN, FAB, RAVLT</p>
+                    </div>
+                    <div class="diagnostic-item">
+                        <div class="diagnostic-icon">🔢</div>
+                        <h4>Нумерология</h4>
+                        <p>Квадрат Пифагора, арканы Таро, биоритмы</p>
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 48px;">
+                    <a href="https://vk.com/neurolifecenter" target="_blank" class="btn btn-primary btn-large">
+                        <span>🧠</span> Пройти диагностику в VK
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Саморазвитие -->
+    <section class="section" id="self-development">
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <span class="section-label">Саморазвитие</span>
+                <h2 class="section-title">Инструменты для роста</h2>
+                <p class="section-subtitle">
+                    Лила, нумерология, медитации, аудиокниги и челленджи — всё для вашего внутреннего развития
+                </p>
+            </div>
+
+            <div class="about-grid" style="grid-template-columns: repeat(2, 1fr);">
+                <!-- Лила -->
+                <div class="about-card animate-on-scroll" style="position: relative; overflow: hidden;">
+                    <div class="about-icon" style="background: linear-gradient(135deg, #f59e0b, #ef4444);">🎲</div>
+                    <h3>Лила — космическая игра</h3>
+                    <p>
+                        72 клетки — 72 состояния. Древняя индийская игра самопознания, адаптированная под современную психологию. 
+                        Пройдите свой путь от рождения до просветления, осознайте свои паттерны и найдите ответы на глубинные вопросы.
+                    </p>
+                    <div style="margin-top: 20px;">
+                        <a href="lila.html" class="btn btn-primary" style="width: 100%; justify-content: center;">
+                            <span>🎲</span> Начать игру Лила
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Нумерология -->
+                <div class="about-card animate-on-scroll" style="position: relative; overflow: hidden;">
+                    <div class="about-icon" style="background: linear-gradient(135deg, #8b5cf6, #ec4899);">🔢</div>
+                    <h3>Нумерология и арканы</h3>
+                    <p>
+                        Матрица Пифагора, арканы Таро, биоритмы, чакры — полный профиль из даты рождения. 
+                        Глубинный психоаналитический разбор, когнитивно-поведенческий профиль, рекомендации по самопознанию.
+                    </p>
+                    <div style="margin-top: 20px;">
+                        <a href="numerology.html" class="btn btn-primary" style="width: 100%; justify-content: center; background: linear-gradient(135deg, #8b5cf6, #ec4899);">
+                            <span>🔢</span> Рассчитать профиль
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Рабочая тетрадь -->
+                <div class="about-card animate-on-scroll" style="position: relative; overflow: hidden;">
+                    <div class="about-icon" style="background: linear-gradient(135deg, #06b6d4, #3b82f6);">📓</div>
+                    <h3>Рабочая тетрадь Нейролайф</h3>
+                    <p>
+                        Интегративный практикум по радикальной пересборке психики. 60+ техник из ДПТ, КПТ, НЛП, гештальта, психосинтеза, 
+                        психоанализа, экзистенциальной терапии и АСТ — в единой 12-недельной системе с клиническими замерами до/после.
+                    </p>
+                    <div style="margin-top: 20px;">
+                        <a href="https://danilsukhikh1991-cloud.github.io/NeuroLife/%D0%A0%D0%B0%D0%B1%D0%BE%D1%87%D0%B0%D1%8F%20%D1%82%D0%B5%D1%82%D1%80%D0%B0%D0%B4%D1%8C%20%D0%9D%D0%B5%D0%B9%D1%80%D0%BE%D0%BB%D0%B0%D0%B9%D1%84%20%D0%B4%D0%B5%D0%BC%D0%BE.html" target="_blank" class="btn btn-secondary" style="width: 100%; justify-content: center;">
+                            <span>📓</span> Открыть демоверсию
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Медитации и аудио -->
+                <div class="about-card animate-on-scroll" style="position: relative; overflow: hidden;">
+                    <div class="about-icon" style="background: linear-gradient(135deg, #10b981, #059669);">🎧</div>
+                    <h3>Медитации и аудиокниги</h3>
+                    <p>
+                        Утренняя медитация, вечернее расслабление, дыхание 4-7-8, аффирмации дня, сканирование тела, метта. 
+                        Всё бесплатно до консультации. Полноценный каталог — в мобильном приложении Нейролайф.
+                    </p>
+                    <div style="margin-top: 20px;">
+                        <a href="https://vk.com/neurolifecenter" target="_blank" class="btn btn-secondary" style="width: 100%; justify-content: center;">
+                            <span>🎧</span> Слушать в VK
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Отзывы -->
+    <section class="section" style="background: var(--bg-secondary);">
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <span class="section-label">Отзывы</span>
+                <h2 class="section-title">Что говорят пациенты</h2>
+                <p class="section-subtitle">
+                    Реальные истории людей, которые прошли путь от тревоги и депрессии к внутренней свободе
+                </p>
+            </div>
+
+            <div class="about-grid">
+                <div class="about-card animate-on-scroll">
+                    <div style="display: flex; gap: 4px; margin-bottom: 16px;">
+                        <span style="color: #f59e0b; font-size: 1.25rem;">★★★★★</span>
+                    </div>
+                    <p style="font-style: italic; margin-bottom: 16px;">
+                        "После 3 лет тревоги и панических атак я наконец-то почувствовала себя живой. Данил Витальевич — невероятный специалист. Его подход сочетает доказательную медицину и глубокое человеческое понимание."
+                    </p>
+                    <div style="font-weight: 600;">Анна М.</div>
+                    <div style="color: var(--text-muted); font-size: 0.875rem;">Пациент с 2024 года</div>
+                </div>
+
+                <div class="about-card animate-on-scroll">
+                    <div style="display: flex; gap: 4px; margin-bottom: 16px;">
+                        <span style="color: #f59e0b; font-size: 1.25rem;">★★★★★</span>
+                    </div>
+                    <p style="font-style: italic; margin-bottom: 16px;">
+                        "Прошёл полную диагностику и получил не просто цифры, а настоящий план действий. Рабочая тетрадь — это золото. За 12 недель я изменил больше, чем за 5 лет самостоятельных попыток."
+                    </p>
+                    <div style="font-weight: 600;">Михаил К.</div>
+                    <div style="color: var(--text-muted); font-size: 0.875rem;">Пациент с 2023 года</div>
+                </div>
+
+                <div class="about-card animate-on-scroll">
+                    <div style="display: flex; gap: 4px; margin-bottom: 16px;">
+                        <span style="color: #f59e0b; font-size: 1.25rem;">★★★★★</span>
+                    </div>
+                    <p style="font-style: italic; margin-bottom: 16px;">
+                        "Анонимность, профессионализм, отсутствие осуждения — то, что я искала годами. Здесь я впервые почувствовала себя в безопасности. Рекомендую от всего сердца."
+                    </p>
+                    <div style="font-weight: 600;">Екатерина В.</div>
+                    <div style="color: var(--text-muted); font-size: 0.875rem;">Пациент с 2024 года</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Контакты -->
+    <section class="section" id="contacts">
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <span class="section-label">Контакты</span>
+                <h2 class="section-title">Свяжитесь с нами</h2>
+                <p class="section-subtitle">
+                    Мы всегда на связи и готовы ответить на ваши вопросы
+                </p>
+            </div>
+
+            <div class="about-grid" style="grid-template-columns: repeat(2, 1fr);">
+                <div class="about-card animate-on-scroll">
+                    <div class="about-icon">📍</div>
+                    <h3>Адрес центра</h3>
+                    <p>
+                        610000, Кировская область,<br>
+                        г. Киров, ул. Спасская, д. 26б
+                    </p>
+                    <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border);">
+                        <div style="margin-bottom: 8px;"><strong>Часы работы:</strong></div>
+                        <div>Пн–Пт: 09:00–19:00</div>
+                        <div>Сб: 11:00–16:00</div>
+                        <div>Вс: выходной</div>
+                        <div style="margin-top: 8px; color: var(--primary-light);">По предварительной записи</div>
+                    </div>
+                </div>
+
+                <div class="about-card animate-on-scroll">
+                    <div class="about-icon">📞</div>
+                    <h3>Связаться с нами</h3>
+                    <p style="margin-bottom: 16px;">
+                        <strong>Нина Ивановна</strong> (администратор)<br>
+                        <a href="tel:+79229626740" style="color: var(--primary-light); text-decoration: none; font-size: 1.25rem; font-weight: 600;">
+                            +7 (922) 962-67-40
+                        </a>
+                    </p>
+                    <div style="margin-bottom: 16px;">
+                        <strong>Email:</strong><br>
+                        <a href="mailto:danil_suhih@mail.ru" style="color: var(--primary-light); text-decoration: none;">
+                            danil_suhih@mail.ru
+                        </a>
+                    </div>
+                    <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+                        <a href="https://vk.com/neurolifecenter" target="_blank" class="btn btn-secondary" style="padding: 10px 16px;">
+                            <span>💬</span> ВКонтакте
+                        </a>
+                        <a href="https://t.me/neurolifecenter" target="_blank" class="btn btn-secondary" style="padding: 10px 16px;">
+                            <span>✈️</span> Telegram
+                        </a>
+                        <a href="https://youtube.com/channel/UCbBx_2Z4GKpSISNu2pZA9Pg" target="_blank" class="btn btn-secondary" style="padding: 10px 16px;">
+                            <span>▶️</span> YouTube
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Форма записи -->
+            <div class="diagnostics-showcase animate-on-scroll" style="margin-top: 64px;">
+                <h3 style="font-size: 1.75rem; font-weight: 700; margin-bottom: 16px; font-family: var(--font-display);">
+                    Записаться на приём
+                </h3>
+                <p style="color: var(--text-secondary); font-size: 1.125rem; margin-bottom: 32px;">
+                    Выберите удобную дату и время, заполните данные и отправьте заявку. Мы свяжемся с вами для подтверждения в течение рабочего дня.
+                </p>
+
+                <form id="bookingForm" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+                    <div>
+                        <label style="display: block; margin-bottom: 8px; font-weight: 500;">Ваше имя *</label>
+                        <input type="text" required style="width: 100%; padding: 12px 16px; background: var(--bg-glass); border: 1px solid var(--border-light); border-radius: var(--radius-md); color: var(--text-primary); font-size: 1rem; transition: var(--transition);" onfocus="this.style.borderColor='var(--primary)'" onblur="this.style.borderColor='var(--border-light)'">
+                    </div>
+                    <div>
+                        <label style="display: block; margin-bottom: 8px; font-weight: 500;">Телефон *</label>
+                        <input type="tel" required style="width: 100%; padding: 12px 16px; background: var(--bg-glass); border: 1px solid var(--border-light); border-radius: var(--radius-md); color: var(--text-primary); font-size: 1rem; transition: var(--transition);" onfocus="this.style.borderColor='var(--primary)'" onblur="this.style.borderColor='var(--border-light)'">
+                    </div>
+                    <div>
+                        <label style="display: block; margin-bottom: 8px; font-weight: 500;">Email (необязательно)</label>
+                        <input type="email" style="width: 100%; padding: 12px 16px; background: var(--bg-glass); border: 1px solid var(--border-light); border-radius: var(--radius-md); color: var(--text-primary); font-size: 1rem; transition: var(--transition);" onfocus="this.style.borderColor='var(--primary)'" onblur="this.style.borderColor='var(--border-light)'">
+                    </div>
+                    <div>
+                        <label style="display: block; margin-bottom: 8px; font-weight: 500;">Дата рождения *</label>
+                        <input type="date" required style="width: 100%; padding: 12px 16px; background: var(--bg-glass); border: 1px solid var(--border-light); border-radius: var(--radius-md); color: var(--text-primary); font-size: 1rem; transition: var(--transition);" onfocus="this.style.borderColor='var(--primary)'" onblur="this.style.borderColor='var(--border-light)'">
+                    </div>
+                    <div>
+                        <label style="display: block; margin-bottom: 8px; font-weight: 500;">Специалист *</label>
+                        <select required style="width: 100%; padding: 12px 16px; background: var(--bg-glass); border: 1px solid var(--border-light); border-radius: var(--radius-md); color: var(--text-primary); font-size: 1rem; transition: var(--transition);" onfocus="this.style.borderColor='var(--primary)'" onblur="this.style.borderColor='var(--border-light)'">
+                            <option value="">Выберите специалиста</option>
+                            <option>Психиатр</option>
+                            <option>Психотерапевт</option>
+                            <option>Невролог</option>
+                            <option>Клинический психолог</option>
+                            <option>Нарколог</option>
+                            <option>Детский невролог</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label style="display: block; margin-bottom: 8px; font-weight: 500;">Комментарий (необязательно)</label>
+                        <input type="text" style="width: 100%; padding: 12px 16px; background: var(--bg-glass); border: 1px solid var(--border-light); border-radius: var(--radius-md); color: var(--text-primary); font-size: 1rem; transition: var(--transition);" onfocus="this.style.borderColor='var(--primary)'" onblur="this.style.borderColor='var(--border-light)'">
+                    </div>
+                    <div style="grid-column: 1 / -1;">
+                        <label style="display: flex; align-items: flex-start; gap: 12px; cursor: pointer;">
+                            <input type="checkbox" required style="margin-top: 4px; width: 18px; height: 18px; accent-color: var(--primary);">
+                            <span style="font-size: 0.9375rem; color: var(--text-secondary);">
+                                Я ознакомлен(а) и даю своё согласие на обработку персональных данных в соответствии с ФЗ № 152-ФЗ. 
+                                Я даю информированное добровольное согласие на медицинское вмешательство. 
+                                Я отказываюсь от передачи моих данных в ЕГИСЗ.
+                            </span>
+                        </label>
+                    </div>
+                    <div style="grid-column: 1 / -1; text-align: center;">
+                        <button type="submit" class="btn btn-primary btn-large">
+                            <span>📅</span> Записаться на приём
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Футер -->
+    <footer style="background: var(--bg-secondary); border-top: 1px solid var(--border); padding: 64px 0 32px;">
+        <div class="container">
+            <div class="about-grid" style="grid-template-columns: 2fr 1fr 1fr 1fr; margin-bottom: 48px;">
+                <div>
+                    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+                        <div class="logo-icon">🧠</div>
+                        <div style="font-weight: 700; font-size: 1.25rem;">Нейролайф</div>
+                    </div>
+                    <p style="color: var(--text-secondary); line-height: 1.7; margin-bottom: 16px;">
+                        Центр неврологии и психического здоровья в Кирове. Доказательная медицина, полная анонимность, индивидуальный подход.
+                    </p>
+                    <div style="display: flex; gap: 12px;">
+                        <a href="https://vk.com/neurolifecenter" target="_blank" style="width: 40px; height: 40px; background: var(--bg-glass); border: 1px solid var(--border); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; text-decoration: none; transition: var(--transition);" onmouseover="this.style.borderColor='var(--primary)'" onmouseout="this.style.borderColor='var(--border)'">💬</a>
+                        <a href="https://t.me/neurolifecenter" target="_blank" style="width: 40px; height: 40px; background: var(--bg-glass); border: 1px solid var(--border); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; text-decoration: none; transition: var(--transition);" onmouseover="this.style.borderColor='var(--primary)'" onmouseout="this.style.borderColor='var(--border)'">✈️</a>
+                        <a href="https://youtube.com/channel/UCbBx_2Z4GKpSISNu2pZA9Pg" target="_blank" style="width: 40px; height: 40px; background: var(--bg-glass); border: 1px solid var(--border); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; text-decoration: none; transition: var(--transition);" onmouseover="this.style.borderColor='var(--primary)'" onmouseout="this.style.borderColor='var(--border)'">▶️</a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 style="font-weight: 600; margin-bottom: 16px;">Разделы</h4>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin-bottom: 8px;"><a href="#home" style="color: var(--text-secondary); text-decoration: none; transition: var(--transition);" onmouseover="this.style.color='var(--primary-light)'" onmouseout="this.style.color='var(--text-secondary)'">Главная</a></li>
+                        <li style="margin-bottom: 8px;"><a href="#about" style="color: var(--text-secondary); text-decoration: none; transition: var(--transition);" onmouseover="this.style.color='var(--primary-light)'" onmouseout="this.style.color='var(--text-secondary)'">О центре</a></li>
+                        <li style="margin-bottom: 8px;"><a href="#procedures" style="color: var(--text-secondary); text-decoration: none; transition: var(--transition);" onmouseover="this.style.color='var(--primary-light)'" onmouseout="this.style.color='var(--text-secondary)'">Процедуры</a></li>
+                        <li style="margin-bottom: 8px;"><a href="#specialists" style="color: var(--text-secondary); text-decoration: none; transition: var(--transition);" onmouseover="this.style.color='var(--primary-light)'" onmouseout="this.style.color='var(--text-secondary)'">Специалисты</a></li>
+                        <li style="margin-bottom: 8px;"><a href="#self-development" style="color: var(--text-secondary); text-decoration: none; transition: var(--transition);" onmouseover="this.style.color='var(--primary-light)'" onmouseout="this.style.color='var(--text-secondary)'">Саморазвитие</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 style="font-weight: 600; margin-bottom: 16px;">Услуги</h4>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin-bottom: 8px;"><a href="#procedures" style="color: var(--text-secondary); text-decoration: none;">Психиатрия</a></li>
+                        <li style="margin-bottom: 8px;"><a href="#procedures" style="color: var(--text-secondary); text-decoration: none;">Психотерапия</a></li>
+                        <li style="margin-bottom: 8px;"><a href="#procedures" style="color: var(--text-secondary); text-decoration: none;">Неврология</a></li>
+                        <li style="margin-bottom: 8px;"><a href="#procedures" style="color: var(--text-secondary); text-decoration: none;">Диагностика</a></li>
+                        <li style="margin-bottom: 8px;"><a href="#procedures" style="color: var(--text-secondary); text-decoration: none;">Физиотерапия</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 style="font-weight: 600; margin-bottom: 16px;">Контакты</h4>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin-bottom: 8px; color: var(--text-secondary);">📍 ул. Спасская, 26б</li>
+                        <li style="margin-bottom: 8px;"><a href="tel:+79229626740" style="color: var(--text-secondary); text-decoration: none;">📞 +7 (922) 962-67-40</a></li>
+                        <li style="margin-bottom: 8px;"><a href="mailto:danil_suhih@mail.ru" style="color: var(--text-secondary); text-decoration: none;">✉️ danil_suhih@mail.ru</a></li>
+                        <li style="margin-bottom: 8px; color: var(--text-secondary);">🕐 Пн–Пт: 09:00–19:00</li>
+                        <li style="color: var(--text-secondary);">🕐 Сб: 11:00–16:00</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div style="padding-top: 32px; border-top: 1px solid var(--border);">
+                <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 32px; margin-bottom: 24px;">
+                    <div>
+                        <div style="font-weight: 600; margin-bottom: 8px;">ООО «ДМЦ «Здоровые дети»</div>
+                        <div style="color: var(--text-muted); font-size: 0.875rem; line-height: 1.7;">
+                            Лицензия: № Л041-01160-43/00322654 от 04.07.2018<br>
+                            ИНН 4345448601, КПП 434501001, ОГРН 1164350067980<br>
+                            Юридический адрес: 610000, Кировская область, г. Киров, ул. Спасская, д. 26б<br>
+                            Учредитель: Катаев Виталий Владимирович (врач-невролог)
+                        </div>
+                    </div>
+                    <div style="text-align: right;">
+                        <div style="color: var(--text-muted); font-size: 0.875rem; line-height: 1.7;">
+                            <a href="#" style="color: var(--text-secondary); text-decoration: none;">Политика конфиденциальности</a> · 
+                            <a href="#" style="color: var(--text-secondary); text-decoration: none;">Пользовательское соглашение</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="padding-top: 24px; border-top: 1px solid var(--border); text-align: center;">
+                    <p style="color: var(--text-muted); font-size: 0.8125rem; line-height: 1.7; margin-bottom: 16px;">
+                        Информация на сайте носит ознакомительный характер и не является медицинской консультацией. 
+                        Диагноз и лечение может назначить только врач. Имеются противопоказания. Необходима консультация специалиста. 18+
+                    </p>
+                    <p style="color: var(--text-muted); font-size: 0.8125rem;">
+                        © 2026 Нейролайф — центр неврологии и психического здоровья. Все права защищены.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Модальное окно подтверждения записи -->
+    <div id="bookingModal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(10px); z-index: 10000; align-items: center; justify-content: center;">
+        <div style="background: var(--bg-secondary); border: 1px solid var(--border-light); border-radius: var(--radius-xl); padding: 48px; max-width: 500px; width: 90%; text-align: center; animation: fadeInUp 0.4s ease;">
+            <div style="font-size: 4rem; margin-bottom: 16px;">✅</div>
+            <h3 style="font-family: var(--font-display); font-size: 1.75rem; margin-bottom: 16px;">Заявка отправлена!</h3>
+            <p style="color: var(--text-secondary); margin-bottom: 24px;">
+                Специалист свяжется с вами для подтверждения в течение рабочего дня.
+            </p>
+            <button onclick="document.getElementById('bookingModal').style.display='none'" class="btn btn-primary">
+                Отлично!
+            </button>
+        </div>
+    </div>
+
+    <!-- Кнопка «Наверх» -->
+    <button id="scrollTopBtn" style="position: fixed; bottom: 32px; right: 32px; width: 56px; height: 56px; background: linear-gradient(135deg, var(--primary), var(--secondary)); border: none; border-radius: 50%; color: white; font-size: 1.5rem; cursor: pointer; box-shadow: var(--shadow-lg); opacity: 0; transform: translateY(20px); transition: var(--transition); z-index: 999; display: flex; align-items: center; justify-content: center;" onmouseover="this.style.transform='translateY(-4px) scale(1.1)'" onmouseout="this.style.transform='translateY(0) scale(1)'">
+        ↑
+    </button>
+
+    <!-- JavaScript -->
+    <script>
+        // ═══════════════════════════════════════════════════════════════════
+        // ТЕМА (тёмная/светлая)
+        // ═══════════════════════════════════════════════════════════════════
+        const themeToggle = document.getElementById('themeToggle');
+        const html = document.documentElement;
+        const savedTheme = localStorage.getItem('neurolife-theme') || 'dark';
+        html.setAttribute('data-theme', savedTheme);
+        themeToggle.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+
+        themeToggle.addEventListener('click', () => {
+            const current = html.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', next);
+            localStorage.setItem('neurolife-theme', next);
+            themeToggle.textContent = next === 'dark' ? '☀️' : '🌙';
+        });
+
+        // ═══════════════════════════════════════════════════════════════════
+        // НАВИГАЦИЯ — эффект при скролле
+        // ═══════════════════════════════════════════════════════════════════
+        const navbar = document.getElementById('navbar');
+        const scrollTopBtn = document.getElementById('scrollTopBtn');
+
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            
+            // Navbar
+            if (scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+
+            // Кнопка «Наверх»
+            if (scrollY > 500) {
+                scrollTopBtn.style.opacity = '1';
+                scrollTopBtn.style.transform = 'translateY(0)';
+            } else {
+                scrollTopBtn.style.opacity = '0';
+                scrollTopBtn.style.transform = 'translateY(20px)';
+            }
+        });
+
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // ═══════════════════════════════════════════════════════════════════
+        // АНИМАЦИИ ПРИ СКРОЛЛЕ
+        // ═══════════════════════════════════════════════════════════════════
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    // Задержка для каскадного эффекта
+                    const siblings = entry.target.parentElement.querySelectorAll('.animate-on-scroll');
+                    siblings.forEach((sibling, idx) => {
+                        if (sibling !== entry.target) {
+                            sibling.style.transitionDelay = `${idx * 0.1}s`;
+                        }
+                    });
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.animate-on-scroll').forEach(el => {
+            observer.observe(el);
+        });
+
+        // ═══════════════════════════════════════════════════════════════════
+        // ПЛАВНЫЙ СКРОЛЛ ПО ЯКОРЯМ
+        // ═══════════════════════════════════════════════════════════════════
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href === '#' || href.length <= 1) return;
+                
+                const target = document.querySelector(href);
+                if (target) {
+                    e.preventDefault();
+                    const offset = 80;
+                    const top = target.getBoundingClientRect().top + window.scrollY - offset;
+                    window.scrollTo({ top, behavior: 'smooth' });
+                }
+            });
+        });
+
+        // ═══════════════════════════════════════════════════════════════════
+        // ФОРМА ЗАПИСИ
+        // ═══════════════════════════════════════════════════════════════════
+        const bookingForm = document.getElementById('bookingForm');
+        const bookingModal = document.getElementById('bookingModal');
+
+        if (bookingForm) {
+            bookingForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Показываем модальное окно
+                bookingModal.style.display = 'flex';
+                
+                // Сбрасываем форму
+                this.reset();
+                
+                // Закрываем через 5 секунд
+                setTimeout(() => {
+                    bookingModal.style.display = 'none';
+                }, 5000);
+            });
+        }
+
+        // Закрытие модального окна по клику вне
+        if (bookingModal) {
+            bookingModal.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.style.display = 'none';
+                }
+            });
+        }
+
+        // ═══════════════════════════════════════════════════════════════════
+        // ПАРАЛЛАКС ЭФФЕКТ ДЛЯ HERO
+        // ═══════════════════════════════════════════════════════════════════
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            const heroImage = document.querySelector('.hero-image-wrapper');
+            if (heroImage && scrollY < window.innerHeight) {
+                heroImage.style.transform = `translateY(${scrollY * 0.1}px)`;
+            }
+        });
+
+        // ═══════════════════════════════════════════════════════════════════
+        // СЧЁТЧИКИ (анимация чисел)
+        // ═══════════════════════════════════════════════════════════════════
+        function animateValue(element, start, end, duration, suffix = '') {
+            const range = end - start;
+            const startTime = performance.now();
+            
+            function update(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                const eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+                const current = Math.floor(start + range * eased);
+                element.textContent = current + suffix;
+                
+                if (progress < 1) {
+                    requestAnimationFrame(update);
+                }
+            }
+            
+            requestAnimationFrame(update);
+        }
+
+        // Анимация счётчиков при появлении
+        const statObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !entry.target.dataset.animated) {
+                    entry.target.dataset.animated = 'true';
+                    const text = entry.target.textContent;
+                    const match = text.match(/(\d+)/);
+                    if (match) {
+                        const num = parseInt(match[1]);
+                        const suffix = text.replace(match[1], '');
+                        animateValue(entry.target, 0, num, 2000, suffix);
+                    }
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('.stat-value, .specialist-stat-value').forEach(el => {
+            statObserver.observe(el);
+        });
+
+        // ═══════════════════════════════════════════════════════════════════
+        // МОБИЛЬНОЕ МЕНЮ
+        // ═══════════════════════════════════════════════════════════════════
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navMenu = document.querySelector('.nav-menu');
+
+        if (mobileMenuBtn && navMenu) {
+            mobileMenuBtn.addEventListener('click', () => {
+                const isOpen = navMenu.style.display === 'flex';
+                
+                if (isOpen) {
+                    navMenu.style.display = 'none';
+                    mobileMenuBtn.querySelectorAll('span').forEach((span, i) => {
+                        span.style.transform = 'none';
+                        span.style.opacity = '1';
+                    });
+                } else {
+                    navMenu.style.display = 'flex';
+                    navMenu.style.position = 'fixed';
+                    navMenu.style.top = '72px';
+                    navMenu.style.left = '0';
+                    navMenu.style.right = '0';
+                    navMenu.style.background = 'var(--bg-secondary)';
+                    navMenu.style.flexDirection = 'column';
+                    navMenu.style.padding = '24px';
+                    navMenu.style.borderBottom = '1px solid var(--border)';
+                    navMenu.style.boxShadow = 'var(--shadow-lg)';
+                    navMenu.style.zIndex = '999';
+                    
+                    mobileMenuBtn.querySelectorAll('span').forEach((span, i) => {
+                        if (i === 0) span.style.transform = 'rotate(45deg) translate(4px, 4px)';
+                        if (i === 1) span.style.opacity = '0';
+                        if (i === 2) span.style.transform = 'rotate(-45deg) translate(4px, -4px)';
+                    });
+                }
+            });
+
+            // Закрытие при клике на ссылку
+            navMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    if (window.innerWidth <= 1024) {
+                        navMenu.style.display = 'none';
+                        mobileMenuBtn.querySelectorAll('span').forEach(span => {
+                            span.style.transform = 'none';
+                            span.style.opacity = '1';
+                        });
+                    }
+                });
+            });
+        }
+
+        // ═══════════════════════════════════════════════════════════════════
+        // КОНСОЛЬ-ПРИВЕТСТВИЕ
+        // ═══════════════════════════════════════════════════════════════════
+        console.log('%c🧠 Нейролайф', 'font-size: 24px; font-weight: bold; color: #6366f1;');
+        console.log('%cЦентр неврологии и психического здоровья', 'font-size: 14px; color: #94a3b8;');
+        console.log('%cКиров, ул. Спасская, 26б', 'font-size: 12px; color: #64748b;');
+        console.log('%cЛицензия: № Л041-01160-43/00322654', 'font-size: 12px; color: #64748b;');
+    </script>
+</body>
+  </html>
